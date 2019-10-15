@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layer1">
+<div th:fragment="content">
+    <form id="insertMerchantForm" action="/merchant/insert" method="post">
+        <table>
+            <tr>
+                <td align="right">商户名称：</td>
+                <td>
+                    <input class="form-control" type="text" id="merName" name="merName">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">商户组织机构号：</td>
+                <td>
+                    <input class="form-control" type="text" id="merOrgCode" name="merOrgCode">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <td><button class="button" id="doSubmit">提交</button></td>
+    <script>
+        $(function () {
+            $("#doSubmit").on("click", function () {
+                if (checkNotNull()) {
+                    $("#insertMerchantForm").submit();
+                }
+            })
+
+            function checkNotNull() {
+                var merName = $("#merName").val();
+                var merOrgCode = $("#merOrgCode").val();
+                if (!merName) {
+                    alert("请输入商户名");
+                    return false;
+                }
+                if (!merOrgCode) {
+                    alert("请输入商户组织机构号");
+                    return false;
+                }
+                return true;
+            }
+
+            $("#merName").on("blur", function () {
+                var merName = $("#merName").val();
+                if ("" == merName) {
+                    alert("商户名不能为空");
+                }
+            })
+
+            $("#merOrgCode").on("blur", function () {
+                var merOrgCode = $("#merOrgCode").val();
+                if ("" == merOrgCode) {
+                    alert("商户组织机构号不能为空");
+                }
+            })
+        })
+    </script>
+</div>
+

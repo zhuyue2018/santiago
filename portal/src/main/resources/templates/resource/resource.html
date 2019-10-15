@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layer1">
+<div th:fragment="content">
+    <div class="container">
+        <caption>菜单管理</caption>
+        <form action="" method="post" id = "resourceQuery">
+            <table class="table table-striped" >
+                <tr>
+                    <td align="right" >菜单Id：</td>
+                    <td>
+                        <input type="text" class="form-control" id="resourceId" name="resourceId">
+                    </td>
+                    <td align="right" >菜单名称：</td>
+
+                    <td>
+                        <input type="text" class="form-control" id="resourceName" name="resourceName">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="outer clearfix u-inquire">
+            <button id="query" class="btn large panel-green">查询</button>
+        </div>
+    </div>
+    <div class="container">
+        <caption>菜单列表</caption>
+        <form action="" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>菜单Id</td>
+                        <td>菜单名称</td>
+                        <td>菜单url</td>
+                        <td>菜单类型</td>
+                        <td>父菜单id</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody id="resourceList">
+                </tbody>
+            </table>
+            <div id="fixed-table-pagination" class="clearfix">
+                <div class="pull-right">
+                    <div class="pages">
+                        <div id="Pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#insertResource">新增菜单</button>
+    <div class="modal fade" id="insertResource" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新增菜单
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="insertForm">
+                        <table class="table table-striped" >
+                            <tr>
+                                <td align="right" >菜单名称：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertResourceName" name="insertResourceName">
+                                </td>
+                                <td align="right" >菜单类型：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertType" name="insertType">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" >菜单url：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertUrl" name="insertUrl">
+                                </td>
+                                <td align="right" >父菜单id：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertPid" name="insertPid">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id = "submitInsert">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            getData();
+            $("#query").click(function(){
+                query();
+            });
+            $("#submitInsert").click(function () {
+                insert();
+            })
+        });
+
+        function insert() {
+            // $("#submitInsert").attr("disabled", true);
+            $("#insertResource").modal("hide");
+            $.post("/resource/insert",
+                $("#insertForm").serialize(),
+                function callback(data) {
+                    if ("000000" == data.code) {
+                        alert("新增菜单成功");
+                    } else {
+                        alert("新增菜单失败");
+                    }
+                    query();
+                }
+            );
+        }
+
+        function deleteResource(id) {
+            if (confirm("确定删除菜单？")) {
+                $.post("/resource/delete/" + id,
+                    function callback(data) {
+                        if ("000000" == data.code) {
+                            alert("删除菜单成功！");
+                        } else {
+                            alert("删除菜单失败！")
+                        }
+                    }
+                );
+            }
+        }
+
+        function query() {
+            if (!checkParam()) {
+                return;
+            }
+            getData();
+        }
+
+        function getData() {
+            $.post("/resource/query",
+                $("#resourceQuery").serialize(),
+                function callback(data) {
+                    $("#Pagination").pagination(data.total,
+                        {
+                            current_page:(data.pageNum - 1),
+                            items_per_page:data.pageSize,
+                            callback: function (current_page,per_page){
+                                $.post("/resource/query",
+                                    $("#esourceQuery").serialize()+"&pageNum=" + (current_page) + "&pageSize=" + per_page,
+                                    function callback(data) {
+                                        analyzeData(data);
+                                    }
+                                );
+                            }
+                        }
+                    );
+                    analyzeData(data);
+                }
+            );
+        }
+
+        // 检查参数
+        function checkParam() {
+            return true;
+        }
+
+        // 解析数据
+        function analyzeData(data) {
+            $("#resourceList").empty();
+            if (data.total > 0) {
+                var resourceList = data.list;
+                var length = data.size;
+                for (var i = 0; i < length; i++) {
+                    var resource = resourceList[i];
+                    var str = "<tr><td>";
+                    str += resource.id + "</td><td>";
+                    str += resource.resourceName + "</td><td>";
+                    str += resource.url + "</td><td>";
+                    str += resource.type + "</td><td>";
+                    str += resource.pid + "</td><td>";
+                    str += "<button href=\"/resource/update/" + resource.id + "\">修改</button><button onclick='deleteResource("+ resource.id +")'>删除</button>"+ "</td></tr>";
+                    $("#resourceList").append(str);
+                }
+            } else {
+                $("#resourceList").html("无数据");
+            }
+        }
+    </script>
+</div>
+

@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* css Document */
+
+#footerBar {
+    background: url("../images/f-b.png");
+    bottom: 0;
+    height: 50px;
+    line-height: 50px;
+    position:fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 200;
+    color: #888fa7;
+    font-size: 12px;
+}

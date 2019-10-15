@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layer1">
+<div th:fragment="content">
+    <div class="container">
+        <caption>商户查询</caption>
+        <form action="" method="post" id = "merQuery">
+            <table class="table table-striped" >
+                <tr>
+                    <td align="right" >商户号：</td>
+                    <td>
+                        <input type="text" class="form-control" id="merId" name="merId">
+                    </td>
+                    <td align="right" >商户名称：</td>
+
+                    <td>
+                        <input type="text" class="form-control" id="merName" name="merName">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >商户组织机构号：</td>
+                    <td>
+                        <input type="text" class="form-control" id="merOrgCode" name="merOrgCode">
+                    </td>
+                    <td align="right" >商户状态：</td>
+                    <td>
+                        <select id="merStatus" name="merStatus" class="form-control" datatype="select">
+                            <option value="">全部</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >起始时间：</td>
+                    <td>
+                        <input type="text" class="form-control" name="fromTime" id="fromTime"/>
+                    </td>
+                    <td align="right" >结束时间：</td>
+                    <td>
+                        <input type='text' class="form-control" name = "toTime" id="toTime"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="outer clearfix u-inquire">
+            <button id="query" class="btn large panel-green">查询</button>
+        </div>
+    </div>
+    <div class="container">
+        <caption>商户列表</caption>
+        <form action="" method="post">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td>商户id</td>
+                    <td>商户号</td>
+                    <td>商户名称</td>
+                    <td>商户组织机构号</td>
+                    <td>商户创建时间</td>
+                    <td>商户状态</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody id="merList">
+                </tbody>
+            </table>
+            <div id="fixed-table-pagination" class="clearfix">
+                <div class="pull-right">
+                    <div class="pages">
+                        <div id="Pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <a href="/merchant/insert">新增商户</a>
+
+    <script>
+        $(document).ready(function(){
+            getData();
+            $("#query").click(function(){
+                query();
+            });
+            $("#fromTime").click(function(){
+                WdatePicker({readOnly:true,maxDate:'#F{\'%y-%M-%d\'}',dateFmt:'yyyy-MM-dd'});
+            });
+            $("#toTime").click(function(){
+                WdatePicker({readOnly:true,maxDate:'#F{\'%y-%M-%d\'}',dateFmt:'yyyy-MM-dd'});
+            });
+        });
+        function query() {
+            if (!checkDate()) {
+                return;
+            }
+            if (!checkParam()) {
+                return;
+            }
+            getData();
+        }
+
+        function getData() {
+            $.post("/merchant/query",
+                $("#merQuery").serialize(),
+                function callback(data) {
+                    $("#Pagination").pagination(data.total,
+                        {
+                            current_page:(data.pageNum - 1),
+                            items_per_page:data.pageSize,
+                            callback: function (current_page,per_page){
+                                $.post("/merchant/query",
+                                    $("#merQuery").serialize()+"&pageNum=" + (current_page) + "&pageSize=" + per_page,
+                                    function callback(data) {
+                                        analyzeData(data);
+                                    }
+                                );
+                            }
+                        }
+                    );
+                    analyzeData(data);
+                }
+            );
+        }
+
+        // 检查起始时间和结束时间的关系 起始时间小于或等于结束时间
+        function checkDate() {
+            var fromTime = $("#fromTime").val();
+            var toTime = $("#toTime").val();
+            if ("" != fromTime && "" != toTime && fromTime > toTime) {
+                alert("结束时间须大于或等于起始时间！");
+                return false;
+            }
+            return true;
+        }
+
+        // 检查参数
+        function checkParam() {
+            return true;
+        }
+
+        // 解析数据
+        function analyzeData(data) {
+            $("#merList").empty();
+            if (data.total > 0) {
+                var merList = data.list;
+                var length = data.size;
+                for (var i = 0; i < length; i++) {
+                    var mer = merList[i];
+                    var str = "<tr><td>";
+                    str += mer.id + "</td><td>";
+                    str += mer.merId + "</td><td>";
+                    str += mer.merName + "</td><td>";
+                    str += mer.merOrgCode + "</td><td>";
+                    str += new Date(mer.createTime).toLocaleString() + "</td><td>";
+                    str += mer.merStatus + "</td><td>";
+                    str += "<button href=\"/merchant/update/" + mer.id + "\">修改</button><button href=\"/merchant/delete/" + mer.id + "\">删除</button>"+ "</td></tr>";
+                    $("#merList").append(str);
+                }
+            } else {
+                $("#merList").html("无数据");
+            }
+        }
+    </script>
+</div>
+

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layer1">
+<div th:fragment="content">
+    <div class="container">
+        <caption>用户管理</caption>
+        <form action="" method="post" id = "userQuery">
+            <table class="table table-striped" >
+                <tr>
+                    <td align="right" >用户Id：</td>
+                    <td>
+                        <input type="text" class="form-control" id="userId" name="userId">
+                    </td>
+                    <td align="right" >用户名称：</td>
+
+                    <td>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >用户权限</td>
+                    <td>
+                        <input type="text" class="form-control" id="userRoles" name="userRoles">
+                    </td>
+                    <td align="right" >用户状态：</td>
+                    <td>
+                        <select id="lockedFlag" name="lockedFlag" class="form-control" datatype="select">
+                            <option value="">全部</option>
+                            <option value="0">可用</option>
+                            <option value="">锁定</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="outer clearfix u-inquire">
+            <button id="query" class="btn large panel-green">查询</button>
+        </div>
+    </div>
+    <div class="container">
+        <caption>用户列表</caption>
+        <form action="" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>用户Id</td>
+                        <td>用户名称</td>
+                        <td>用户状态</td>
+                        <td>用户角色</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody id="userList">
+                </tbody>
+            </table>
+            <div id="fixed-table-pagination" class="clearfix">
+                <div class="pull-right">
+                    <div class="pages">
+                        <div id="Pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<a href="/user/insert">新增用户</a>-->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#insertUser">新增用户</button>
+    <div class="modal fade" id="insertUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新增用户
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="insertForm">
+                        <table class="table table-striped" >
+                            <tr>
+                                <td align="right" >用户名称：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertUsername" name="insertUsername">
+                                </td>
+                                <td align="right" >用户密码：</td>
+                                <td>
+                                    <input type="password" class="form-control" id="insertPassword" name="insertPassword">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul style="width: 100%">
+                                        <li>用户角色：</li>
+                                        <li th:each="role:${roleList}">
+                                            <input type="checkbox" id="insertRoles" th:name="'roleId:' + ${role.id}" th:text="${role.roleName}"></input>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id = "submitInsert">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            getData();
+            $("#query").click(function(){
+                query();
+            });
+            $("#submitInsert").click(function () {
+                insert();
+            })
+        });
+
+        function insert() {
+            // $("#submitInsert").attr("disabled", true);
+            $("#insertUser").modal("hide");
+            $.post("/user/insert",
+                $("#insertForm").serialize(),
+                function callback(data) {
+                    if ("000000" == data.code) {
+                        alert("新增用户成功");
+                    } else {
+                        alert("新增用户失败");
+                    }
+                    query();
+                }
+            );
+        }
+
+        function deleteUser(id) {
+            if (confirm("确定删除用户？")) {
+                $.post("/user/delete/" + id,
+                    function callback(data) {
+                        if ("000000" == data.code) {
+                            alert("删除用户成功！");
+                        } else {
+                            alert("删除用户失败！")
+                        }
+                    }
+                );
+            }
+        }
+
+        function query() {
+            if (!checkParam()) {
+                return;
+            }
+            getData();
+        }
+
+        function getData() {
+            $.post("/user/query",
+                $("#userQuery").serialize(),
+                function callback(data) {
+                    $("#Pagination").pagination(data.total,
+                        {
+                            current_page:(data.pageNum - 1),
+                            items_per_page:data.pageSize,
+                            callback: function (current_page,per_page){
+                                $.post("/user/query",
+                                    $("#userQuery").serialize()+"&pageNum=" + (current_page) + "&pageSize=" + per_page,
+                                    function callback(data) {
+                                        analyzeData(data);
+                                    }
+                                );
+                            }
+                        }
+                    );
+                    analyzeData(data);
+                }
+            );
+        }
+
+        // 检查参数
+        function checkParam() {
+            return true;
+        }
+
+        // 解析数据
+        function analyzeData(data) {
+            $("#userList").empty();
+            if (data.total > 0) {
+                var userList = data.list;
+                var length = data.size;
+                for (var i = 0; i < length; i++) {
+                    var user = userList[i];
+                    var str = "<tr><td>";
+                    str += user.id + "</td><td>";
+                    str += user.username + "</td><td>";
+                    str += user.lockedFlag + "</td><td>";
+                    str += user.userRoles + "</td><td>";
+                    str += "<button href=\"/user/update/" + user.id + "\">修改</button><button onclick='deleteUser("+ user.id +")'>删除</button>"+ "</td></tr>";
+                    $("#userList").append(str);
+                }
+            } else {
+                $("#userList").html("无数据");
+            }
+        }
+
+
+    </script>
+</div>
+

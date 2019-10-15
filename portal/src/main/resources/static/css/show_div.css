@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+
+/*弹出内容*/
+.black_overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    background-color:#000;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);
+}
+.cover_black_overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    background-color:#000;
+    z-index:1010;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);
+}
+.white_content {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    margin-left: -500px;
+    margin-top: -150px;
+    width: 1000px;
+    height: 500px;
+    box-shadow: 0px 0px 4px #999;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+}
+
+.white_content_new {
+    position:fixed;
+    _position:absolute;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    /* margin-left:-500px;
+    margin-top:-150px; */
+    width:1000px;
+    height:400px;
+    box-shadow:0px 0px 4px #999;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+  	margin: auto 
+}
+
+.close {
+    width: 960px;
+    background-color: #0270c9;
+    padding: 10px 20px;
+    color: #FFFFFF;
+    display: inline-block;
+    line-height: 32px;
+    height: 32px;
+}
+
+
+.close_new {
+   	width:100%; 
+    background-color: #0270c9;
+    color: #FFFFFF;
+    display: inline-block;
+    /* line-height: 32px; */
+}
+
+.close_new span {
+    display: block;
+    float: left;
+    margin: 15px;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    line-height:1;
+    -webkit-margin-before: 0.1em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+    float:left;
+}
+a.popupContactClose { width:32px; text-align:center; height:32px; color:#000000; text-decoration:none;
+    font-size:14px; font-family:Verdana; font-weight:bold; background:url(../images/ibar_sprites.jpg) no-repeat; display:block; float:right; cursor:pointer;}
+    
+    
+a.popupContactClose_new  {
+	width: 32px;
+	text-align: center;
+	height: 32px;
+	color: #000000;
+	text-decoration: none;
+	font-size: 14px;
+	font-family: Verdana;
+	font-weight: bold;
+	background: url(../images/ibar_sprites.jpg) no-repeat;
+	display: block;
+	float: right;
+	cursor: pointer;
+	margin:10px;
+}
+
+.scrollTable { height:430px;overflow-x: hidden; overflow-y: auto; width:1000px; margin-top:10px;}

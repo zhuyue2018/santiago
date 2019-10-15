@@ -1,0 +1,196 @@
+/**
+*  分页
+*
+*/
+.pages {
+    float: right;
+    margin: 0;
+}
+
+.pages #Pagination {
+    float: left;
+    overflow: hidden;
+}
+
+.pages #Pagination .pagination {
+    height: 34px;
+    text-align: right;
+    font-family: \u5b8b\u4f53, Arial;
+}
+
+.pages #Pagination .pagination a,
+.pages #Pagination .pagination span {
+    float: left;
+    display: inline;
+    padding: 6px 7px;
+    border: 1px solid #e6e6e6;
+    border-right: none;
+    background: #fff;
+    color: #188ae2;
+    font-family: \u5b8b\u4f53, Arial;
+    font-size: 14px;
+   /*  cursor: pointer; */
+}
+
+.pages #Pagination .pagination .current {
+    background: #188ae2;
+    color: #fff;
+}
+
+.pages #Pagination .pagination .prev,
+.pages #Pagination .pagination .next {
+    float: left;
+    padding: 6px 7px;
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    color: #188ae2;
+    cursor: pointer;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.pages #Pagination .pagination .prev i,
+.pages #Pagination .pagination .next i {
+    display: inline-block;
+    width: 9px;
+    height: 7px;
+    margin-right: 5px;
+    background: url(../images/icon.fw.png) no-repeat;
+}
+
+.pages #Pagination .pagination .prev {
+    border-right: none;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.pages #Pagination .pagination .prev i {
+    background-position: 0px 0px;
+}
+
+.pages #Pagination .pagination .next i {
+    background-position: -9px 0px;
+}
+
+.pages #Pagination .pagination .pagination-break {
+    padding: 7px;
+    border: none;
+    border-left: 1px solid #e6e6e6;
+    background: none;
+    cursor: default;
+}
+
+.pages #Pagination .searchPage {
+    padding: 2px 7px;
+    border:0;
+    float: left;
+}
+
+.pages  .searchPage span {
+	color: #999999;
+	font-family: u5b8bu4f53,Arial;
+    font-size: 14px;
+    border:0;
+    float: left;
+}
+.pages #Pagination .searchPage span {
+	color: #999999;
+	font-family: u5b8bu4f53,Arial;
+    font-size: 14px;
+    border:0;
+    float: left;
+}
+
+.pages  .searchPage .page-sum {
+    padding: 2px 7px;
+    color: #999999;
+    font-family: \u5b8b\u4f53, Arial;
+    font-size: 14px;
+    border: 0;
+}
+.pages #Pagination .searchPage .page-sum {
+    padding: 2px 7px;
+    color: #999999;
+    font-family: \u5b8b\u4f53, Arial;
+    font-size: 14px;
+    border: 0;
+}
+
+.pages  .searchPage .page-go {
+    padding: 7px 4px;
+    color: #999999;
+    font-family: \u5b8b\u4f53, Arial;
+    font-size: 14px;
+    border: 0;
+}
+.pages  #Pagination .searchPage .page-go {
+    padding: 7px 4px;
+    color: #999999;
+    font-family: \u5b8b\u4f53, Arial;
+    font-size: 14px;
+    border: 0;
+}
+
+.pages .searchPage .go-page-btn {
+    padding: 5px;
+    margin-left: 20px;
+    background: #188ae2;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: Arial, 'Microsoft YaHei';
+    font-size: 14px;
+    text-decoration: none;
+    float: left;
+}
+
+/*.pages #Pagination .searchPage .page-go {*/
+/*float: left;*/
+/*padding: 8px 0;*/
+/*color: #999999;*/
+/*font-family: \u5b8b\u4f53,Arial;*/
+/*font-size: 14px;*/
+/*padding: 10px 0\9;*/
+/**padding: 6px 0;*/
+/*}*/
+.pages  .searchPage .page-go input {
+    width: 21px;
+    height: 20px;
+    margin: 0 5px;
+    padding-left: 5px;
+    border: 1px solid #e4e4e4;
+    float: none;
+    display:inline;
+}
+.pages #Pagination .searchPage .page-go input {
+    width: 40px;
+    height: 20px;
+    margin: 0 5px;
+    padding-left: 5px;
+    border: 1px solid #e4e4e4;
+    float: none;
+    display:inline;
+}
+
+.pages #Pagination .searchPage .page-btn-b {
+    padding: 5px;
+    margin-left: 20px;
+    background: #188ae2;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: Arial, 'Microsoft YaHei';
+    font-size: 14px;
+    text-decoration: none;
+    float: left;
+}
+
+.pages #Pagination .searchPage .page-btn-g {
+    padding: 5px;
+    margin-left: 20px;
+    background: #ddd;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: Arial, 'Microsoft YaHei';
+    font-size: 14px;
+    text-decoration: none;
+    float: left;
+}

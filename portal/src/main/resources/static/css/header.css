@@ -1,0 +1,278 @@
+@charset "utf-8";
+/* css Document */
+/*--------------------------------------------------------------------------------------*/
+/*                               头header                                          */
+/*-------------------------------------------------------------------------------------*/
+/* 头header */
+#topBar {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    font-family: "微软雅黑", "YaHei", arial, sans-serif, monospace, "Glyphicons Halflings";
+}
+
+#topBar-top {
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #52a7ea;
+    overflow: hidden;
+    padding: 0 20px;
+    background-color: #188ae2;
+}
+
+ 
+/* 左面欢迎 */
+#topBar-top .left-i {
+    float: left;
+}
+
+
+#topBar-top .left-i li {
+    float: left;
+}
+
+#topBar-top .left-i,
+#topBar-top .right-i a {
+    color: #fff;
+}
+
+
+#topBar-top .left-i .i-pic {
+    background: url("../images/i-pic.png") no-repeat;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 8px;
+}
+
+
+/* 退出修改 */
+#topBar-top .right-i {
+    float: right;
+}
+
+
+#topBar-top .right-i li {
+    float: left;
+    margin-left: 20px;
+}
+
+#topBar-top .right-i li a {
+    display: inline-block;
+}
+
+#topBar-top .cw-icon {
+    cursor: default;
+    position: relative;
+}
+
+#topBar-top .dt {
+    padding-left: 25px;
+    float: left;
+}
+
+#topBar-top .cw-icon i {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+}
+
+#topBar-top .right-i li.dt i.sign-out {
+    background: url("../images/tuichu.png") no-repeat;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 8px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#topBar-top .right-i li:hover {
+    display: block;
+    cursor: pointer;
+}
+
+#topBar-top .right-i li.dt i.account {
+    background: url("../images/account.png") no-repeat;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 8px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* LOGO和应用 */
+
+#head {
+    height: 62px;
+    padding: 0 20px;
+    /* overflow: hidden; */   /* 此样式去除否则IE8不兼容 */
+    background-color: #fff;
+    position: relative; 
+}
+
+#head .logo,
+#head .menuBar{
+    float: left;
+}
+
+
+#head .logo{
+    margin-right: 50px;
+    padding: 16px 0;
+    line-height: 30px;
+}
+
+#head .logo li{
+    float: left;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+#head .logo li em{
+    margin: 0 19px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+
+
+#head .menuBar li {
+    cursor: pointer;
+    display: inline;
+    float: left;
+    height: 62px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#head .menuBar li a {
+    cursor: pointer;
+    display: block;
+    height: 62px;
+    line-height: 62px;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 10px;
+    color: #fff;
+    background-color: #cbcbcb;
+}
+
+#head .menuBar li a:hover,
+#head .menuBar li .active{
+    background-color: #3ba5f6;
+}
+
+#head .menuBar li .ci-left {
+    height: 26px;
+    left: 33px;
+    top: 8px;
+    width: 26px;
+    position: absolute;
+}
+
+#head .menuBar li .home-1{
+    background: url("../images/home-1.png") no-repeat;
+}
+
+
+
+
+
+/* 更多应用下拉nav_menu */
+.nav_menu {
+	height: 42px;
+	position: absolute;
+	right: 12px;
+	top: 10px;
+}
+
+.nav {
+	width: 41px;
+	height: 41px;
+	position: relative;
+	margin: 0 auto;
+	background: url("../images/gd.png") no-repeat
+}
+
+.nav .list li {
+	float: left;
+}
+
+.nav .list a {
+	float: left;
+	display: block;
+	width: 41px;
+	height: 41px;
+	text-align: center;
+	font: bold 13px/36px "微软雅黑";
+	color: #fff;
+}
+
+.nav .list a:hover {
+	color: #FFA304;
+}
+
+.nav .list a:hover,.nav .list .now {
+	color: #F00;
+}
+
+.nav .box {
+	position: absolute;
+	right: 0px;
+	top: 90px;
+	width: 1006px;
+	background: url("../images/lg.png");
+	overflow: hidden;
+	height: 0;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	border-bottom: 2px solid #074c52;
+	z-index: 99999;
+	color: #fff;
+}
+
+.nav .cont {
+	position: relative;
+	padding: 25px 0 0px 24px;
+}
+sublist
+.sublist li {
+	float: left;
+	width: 168px;
+	padding-right: 24px;
+	padding-bottom: 24px;
+}
+
+.sublist li h3.mcate-item-hd {
+	font-family: '微软雅黑';
+	padding-left: 2px;
+	font-size: 14px;
+	height: 26px;
+	line-height: 26px;
+	border-bottom: 1px dashed #9f9f9f;
+}
+
+.sublist li p.mcate-item-bd {
+	padding-left: 2px;
+}
+
+.sublist li p.mcate-item-bd a {
+	height: 26px;
+	line-height: 26px;
+	margin-right: 5px;
+	font-size: 12px;
+	color: #fff;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.sublist li p.mcate-item-bd a:hover {
+	color: #fff;
+	text-decoration: underline;
+} 
