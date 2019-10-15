@@ -19,14 +19,14 @@
         <dom4j.version>1.6.1</dom4j.version>
         <fastjson.version>1.2.58</fastjson.version>
         <hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
-        <validation.api.version>1.1.0.Final</validation.api.version>
+        <validation.api.version>1.0.0.GA</validation.api.version>
         <jackson.databind.version>2.9.9.3</jackson.databind.version>
         <java.version>1.8</java.version>
         <joda.time.version>2.10.4</joda.time.version>
         <mapper.spring.boot.starter.version>2.0.3</mapper.spring.boot.starter.version>
         <mapper.version>4.1.5</mapper.version>
         <mybatis.spring.boot.starter.version>1.1.1</mybatis.spring.boot.starter.version>
-        <pagehelper.spring.boot.starter.version>1.2.10</pagehelper.spring.boot.starter.version>
+        <pagehelper.spring.boot.starter.version>1.2.5</pagehelper.spring.boot.starter.version>
         <spring.kafka.version>1.1.1.RELEASE</spring.kafka.version>
         <spring.tx.version>5.0.7.RELEASE</spring.tx.version>
         <swagger.annotations.version>2.0.9</swagger.annotations.version>
@@ -133,13 +133,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <!--<build>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
-
 </project>
