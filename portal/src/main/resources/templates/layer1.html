@@ -34,11 +34,11 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/index">主页</a></li>
-                <li class="dropdown" th:each="menu:${menus}" >
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" th:text="${menu.resourceName}">系统级菜单</a>
+                <li class="dropdown" th:each="menu:${menuTree}" >
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" th:text="${menu.name}">系统级菜单</a>
                     <ul class="dropdown-menu">
-                        <li th:each="child:${menu.sonResource}">
-                            <a th:text="${child.resourceName}" th:href="@{${child.url}}" href="javascript:;" style="margin-left: 20px;">菜单级菜单</a>
+                        <li th:each="child:${menu.sonMenus}">
+                            <a th:text="${child.name}" th:href="@{${child.url}}" href="javascript:;" style="margin-left: 20px;">菜单级菜单</a>
                         </li>
                     </ul>
                 </li>

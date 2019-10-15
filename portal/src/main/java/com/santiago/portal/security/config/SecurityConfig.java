@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()//所有请求都需要认证
-//                .antMatchers("static/**").permitAll()
+                .antMatchers("static/**").permitAll()
             .and()
                 .formLogin() //登录表单
                 .loginPage("/login")//登录页面url
@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //自定义标签权限配置
         web.privilegeEvaluator(secTagPrivilegeEvaluator);
-//        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/static/**");
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

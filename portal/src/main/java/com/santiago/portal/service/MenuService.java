@@ -14,6 +14,5 @@ public interface MenuService {
     List<PmsMenu> listByRoleId(Long id);
     List<PmsMenu> list();
     void insert(PmsMenu menu);
-
     void deleteByPrimaryKey(Long id);
 }

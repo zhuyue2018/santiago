@@ -1,11 +1,12 @@
 package com.santiago.portal.entity.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "pms_menu")
-public class PmsMenu {
+public class PmsMenu implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

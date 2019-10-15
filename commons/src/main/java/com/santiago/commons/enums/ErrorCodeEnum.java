@@ -1,0 +1,26 @@
+package com.santiago.commons.enums;
+
+public enum ErrorCodeEnum {
+    SUCCESS("000000", "请求成功"),
+    DUPLICATED_BIZ_NO("100001", "业务主键重复"),
+    PARAMS_ERROR("100002", "参数有误"),
+    IP_ERROR("100003", "ip地址不在白名单"),
+    SIGN_ERROR("100004", "验证签名错误"),
+    USER_PAY_CONFIG_ERRPR("100005", "用户配置有误"),
+    SYSTEM_ERROR("999999", "系统内部错误");
+    private String code;
+    private String msg;
+
+    ErrorCodeEnum(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+}

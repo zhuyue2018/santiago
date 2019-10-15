@@ -12,8 +12,6 @@ public interface RoleService {
     void deleteByPrimaryKey(Long id);
     PmsRole getByRoleCode(String roleCode);
     List<PmsRole> list();
-
     List<PmsRole> listByOperatorId(Long id);
-
     PageInfo<RoleVO> page(RoleQuery queryDTO);
 }
