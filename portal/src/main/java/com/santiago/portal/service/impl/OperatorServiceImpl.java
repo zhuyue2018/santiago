@@ -41,4 +41,14 @@ public class OperatorServiceImpl implements OperatorService, UserDetailsService 
     public PageInfo<OperatorVO> page(OperatorQuery queryDTO) {
         return null;
     }
+
+    @Override
+    public void insert(PmsOperator operator) {
+        operatorMapper.insert(operator);
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        operatorMapper.deleteByPrimaryKey(id);
+    }
 }

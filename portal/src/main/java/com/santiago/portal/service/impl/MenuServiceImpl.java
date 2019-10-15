@@ -60,10 +60,10 @@ public class MenuServiceImpl implements MenuService {
         Set<PmsMenu> menuLeafSet = new HashSet<>();
         List<PmsRole> roleList = roleService.listByOperatorId(operatorId);
         roleList.forEach(role -> {
-            List<PmsMenu> resourceList1 = listByRoleId(role.getId());
-            List<PmsMenu> collect1 = resourceList1.stream().filter(sysResource -> "1".equals(String.valueOf(sysResource.getType()))).collect(Collectors.toList());
+            List<PmsMenu> menuList1 = listByRoleId(role.getId());
+            List<PmsMenu> collect1 = menuList1.stream().filter(menu -> "1".equals(String.valueOf(menu.getLevel()))).collect(Collectors.toList());
             menuTreeSet.addAll(collect1);
-            List<PmsMenu> collect2 = resourceList1.stream().filter(sysResource -> "2".equals(String.valueOf(sysResource.getType()))).collect(Collectors.toList());
+            List<PmsMenu> collect2 = menuList1.stream().filter(menu -> "2".equals(String.valueOf(menu.getLevel()))).collect(Collectors.toList());
             menuLeafSet.addAll(collect2);
         });
         List<PmsMenu> menuTree = new ArrayList<>(menuTreeSet);
@@ -93,5 +93,15 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<PmsMenu> list() {
         return menuMapper.selectAll();
+    }
+
+    @Override
+    public void insert(PmsMenu menu) {
+        menuMapper.insert(menu);
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        menuMapper.deleteByPrimaryKey(id);
     }
 }

@@ -1,13 +1,14 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zhuyue.pay0929.commons.dto.resp.SimpleResponse;
-import com.zhuyue.pay0929.portal.entity.domain.*;
-import com.zhuyue.pay0929.portal.entity.dto.query.RoleQuery;
-import com.zhuyue.pay0929.portal.entity.vo.RoleVO;
-import com.zhuyue.pay0929.portal.mapper.*;
-import com.zhuyue.pay0929.portal.service.SysResourceService;
-import com.zhuyue.pay0929.portal.service.SysRoleService;
+import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.portal.entity.domain.*;
+import com.santiago.portal.entity.dto.query.RoleQuery;
+import com.santiago.portal.entity.dto.vo.RoleVO;
+import com.santiago.portal.mapper.PmsOperatorRoleMapper;
+import com.santiago.portal.mapper.PmsRoleMenuMapper;
+import com.santiago.portal.service.MenuService;
+import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,27 +23,22 @@ import java.util.List;
 @RequestMapping(value = "/role")
 public class RoleCtrl {
     @Autowired
-    SysRoleMapper roleMapper;
+    RoleService roleService;
     @Autowired
-    SysResourceService resourceService;
+    MenuService menuService;
     @Autowired
-    SysUserRoleMapper userRoleMapper;
+    PmsOperatorRoleMapper operatorRoleMapper;
     @Autowired
-    SysRoleResourceMapper roleResourceMapper;
-    @Autowired
-    SysRoleService roleService;
-    @Autowired
-    SysResourceMapper resourceMapper;
+    PmsRoleMenuMapper roleMenuMapper;
 
 
     @ModelAttribute
     public void init(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<SysResource> menus= resourceService.listMenuTree(((SysUser) principal).getId());
-        model.addAttribute("menus", menus);
-        SysResource resource = new SysResource();
-        List<SysResource> resourceList = resourceMapper.select(resource);
-        model.addAttribute("resourceList", resourceList);
+        List<PmsMenu> menuTree= menuService.listMenuTree(((PmsOperator) principal).getId());
+        model.addAttribute("menuTree", menuTree);
+        List<PmsMenu> menuList = menuService.list();
+        model.addAttribute("menuList", menuList);
     }
 
     @RequestMapping(value = "")
@@ -54,25 +50,26 @@ public class RoleCtrl {
     @Transactional
     @ResponseBody
     public SimpleResponse insert(HttpServletRequest request) {
-        String roleKey = request.getParameter("insertRoleKey");
-        String roleName = request.getParameter("insertRoleName");
-        SysRole role = new SysRole();
-        role.setRoleKey(roleKey);
+        String roleCode = request.getParameter("roleCode");
+        String roleName = request.getParameter("roleName");
+        PmsRole role = new PmsRole();
+        role.setRoleCode(roleCode);
         role.setRoleName(roleName);
-        roleMapper.insert(role);
+        roleService.insert(role);
         return new SimpleResponse("000000", "cg");
     }
 
     @PostMapping(value = "/delete/{id}")
     @Transactional
     @ResponseBody
-    public SimpleResponse delete(@PathVariable(value = "id") Integer id) {
-        roleMapper.deleteByPrimaryKey(id);
-        SysUserRole userRole = new SysUserRole();
-        userRole.setRoleId(id);
-        userRoleMapper.delete(userRole);
-        SysRoleResource roleResource = new SysRoleResource(id);
-        roleResourceMapper.delete(roleResource);
+    public SimpleResponse delete(@PathVariable(value = "id") Long id) {
+        roleService.deleteByPrimaryKey(id);
+        PmsOperatorRole operatorRole = new PmsOperatorRole();
+        operatorRole.setRoleId(id);
+        operatorRoleMapper.delete(operatorRole);
+        PmsRoleMenu roleMenu = new PmsRoleMenu();
+        roleMenu.setRoleId(id);
+        roleMenuMapper.delete(roleMenu);
         return new SimpleResponse("000000", "cg");
     }
 

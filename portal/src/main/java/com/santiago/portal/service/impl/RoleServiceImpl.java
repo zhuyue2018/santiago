@@ -41,6 +41,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public void insert(PmsRole role) {
+        roleMapper.insert(role);
+    }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        roleMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public PmsRole getByRoleCode(String roleCode) {
         PmsRole roleTemp = new PmsRole();
         roleTemp.setRoleCode(roleCode);

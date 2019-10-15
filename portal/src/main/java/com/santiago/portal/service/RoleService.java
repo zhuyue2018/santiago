@@ -8,8 +8,12 @@ import com.santiago.portal.entity.dto.vo.RoleVO;
 import java.util.List;
 
 public interface RoleService {
-    List<PmsRole> listByOperatorId(Long id);
+    void insert(PmsRole role);
+    void deleteByPrimaryKey(Long id);
     PmsRole getByRoleCode(String roleCode);
     List<PmsRole> list();
+
+    List<PmsRole> listByOperatorId(Long id);
+
     PageInfo<RoleVO> page(RoleQuery queryDTO);
 }

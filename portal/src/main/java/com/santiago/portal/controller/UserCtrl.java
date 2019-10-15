@@ -1,13 +1,17 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zhuyue.pay0929.commons.dto.resp.SimpleResponse;
-import com.zhuyue.pay0929.portal.entity.domain.*;
-import com.zhuyue.pay0929.portal.entity.dto.query.UserQuery;
-import com.zhuyue.pay0929.portal.entity.vo.UserVO;
-import com.zhuyue.pay0929.portal.mapper.*;
-import com.zhuyue.pay0929.portal.service.SysResourceService;
-import com.zhuyue.pay0929.portal.service.SysUserService;
+import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.portal.entity.domain.PmsMenu;
+import com.santiago.portal.entity.domain.PmsOperator;
+import com.santiago.portal.entity.domain.PmsOperatorRole;
+import com.santiago.portal.entity.domain.PmsRole;
+import com.santiago.portal.entity.dto.query.OperatorQuery;
+import com.santiago.portal.entity.dto.vo.OperatorVO;
+import com.santiago.portal.mapper.PmsOperatorRoleMapper;
+import com.santiago.portal.service.MenuService;
+import com.santiago.portal.service.OperatorService;
+import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,26 +27,23 @@ import java.util.List;
 @RequestMapping(value = "/user")
 public class UserCtrl {
     @Autowired
-    SysRoleMapper roleMapper;
+    OperatorService operatorService;
     @Autowired
-    SysUserMapper userMapper;
+    RoleService roleService;
     @Autowired
-    SysResourceService resourceService;
+    MenuService menuService;
     @Autowired
-    SysUserService userService;
-    @Autowired
-    SysUserRoleMapper userRoleMapper;
+    PmsOperatorRoleMapper operatorRoleMapper;
 
 
     @ModelAttribute
     public void init(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<SysResource> menus= resourceService.listMenuTree(((SysUser) principal).getId());
-        model.addAttribute("menus", menus);
-        List<SysRole> roleList = roleMapper.listAll();
+        List<PmsMenu> menuTree= menuService.listMenuTree(((PmsOperator) principal).getId());
+        model.addAttribute("menuTree", menuTree);
+        List<PmsRole> roleList = roleService.list();
         model.addAttribute("roleList", roleList);
     }
-
 
     @RequestMapping(value = "")
     public String init() {
@@ -55,20 +56,20 @@ public class UserCtrl {
     public SimpleResponse insert(HttpServletRequest request) {
         String username = request.getParameter("insertUsername");
         String password = request.getParameter("insertPassword");
-        SysUser user = new SysUser();
-        user.setUsername(username);
+        PmsOperator operator = new PmsOperator();
+        operator.setLoginName(username);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(password));
-        userMapper.insert(user);
-        List<SysRole> roleList = roleMapper.listAll();
-        roleList.forEach(sysRole -> {
-            String roleId = "roleId:" + sysRole.getId();
+        operator.setLoginPwd(encoder.encode(password));
+        operatorService.insert(operator);
+        List<PmsRole> roleList = roleService.list();
+        roleList.forEach(PmsRole -> {
+            String roleId = "roleId:" + PmsRole.getId();
             String selected = request.getParameter(roleId);
             if ("on".equals(selected)) {
-                SysUserRole userRole = new SysUserRole();
-                userRole.setUserId(user.getId());
-                userRole.setRoleId(sysRole.getId());
-                userRoleMapper.insert(userRole);
+                PmsOperatorRole operatorRole = new PmsOperatorRole();
+                operatorRole.setOperatorId(operator.getId());
+                operatorRole.setRoleId(PmsRole.getId());
+                operatorRoleMapper.insert(operatorRole);
             }
         });
         return new SimpleResponse("000000", "cg");
@@ -77,11 +78,11 @@ public class UserCtrl {
     @PostMapping(value = "/delete/{id}")
     @Transactional
     @ResponseBody
-    public SimpleResponse delete(@PathVariable(value = "id") Integer id) {
-        userMapper.deleteByPrimaryKey(id);
-        SysUserRole userRole = new SysUserRole();
-        userRole.setUserId(id);
-        userRoleMapper.delete(userRole);
+    public SimpleResponse delete(@PathVariable(value = "id") Long id) {
+        operatorService.deleteByPrimaryKey(id);
+        PmsOperatorRole operatorRole = new PmsOperatorRole();
+        operatorRole.setOperatorId(id);
+        operatorRoleMapper.delete(operatorRole);
         return new SimpleResponse("000000", "cg");
     }
 
@@ -89,14 +90,14 @@ public class UserCtrl {
 
     @PostMapping(value = "query")
     @ResponseBody
-    public PageInfo<UserVO> query(HttpServletRequest request) {
-        UserQuery queryDTO = transferQueryDTO(request);
-        PageInfo<UserVO> pageInfo = userService.page(queryDTO);
+    public PageInfo<OperatorVO> query(HttpServletRequest request) {
+        OperatorQuery queryDTO = transferQueryDTO(request);
+        PageInfo<OperatorVO> pageInfo = operatorService.page(queryDTO);
         return pageInfo;
     }
 
-    private UserQuery transferQueryDTO(HttpServletRequest request) {
-        UserQuery query = new UserQuery();
+    private OperatorQuery transferQueryDTO(HttpServletRequest request) {
+        OperatorQuery query = new OperatorQuery();
         if (null == request.getParameter("pageNum")) {
             query.setPageNum(1);
         } else {

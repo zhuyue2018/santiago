@@ -4,6 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsOperator;
+import com.santiago.portal.entity.domain.PmsRole;
+import com.santiago.portal.entity.domain.PmsRoleMenu;
+import com.santiago.portal.entity.dto.query.MenuQuery;
+import com.santiago.portal.entity.enums.RoleCodeEnum;
 import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
@@ -45,49 +49,45 @@ public class ResourceCtrl {
     @Transactional
     @ResponseBody
     public SimpleResponse insert(HttpServletRequest request) {
-        String resourceName = request.getParameter("insertResourceName");
-        String type = request.getParameter("insertType");
-        String url = request.getParameter("insertUrl");
-        String pid = request.getParameter("insertPid");
+        String name = request.getParameter("memuName");
+        String level = request.getParameter("menuLevel");
+        String url = request.getParameter("menuUrl");
+        String parentId = request.getParameter("menuPid");
         PmsMenu menu = new PmsMenu();
-        menu.setResourceName(resourceName);
-        menu.setType(Integer.parseInt(type));
+        menu.setName(name);
+        menu.setLevel(Short.valueOf(level));
         menu.setUrl(url);
-        menu.setPid(Integer.parseInt(pid));
-        menuService.insert(resource);
-        SysRoleResource roleResource = new SysRoleResource(1, resource.getId());
-        rolemenuService.insert(roleResource);
+        menu.setParentId(Long.valueOf(parentId));
+        menuService.insert(menu);
+        PmsRole admin = roleService.getByRoleCode(RoleCodeEnum.ADMIN.getCode());
+        PmsRoleMenu roleMenu = new PmsRoleMenu();
+        roleMenu.setRoleId(admin.getId());
+        roleMenu.setMenuId(menu.getId());
+        roleMenuMapper.insert(roleMenu);
         return new SimpleResponse("000000", "cg");
-    }
-
-    private void validateInsert(SysResource resource) {
-        if (!"1".equals(String.valueOf(resource.getType()))
-                && null == resource.getPid()) {
-            throw new ResourceBizException("000001", "非一级菜单的父菜单id不能为空");
-        }
     }
 
     @PostMapping(value = "/delete/{id}")
     @Transactional
     @ResponseBody
-    public SimpleResponse delete(@PathVariable(value = "id") Integer id) {
+    public SimpleResponse delete(@PathVariable(value = "id") Long id) {
         menuService.deleteByPrimaryKey(id);
-        SysRoleResource roleResource = new SysRoleResource();
-        roleResource.setResourceId(id);
-        rolemenuService.delete(roleResource);
+        PmsRoleMenu roleMenu = new PmsRoleMenu();
+        roleMenu.setMenuId(id);
+        roleMenuMapper.delete(roleMenu);
         return new SimpleResponse("000000", "cg");
     }
 
     @PostMapping(value = "query")
     @ResponseBody
     public PageInfo<PmsMenu> query(HttpServletRequest request) {
-        ResourceQuery queryDTO = transferQueryDTO(request);
-        PageInfo<PmsMenu> pageInfo = resourceService.page(queryDTO);
+        MenuQuery queryDTO = transferQueryDTO(request);
+        PageInfo<PmsMenu> pageInfo = menuService.page(queryDTO);
         return pageInfo;
     }
 
-    private ResourceQuery transferQueryDTO(HttpServletRequest request) {
-        ResourceQuery query = new ResourceQuery();
+    private MenuQuery transferQueryDTO(HttpServletRequest request) {
+        MenuQuery query = new MenuQuery();
         if (null == request.getParameter("pageNum")) {
             query.setPageNum(1);
         } else {
