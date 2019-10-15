@@ -25,7 +25,6 @@ public class RedisConfig {
     @Resource
     private LettuceConnectionFactory lettuceConnectionFactory;
 
-
     /**
      * 配置自定义redisTemplate
      * @return
