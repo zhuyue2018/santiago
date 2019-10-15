@@ -10,110 +10,131 @@
     </parent>
     <groupId>com.santiago.pay</groupId>
     <artifactId>dependency</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${dependency.version}</version>
     <name>dependency</name>
     <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>
+        <dependency.version>1.0.0-SNAPSHOT</dependency.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <hibernate.validator.version>5.3.6.Final</hibernate.validator.version>
+        <jackson.databind.version>2.9.9.3</jackson.databind.version>
+        <joda.time.version>2.10.4</joda.time.version>
+        <spring.kafka.version>1.1.1.RELEASE</spring.kafka.version>
+        <swagger.annotations.version>2.0.9</swagger.annotations.version>
+        <validation.api.version>1.1.0.Final</validation.api.version>
+        <xstream.version>1.4.11.1</xstream.version>
+        <spring.tx.version>5.0.7.RELEASE</spring.tx.version>
+        <pagehelper.spring.boot.starter.version>1.2.10</pagehelper.spring.boot.starter.version>
+        <mapper.spring.boot.starter.version>2.0.3</mapper.spring.boot.starter.version>
+        <mybatis.spring.boot.starter.version>1.1.1</mybatis.spring.boot.starter.version>
+        <mapper.version>4.1.5</mapper.version>
+        <thymeleaf.extras.springsecurity5.version>3.0.4.RELEASE</thymeleaf.extras.springsecurity5.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.58</version>
-            </dependency>
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>1.4.11.1</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>2.0.9</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.9.9.3</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>1.1.0.Final</version>
+                <groupId>com.santiago</groupId>
+                <artifactId>channel-interact</artifactId>
+                <version>${channel.interact.version}</version>
             </dependency>
             <dependency>
                 <groupId>dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
+                <version>${dom4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.databind.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.10.4</version>
+                <version>${joda.time.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
-                <version>1.1.1.RELEASE</version>
+                <version>${spring.kafka.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.santiago</groupId>
-                <artifactId>channel-interact</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
-                <version>5.0.7.RELEASE</version>
+                <version>${spring.tx.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.santiago</groupId>
                 <artifactId>notify</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${dependency.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.santiago</groupId>
                 <artifactId>core</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.santiago</groupId>
-                <artifactId>commons</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>1.2.5</version>
-            </dependency>
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper-spring-boot-starter</artifactId>
-                <version>2.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>1.1.1</version>
+                <version>${dependency.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.santiago.pay</groupId>
                 <artifactId>commons</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${dependency.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.santiago</groupId>
+                <artifactId>commons</artifactId>
+                <version>${dependency.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.spring.boot.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper.spring.boot.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.boot.starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper</artifactId>
-                <version>4.1.5</version>
+                <version>${mapper.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.thymeleaf.extras</groupId>
                 <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-                <version>3.0.4.RELEASE</version>
+                <version>${thymeleaf.extras.springsecurity5.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
