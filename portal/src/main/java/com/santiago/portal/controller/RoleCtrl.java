@@ -43,7 +43,7 @@ public class RoleCtrl {
 
     @RequestMapping(value = "")
     public String init() {
-        return "/resource/role";
+        return "/menu/role";
     }
 
     @PostMapping(value = "/insert")

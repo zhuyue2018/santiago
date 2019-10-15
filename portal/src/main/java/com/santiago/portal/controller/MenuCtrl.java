@@ -4,17 +4,15 @@ import com.github.pagehelper.PageInfo;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsOperator;
-import com.santiago.portal.entity.domain.PmsOperatorRole;
 import com.santiago.portal.entity.domain.PmsRole;
-import com.santiago.portal.entity.dto.query.OperatorQuery;
-import com.santiago.portal.entity.dto.vo.OperatorVO;
-import com.santiago.portal.mapper.PmsOperatorRoleMapper;
+import com.santiago.portal.entity.domain.PmsRoleMenu;
+import com.santiago.portal.entity.dto.query.MenuQuery;
+import com.santiago.portal.entity.enums.RoleCodeEnum;
+import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
-import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -24,54 +22,48 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/user")
-public class UserCtrl {
-    @Autowired
-    OperatorService operatorService;
-    @Autowired
-    RoleService roleService;
+@RequestMapping(value = "/resource")
+public class MenuCtrl {
     @Autowired
     MenuService menuService;
     @Autowired
-    PmsOperatorRoleMapper operatorRoleMapper;
-
+    PmsRoleMenuMapper roleMenuMapper;
+    @Autowired
+    RoleService roleService;
 
     @ModelAttribute
     public void init(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<PmsMenu> menuTree= menuService.listMenuTree(((PmsOperator) principal).getId());
         model.addAttribute("menuTree", menuTree);
-        List<PmsRole> roleList = roleService.list();
-        model.addAttribute("roleList", roleList);
+        List<PmsMenu> menuList = menuService.list();
+        model.addAttribute("menuList", menuList);
     }
 
     @RequestMapping(value = "")
     public String init() {
-        return "/resource/user";
+        return "resource/resource";
     }
 
     @PostMapping(value = "/insert")
     @Transactional
     @ResponseBody
     public SimpleResponse insert(HttpServletRequest request) {
-        String username = request.getParameter("insertUsername");
-        String password = request.getParameter("insertPassword");
-        PmsOperator operator = new PmsOperator();
-        operator.setLoginName(username);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        operator.setLoginPwd(encoder.encode(password));
-        operatorService.insert(operator);
-        List<PmsRole> roleList = roleService.list();
-        roleList.forEach(PmsRole -> {
-            String roleId = "roleId:" + PmsRole.getId();
-            String selected = request.getParameter(roleId);
-            if ("on".equals(selected)) {
-                PmsOperatorRole operatorRole = new PmsOperatorRole();
-                operatorRole.setOperatorId(operator.getId());
-                operatorRole.setRoleId(PmsRole.getId());
-                operatorRoleMapper.insert(operatorRole);
-            }
-        });
+        String name = request.getParameter("memuName");
+        String level = request.getParameter("menuLevel");
+        String url = request.getParameter("menuUrl");
+        String parentId = request.getParameter("menuPid");
+        PmsMenu menu = new PmsMenu();
+        menu.setName(name);
+        menu.setLevel(Short.valueOf(level));
+        menu.setUrl(url);
+        menu.setParentId(Long.valueOf(parentId));
+        menuService.insert(menu);
+        PmsRole admin = roleService.getByRoleCode(RoleCodeEnum.ADMIN.getCode());
+        PmsRoleMenu roleMenu = new PmsRoleMenu();
+        roleMenu.setRoleId(admin.getId());
+        roleMenu.setMenuId(menu.getId());
+        roleMenuMapper.insert(roleMenu);
         return new SimpleResponse("000000", "cg");
     }
 
@@ -79,25 +71,23 @@ public class UserCtrl {
     @Transactional
     @ResponseBody
     public SimpleResponse delete(@PathVariable(value = "id") Long id) {
-        operatorService.deleteByPrimaryKey(id);
-        PmsOperatorRole operatorRole = new PmsOperatorRole();
-        operatorRole.setOperatorId(id);
-        operatorRoleMapper.delete(operatorRole);
+        menuService.deleteByPrimaryKey(id);
+        PmsRoleMenu roleMenu = new PmsRoleMenu();
+        roleMenu.setMenuId(id);
+        roleMenuMapper.delete(roleMenu);
         return new SimpleResponse("000000", "cg");
     }
 
-
-
     @PostMapping(value = "query")
     @ResponseBody
-    public PageInfo<OperatorVO> query(HttpServletRequest request) {
-        OperatorQuery queryDTO = transferQueryDTO(request);
-        PageInfo<OperatorVO> pageInfo = operatorService.page(queryDTO);
+    public PageInfo<PmsMenu> query(HttpServletRequest request) {
+        MenuQuery queryDTO = transferQueryDTO(request);
+        PageInfo<PmsMenu> pageInfo = menuService.page(queryDTO);
         return pageInfo;
     }
 
-    private OperatorQuery transferQueryDTO(HttpServletRequest request) {
-        OperatorQuery query = new OperatorQuery();
+    private MenuQuery transferQueryDTO(HttpServletRequest request) {
+        MenuQuery query = new MenuQuery();
         if (null == request.getParameter("pageNum")) {
             query.setPageNum(1);
         } else {

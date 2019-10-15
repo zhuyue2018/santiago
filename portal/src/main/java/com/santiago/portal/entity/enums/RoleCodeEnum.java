@@ -2,7 +2,7 @@ package com.santiago.portal.entity.enums;
 
 public enum RoleCodeEnum {
     ADMIN("admin", "管理员"),
-    MERCHANT("merchant", "商户"),
+    MERCHANT("operator", "商户"),
     GUEST("guest", "游客");
     private String code;
     private String msg;

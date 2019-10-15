@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @Version V1.0
  **/
 @Service
-public class OperatorServiceImpl implements OperatorService, UserDetailsService {
+public class OperatorServiceImpl implements OperatorService {
 
     @Resource
     private PmsOperatorMapper operatorMapper;

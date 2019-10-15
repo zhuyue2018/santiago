@@ -6,7 +6,7 @@ import com.santiago.portal.security.core.filter.UrlFilterSecurityInterceptor;
 import com.santiago.portal.security.core.handler.LoginFailureHandler;
 import com.santiago.portal.security.core.handler.LoginSuccessHandler;
 import com.santiago.portal.security.core.handler.PerAccessDeniedHandler;
-import com.santiago.portal.security.service.OperatorService;
+import com.santiago.portal.service.impl.OperatorServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private DataSource dataSource;
     @Resource
-    private OperatorService operatorService;
+    private OperatorServiceImpl operatorService;
     @Resource
     private LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
     @Resource

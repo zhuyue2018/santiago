@@ -2,7 +2,7 @@ package com.santiago.portal.security.core;
 
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
-import com.santiago.portal.security.service.OperatorService;
+import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;

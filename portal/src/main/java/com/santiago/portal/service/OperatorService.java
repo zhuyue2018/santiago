@@ -5,8 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.dto.query.OperatorQuery;
 import com.santiago.portal.entity.dto.vo.OperatorVO;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface OperatorService {
+public interface OperatorService extends UserDetailsService {
     PageInfo<OperatorVO> page(OperatorQuery queryDTO);
 
     void insert(PmsOperator operator);
