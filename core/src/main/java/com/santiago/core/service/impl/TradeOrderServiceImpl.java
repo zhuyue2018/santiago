@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TradePaymentOrderServiceImpl implements TradePaymentOrderService {
+public class TradeOrderServiceImpl implements TradePaymentOrderService {
     @Autowired
     RpTradePaymentOrderMapper orderMapper;
     @Override

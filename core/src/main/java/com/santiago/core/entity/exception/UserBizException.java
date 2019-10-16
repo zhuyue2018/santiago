@@ -1,7 +1,8 @@
 package com.santiago.core.entity.exception;
 
-import com.zhuyue.pay0929.commons.dto.exception.BizException;
-import com.zhuyue.pay0929.commons.enums.ErrorCodeEnum;
+
+import com.santiago.commons.dto.exception.BizException;
+import com.santiago.commons.enums.ErrorCodeEnum;
 
 public class UserBizException extends BizException {
     public UserBizException(String errCode, String errMsg) {

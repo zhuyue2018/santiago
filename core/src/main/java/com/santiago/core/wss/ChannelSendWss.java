@@ -1,16 +1,13 @@
 package com.santiago.core.wss;
 
-import com.zhuyue.pay0929.commons.dto.resp.SimpleResponse;
-import com.zhuyue.pay0929.commons.util.JsonUtil;
-import com.zhuyue.pay0929.core.entity.domain.RpTradePaymentOrder;
-import com.zhuyue.pay0929.core.entity.domain.RpTradePaymentRecord;
-import com.zhuyue.pay0929.core.entity.dto.WeixinNotifyRequest;
-import com.zhuyue.pay0929.core.mapper.RpTradePaymentOrderMapper;
-import com.zhuyue.pay0929.core.mapper.RpTradePaymentRecordMapper;
-import com.zhuyue.pay0929.core.service.ChannelInteractService;
-import com.zhuyue.pay0929.core.service.SpringContextUtil;
-import com.zhuyue.pay0929.notify.entity.domain.RpNotifyRecord;
-import com.zhuyue.pay0929.notify.wss.NotifyWss;
+import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.core.entity.domain.TradeOrder;
+import com.santiago.core.entity.domain.TradeRecord;
+import com.santiago.core.entity.dto.WeixinNotifyRequest;
+import com.santiago.core.mapper.TradeOrderMapper;
+import com.santiago.core.mapper.TradeRecordMapper;
+import com.santiago.core.service.ChannelInteractService;
+import com.santiago.core.service.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,17 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController()
-public class ChannelInteractWss {
-    private static final Logger logger = LoggerFactory.getLogger(ChannelInteractWss.class);
+public class ChannelSendWss {
+    private static final Logger logger = LoggerFactory.getLogger(ChannelSendWss.class);
     @Autowired
-    RpTradePaymentOrderMapper orderMapper;
+    TradeOrderMapper orderMapper;
     @Autowired
-    RpTradePaymentRecordMapper recordMapper;
+    TradeRecordMapper recordMapper;
     @Autowired
-    NotifyWss notifyWss;
+    MerchantNotifyWss notifyWss;
 
     @PostMapping("/channel/preOrder")
-    public SimpleResponse preOrder(RpTradePaymentRecord tradePaymentRecord, String payWayCode) {
+    public SimpleResponse preOrder(TradeRecord tradeRecord, String payWayCode) {
         ChannelInteractService channel = null;
         if ("001".equals(payWayCode)) {
             channel = (ChannelInteractService) SpringContextUtil.getBean("weixinChannel");
@@ -41,7 +38,7 @@ public class ChannelInteractWss {
         if ("002".equals(payWayCode)) {
             channel = (ChannelInteractService)SpringContextUtil.getBean("aliChannel");
         }
-        return channel.interact(tradePaymentRecord);
+        return channel.interact(tradeRecord);
     }
 
     @RequestMapping("/channel/weixin/receiveNotify")
@@ -52,13 +49,13 @@ public class ChannelInteractWss {
             logger.error("bankOrderNo空");
             return "error";
         }
-        RpTradePaymentRecord tradePaymentRecordTemp = new RpTradePaymentRecord();
+        TradeRecord tradePaymentRecordTemp = new TradeRecord();
         tradePaymentRecordTemp.setBankOrderNo(bankOrderNo);
-        RpTradePaymentRecord tradePaymentRecord = recordMapper.selectOne(tradePaymentRecordTemp);
-        RpTradePaymentOrder tradePaymentOrderTemp = new RpTradePaymentOrder();
+        TradeRecord tradePaymentRecord = recordMapper.selectOne(tradePaymentRecordTemp);
+        TradeOrder tradePaymentOrderTemp = new TradeOrder();
         tradePaymentOrderTemp.setMerchantNo(tradePaymentRecord.getMerchantNo());
         tradePaymentOrderTemp.setMerchantOrderNo(tradePaymentRecord.getMerchantOrderNo());
-        RpTradePaymentOrder tradePaymentOrder = orderMapper.selectOne(tradePaymentOrderTemp);
+        TradeOrder tradePaymentOrder = orderMapper.selectOne(tradePaymentOrderTemp);
         if ("success".equals(request.getStatus())) {
             if ("0".equals(tradePaymentOrder.getStatus()) && "0".equals(tradePaymentRecord.getStatus())) {
                 tradePaymentOrder.setStatus("1");
@@ -67,7 +64,7 @@ public class ChannelInteractWss {
                 tradePaymentRecord.setStatus("1");
                 tradePaymentRecord.setGmtModified(new Date());
                 recordMapper.updateByPrimaryKey(tradePaymentRecord);
-                RpNotifyRecord notifyRecord = createNotifyRecord(tradePaymentOrder, "1");
+                NotifyRecord notifyRecord = createNotifyRecord(tradePaymentOrder, "1");
                 String result = notifyWss.doNotify(notifyRecord);
                 if ("000000".equals(result)) {
                     notifyRecord.setGmtModified(new Date());
@@ -84,8 +81,8 @@ public class ChannelInteractWss {
         return "success";
     }
 
-    private RpNotifyRecord createNotifyRecord(RpTradePaymentOrder tradePaymentOrder, String orderStatus) {
-        RpNotifyRecord notifyRecord = new RpNotifyRecord();
+    private NotifyRecord createNotifyRecord(TradeOrder tradePaymentOrder, String orderStatus) {
+        NotifyRecord notifyRecord = new NotifyRecord();
         notifyRecord.setVersion("1.0.0");
         notifyRecord.setGmtCreate(new Date());
         notifyRecord.setGmtModified(new Date());
