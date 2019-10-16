@@ -7,10 +7,12 @@ import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.portal.entity.domain.PmsRoleMenu;
 import com.santiago.portal.entity.dto.query.MenuQuery;
+import com.santiago.portal.entity.dto.request.MenuInsertRequest;
 import com.santiago.portal.entity.enums.RoleCodeEnum;
 import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/resource")
+@RequestMapping(value = "/pms/menu")
 public class MenuCtrl {
     @Autowired
     MenuService menuService;
@@ -40,24 +43,23 @@ public class MenuCtrl {
         model.addAttribute("menuList", menuList);
     }
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "/list")
     public String init() {
-        return "resource/resource";
+        return "pms/menu/list";
     }
 
     @PostMapping(value = "/insert")
     @Transactional
     @ResponseBody
-    public SimpleResponse insert(HttpServletRequest request) {
-        String name = request.getParameter("memuName");
-        String level = request.getParameter("menuLevel");
-        String url = request.getParameter("menuUrl");
-        String parentId = request.getParameter("menuPid");
+    public SimpleResponse insert(@RequestBody MenuInsertRequest request) {
         PmsMenu menu = new PmsMenu();
-        menu.setName(name);
-        menu.setLevel(Short.valueOf(level));
-        menu.setUrl(url);
-        menu.setParentId(Long.valueOf(parentId));
+        menu.setName(request.getName());
+        menu.setLevel(request.getLevel());
+        menu.setUrl(request.getUrl());
+        menu.setParentId(request.getParentId());
+        menu.setGmtCreate(new Date());
+        menu.setGmtModified(new Date());
+        menu.setStatus("ACTIVE");
         menuService.insert(menu);
         PmsRole admin = roleService.getByRoleCode(RoleCodeEnum.ADMIN.getCode());
         PmsRoleMenu roleMenu = new PmsRoleMenu();
@@ -78,26 +80,20 @@ public class MenuCtrl {
         return new SimpleResponse("000000", "cg");
     }
 
-    @PostMapping(value = "query")
+    @PostMapping(value = "page")
     @ResponseBody
-    public PageInfo<PmsMenu> query(HttpServletRequest request) {
-        MenuQuery queryDTO = transferQueryDTO(request);
-        PageInfo<PmsMenu> pageInfo = menuService.page(queryDTO);
+    public PageInfo<PmsMenu> query(@RequestBody MenuQuery menuQuery) {
+        handleMenuQuery(menuQuery);
+        PageInfo<PmsMenu> pageInfo = menuService.page(menuQuery);
         return pageInfo;
     }
 
-    private MenuQuery transferQueryDTO(HttpServletRequest request) {
-        MenuQuery query = new MenuQuery();
-        if (null == request.getParameter("pageNum")) {
-            query.setPageNum(1);
-        } else {
-            query.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+    private void handleMenuQuery(MenuQuery menuQuery) {
+        if (null == menuQuery.getPageNum()) {
+            menuQuery.setPageNum(1);
         }
-        if (null == request.getParameter("pageSize")) {
-            query.setPageSize(10);
-        } else {
-            query.setPageSize(Integer.parseInt(request.getParameter("pageSize")));
+        if (null == menuQuery.getPageSize()) {
+            menuQuery.setPageSize(10);
         }
-        return query;
     }
 }

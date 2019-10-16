@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//@Slf4j
 @RestControllerAdvice(basePackages = "com.santiago.portal.controller")
 public class SpringControllerAdvice {
     @ExceptionHandler(PmsBizException.class)

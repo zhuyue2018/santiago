@@ -42,9 +42,9 @@ public class MenuServiceImpl implements MenuService {
     RedisService redisService;
 
     @Override
-    public PageInfo<PmsMenu> page(MenuQuery queryDTO) {
+    public PageInfo<PmsMenu> page(MenuQuery menuQuery) {
 
-        PageHelper.startPage(queryDTO.getPageNum(), queryDTO.getPageSize());
+        PageHelper.startPage(menuQuery.getPageNum(), menuQuery.getPageSize());
         Example example = new Example(PmsMenu.class);
         Example.Criteria criteria = example.createCriteria();
         // todo

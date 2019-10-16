@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MenuService {
     List<PmsMenu> listMenuTree(Long userId);
-    PageInfo<PmsMenu> page(MenuQuery queryDTO);
+    PageInfo<PmsMenu> page(MenuQuery menuQuery);
     List<PmsMenu> listByRoleId(Long id);
     List<PmsMenu> list();
     void insert(PmsMenu menu);

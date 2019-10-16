@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author OZY
@@ -50,5 +51,11 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     public void deleteByPrimaryKey(Long id) {
         operatorMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<String> listMerchantNoByOperatorId(Long id) {
+
+        return null;
     }
 }

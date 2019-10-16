@@ -12,6 +12,7 @@ public class MenuQuery extends BaseQuery {
     private Long level;
     private Long parentId;
 
+
     public Long getLevel() {
         return level;
     }

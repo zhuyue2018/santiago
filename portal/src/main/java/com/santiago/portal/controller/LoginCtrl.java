@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
@@ -33,12 +34,12 @@ public class LoginCtrl {
     @Autowired
     ThymeleafViewResolver thymeleafViewResolver;
 
-    @GetMapping(value = {"login", ""})
+    @RequestMapping(value = {"/login", ""})
     public String login() {
-        return "/login";
+        return "login";
     }
 
-    @GetMapping("index")
+    @GetMapping("/index")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PmsOperator operator = (PmsOperator)authentication.getPrincipal();
@@ -48,7 +49,7 @@ public class LoginCtrl {
         model.addAttribute("menuTree", menuTree);
         String welcomeMsg = String.format("欢迎您，%s！您的角色为，%s", (operator).getUsername(), "");
         model.addAttribute("welcomeMsg", welcomeMsg);
-        return "/index";
+        return "index";
     }
 
     public String tryCache(String viewName, Model model, HttpServletRequest request, HttpServletResponse response) {
