@@ -11,7 +11,15 @@ import com.santiago.commons.dto.query.BaseQuery;
 public class MenuQuery extends BaseQuery {
     private Long level;
     private Long parentId;
+    private String menuName;
 
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
 
     public Long getLevel() {
         return level;

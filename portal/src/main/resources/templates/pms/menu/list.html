@@ -143,38 +143,38 @@
 
         function getData() {
             var array = $("#menuQuery").serializeArray();
+            console.log(array)
             var obj = {};
             for (var i = 0; i < array.length; i++) {
-                [array[i].name] = array[i].value;
+                obj[array[i].name] = array[i].value;
             }
+            console.log(JSON.stringify(obj))
             $.ajax("/pms/menu/page", {
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 datatype: "json",
                 type: "post",
                 success: function (data) {
-                    $("#Pagination").pagination(data.total,
-                        {
-                            current_page: (data.pageNum - 1),
-                            items_per_page: data.pageSize,
-                            callback: function (current_page, per_page) {
-                                obj["pageNum"] = current_page;
-                                obj["pageSize"] = per_page;
-                                console.log(JSON.stringify(obj))
-                                $.ajax("/pms/menu/page", {
-                                    data: JSON.stringify(obj),
-                                    contentType: "application/json",
-                                    datatype: "json",
-                                    type: "post",
-                                    success: function (data) {
-                                        analyzeData(data);
-                                    }
-                                });
-                            }
+                    $("#Pagination").pagination(data.total, {
+                        current_page: (data.pageNum - 1),
+                        items_per_page: data.pageSize,
+                        callback: function (current_page, items_per_page) {
+                            obj["pageNum"] = current_page;
+                            obj["pageSize"] = items_per_page;
+                            console.log(JSON.stringify(obj));
+                            $.ajax("/pms/menu/page", {
+                                data: JSON.stringify(obj),
+                                contentType: "application/json",
+                                datatype: "json",
+                                type: "post",
+                                success: function (data) {
+                                    analyzeData(data);
+                                }
+                            });
                         }
-                    );
+                    });
                 }
-            })
+            });
         }
 
         // 检查参数
@@ -196,7 +196,7 @@
                     str += menu.url + "</td><td>";
                     str += menu.level + "</td><td>";
                     str += menu.parentId + "</td><td>";
-                    str += "<button href=\"/menu/update/" + list.id + "\">修改</button><button onclick='deletemenu("+ list.id +")'>删除</button>"+ "</td></tr>";
+                    str += "<button href= '/menu/update/'" + menu.id + ">修改</button><button onclick='deletemenu("+ menu.id +")'>删除</button></td></tr>";
                     $("#menuList").append(str);
                 }
             } else {

@@ -80,7 +80,7 @@ public class MenuCtrl {
         return new SimpleResponse("000000", "cg");
     }
 
-    @PostMapping(value = "page")
+    @RequestMapping(value = "/page")
     @ResponseBody
     public PageInfo<PmsMenu> query(@RequestBody MenuQuery menuQuery) {
         handleMenuQuery(menuQuery);
@@ -93,7 +93,7 @@ public class MenuCtrl {
             menuQuery.setPageNum(1);
         }
         if (null == menuQuery.getPageSize()) {
-            menuQuery.setPageSize(10);
+            menuQuery.setPageSize(5);
         }
     }
 }
