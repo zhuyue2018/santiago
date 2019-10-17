@@ -35,7 +35,6 @@ public class MenuCtrl {
 
     @ModelAttribute
     public void init(Model model) {
-
         List<PmsMenu> menuList = menuService.list();
         model.addAttribute("menuList", menuList);
     }
@@ -77,9 +76,16 @@ public class MenuCtrl {
         return new SimpleResponse("000000", "cg");
     }
 
+    @RequestMapping(value = "/query")
+    @ResponseBody
+    public List<PmsMenu> query(@RequestBody MenuQuery menuQuery) {
+        handleMenuQuery(menuQuery);
+        return menuService.list(menuQuery);
+    }
+
     @RequestMapping(value = "/page")
     @ResponseBody
-    public PageInfo<PmsMenu> query(@RequestBody MenuQuery menuQuery) {
+    public PageInfo<PmsMenu> page(@RequestBody MenuQuery menuQuery) {
         handleMenuQuery(menuQuery);
         PageInfo<PmsMenu> pageInfo = menuService.page(menuQuery);
         return pageInfo;

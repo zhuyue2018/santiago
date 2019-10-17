@@ -67,19 +67,27 @@
                                 <td>
                                     <input type="text" class="form-control" id="insertMenuName" name="insertMenuName">
                                 </td>
-                                <td align="right" >菜单级别：</td>
-                                <td>
-                                    <input type="text" class="form-control" id="insertMenuLevel" name="insertMenuLevel">
-                                </td>
-                            </tr>
-                            <tr>
                                 <td align="right" >菜单url：</td>
                                 <td>
                                     <input type="text" class="form-control" id="insertUrl" name="insertMenuUrl">
                                 </td>
-                                <td align="right" >父菜单id：</td>
+
+                            </tr>
+                            <tr>
+                                <td align="right" >菜单级别：</td>
                                 <td>
-                                    <input type="text" class="form-control" id="insertPid" name="insertMenuPid">
+                                    <select class="form-control" id="insertMenuLevel" name="insertMenuLevel">
+                                        <option value="">请选择</option>
+                                        <option value="1">一级菜单</option>
+                                        <option value="2">二级菜单</option>
+                                        <option value="3">按钮级菜单</option>
+                                    </select>
+                                </td>
+                                <td align="right" >父菜单</td>
+                                <td>
+                                    <select class="form-control" id="insertPid" name="insertPid">
+                                        <!--<option value="">请选择</option>-->
+                                    </select>
                                 </td>
                             </tr>
                         </table>
@@ -101,7 +109,26 @@
             });
             $("#submitInsert").click(function () {
                 insert();
-            })
+            });
+            $("#insertMenuLevel").change(function () {
+                var level = $("#insertMenuLevel").val() - 1;
+                var json = {};
+                json["level"] = level;
+                $.post("/pms/menu/query",
+                    JSON.stringify(json),
+                    function callback(data) {
+                        $("#insertPid").empty();
+                        size = data.size();
+                        if (size > 0) {
+                            for (var i = 0; i < size; i++) {
+                                var pMenu = data[i];
+                                var str = "<option value=" + pMenu.id + ">" + pMenu.name + "</option>";
+                                $("#insertPid").append(str);
+                            }
+                        }
+                    }
+                );
+            });
         });
 
         function insert() {

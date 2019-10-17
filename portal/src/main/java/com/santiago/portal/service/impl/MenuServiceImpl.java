@@ -47,7 +47,7 @@ public class MenuServiceImpl implements MenuService {
         return pageInfo;
     }
 
-    List<PmsMenu> list(MenuQuery queryDTO) {
+    public List<PmsMenu> list(MenuQuery queryDTO) {
         Example example = new Example(PmsMenu.class);
         Example.Criteria criteria = example.createCriteria();
         if (null != queryDTO.getLevel()) {
