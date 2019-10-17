@@ -1,9 +1,10 @@
 package com.santiago.notify.entity.domain;
 
 import java.util.Date;
+import javax.persistence.*;
 
-@Table(name = "rp_notify_record_log")
-public class RpNotifyRecordLog {
+@Table(name = "notify_record_log")
+public class NotifyRecordLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

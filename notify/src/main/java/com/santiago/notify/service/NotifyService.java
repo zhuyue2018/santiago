@@ -1,8 +1,9 @@
 package com.santiago.notify.service;
 
-import com.zhuyue.pay0929.notify.entity.domain.RpNotifyRecord;
+
+import com.santiago.notify.entity.domain.NotifyRecord;
 
 public interface NotifyService {
-    void insertNotifyRecord(RpNotifyRecord record);
-    void doNotify(RpNotifyRecord record);
+    void insertNotifyRecord(NotifyRecord record);
+    void doNotify(NotifyRecord record);
 }

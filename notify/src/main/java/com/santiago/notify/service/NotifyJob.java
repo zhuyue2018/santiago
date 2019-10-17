@@ -1,14 +1,15 @@
 package com.santiago.notify.service;
 
 
-import com.santiago.notify.entity.domain.RpNotifyRecord;
-import com.santiago.notify.mapper.RpNotifyRecordMapper;
+import com.santiago.notify.entity.domain.NotifyRecord;
+import com.santiago.notify.mapper.NotifyRecordMapper;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.entity.Example;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class NotifyJob {
 //        System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
 //    }
     @Autowired
-    RpNotifyRecordMapper notifyRecordMapper;
+    NotifyRecordMapper notifyRecordMapper;
     @Autowired
     NotifyService notifyService;
 
@@ -31,12 +32,12 @@ public class NotifyJob {
     private void notifyPayedTasks() {
         LocalDateTime now = LocalDateTime.now();
         Date time = now.minusMillis(30).toDate();
-        Example example = new Example(RpNotifyRecord.class);
+        Example example = new Example(NotifyRecord.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andGreaterThan("gmtCreate", time)
                 .andEqualTo("status", "0")
                 .andLessThanOrEqualTo("notifyTimes", 10);
-        List<RpNotifyRecord> recordList = notifyRecordMapper.selectByExample(example);
+        List<NotifyRecord> recordList = notifyRecordMapper.selectByExample(example);
         recordList.forEach(record -> {
             notifyService.doNotify(record);
         });

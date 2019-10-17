@@ -5,7 +5,6 @@ import com.santiago.commons.enums.ErrorCodeEnum;
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.entity.dto.request.TradeRequest;
 import com.santiago.core.entity.exception.TradeBizException;
-import com.santiago.core.service.MerchantPayConfigService;
 import com.santiago.core.wss.TradeWss;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/scanPay")
-public class ScanPayController {
-    private static final Logger logger = LoggerFactory.getLogger(ScanPayController.class);
+@RequestMapping(value = "/trade")
+public class TradeController {
+    private static final Logger logger = LoggerFactory.getLogger(TradeController.class);
     @Autowired
     TradeWss tradeWss;
-    @Autowired
-    MerchantPayConfigService merchantPayConfigService;
 
     @RequestMapping("/preOrder")
     public SimpleResponse preOrder(@Valid @RequestBody TradeRequest request, BindingResult result) {

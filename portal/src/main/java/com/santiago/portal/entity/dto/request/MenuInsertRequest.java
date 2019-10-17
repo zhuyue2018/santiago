@@ -7,40 +7,40 @@ package com.santiago.portal.entity.dto.request;
  * @create: 2019-10-16 13:18
  **/
 public class MenuInsertRequest {
-    private Short level;
-    private Long parentId;
-    private String name;
-    private String url;
+    private Short insertMenuLevel;
+    private Long insertPid;
+    private String insertMenuName;
+    private String insertMenuUrl;
 
-    public Short getLevel() {
-        return level;
+    public Short getInsertMenuLevel() {
+        return insertMenuLevel;
     }
 
-    public void setLevel(Short level) {
-        this.level = level;
+    public void setInsertMenuLevel(Short insertMenuLevel) {
+        this.insertMenuLevel = insertMenuLevel;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public Long getInsertPid() {
+        return insertPid;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setInsertPid(Long insertPid) {
+        this.insertPid = insertPid;
     }
 
-    public String getName() {
-        return name;
+    public String getInsertMenuName() {
+        return insertMenuName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInsertMenuName(String insertMenuName) {
+        this.insertMenuName = insertMenuName;
     }
 
-    public String getUrl() {
-        return url;
+    public String getInsertMenuUrl() {
+        return insertMenuUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setInsertMenuUrl(String insertMenuUrl) {
+        this.insertMenuUrl = insertMenuUrl;
     }
 }

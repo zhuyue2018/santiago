@@ -1,8 +1,8 @@
 package com.santiago.notify.service;
 
-import com.zhuyue.pay0929.notify.entity.domain.RpNotifyRecord;
-import com.zhuyue.pay0929.notify.entity.dto.OrderNotifyRequest;
-import com.zhuyue.pay0929.notify.mapper.RpNotifyRecordMapper;
+import com.santiago.notify.entity.domain.NotifyRecord;
+import com.santiago.notify.entity.dto.OrderNotifyRequest;
+import com.santiago.notify.mapper.NotifyRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +11,15 @@ import java.util.Date;
 @Service
 public class NotifyServiceImpl implements NotifyService {
     @Autowired
-    RpNotifyRecordMapper notifyRecordMapper;
+    NotifyRecordMapper notifyRecordMapper;
 
     @Override
-    public void insertNotifyRecord(RpNotifyRecord record) {
+    public void insertNotifyRecord(NotifyRecord record) {
         notifyRecordMapper.insert(record);
     }
 
     @Override
-    public void doNotify(RpNotifyRecord record) {
+    public void doNotify(NotifyRecord record) {
         // 通知商户
         String respCode = notifyMerchant(record);
         // 成功则更新status为1 失败则抛出异常
@@ -32,7 +32,7 @@ public class NotifyServiceImpl implements NotifyService {
         notifyRecordMapper.updateByPrimaryKey(record);
     }
 
-    private String notifyMerchant(RpNotifyRecord record) {
+    private String notifyMerchant(NotifyRecord record) {
         String url = record.getUrl();
         String merchantNo = record.getMerchantNo();
         String merchantOrderNo = record.getMerchantOrderNo();

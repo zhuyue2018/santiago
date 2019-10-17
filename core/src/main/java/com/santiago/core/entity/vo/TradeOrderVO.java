@@ -1,6 +1,6 @@
 package com.santiago.core.entity.vo;
 
-public class TradePaymentOrderVO {
+public class TradeOrderVO {
     private String gmtModified;
     private String status;
     private String merchantOrderNo;

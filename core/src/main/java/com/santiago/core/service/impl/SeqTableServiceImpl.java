@@ -1,7 +1,7 @@
 package com.santiago.core.service.impl;
 
-import com.zhuyue.pay0929.core.entity.domain.SeqTable;
-import com.zhuyue.pay0929.core.mapper.SeqTableMapper;
+import com.santiago.core.entity.domain.SeqTable;
+import com.santiago.core.mapper.SeqTableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

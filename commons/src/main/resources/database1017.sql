@@ -535,6 +535,7 @@ INSERT INTO `pms_menu` VALUES ('1066', '0', 'roncoo', '2016-06-03 11:07:43', 'ad
 INSERT INTO `pms_menu` VALUES ('1067', '0', 'roncoo', '2016-06-03 11:07:43', 'admin', '2016-06-03 11:07:43', 'ACTIVE', null, 'NO', '3', '64', null, '001', '对账管理-缓冲池-添加', '/recon/scratchPool/add');
 INSERT INTO `pms_menu` VALUES ('1068', '0', 'roncoo', '2016-06-03 11:07:43', 'admin', '2016-06-03 11:07:43', 'ACTIVE', null, 'NO', '3', '64', null, '001', '对账管理-缓冲池-查看', '/recon/scratchPool/edit');
 INSERT INTO `pms_menu` VALUES ('1069', '0', 'roncoo', '2016-06-03 11:07:43', 'admin', '2016-06-03 11:07:43', 'ACTIVE', null, 'NO', '3', '64', null, '001', '对账管理-缓冲池-删除', '/recon/scratchPool/delete');
+INSERT INTO `pms_menu` VALUES ('1070', '0', 'roncoo', '2016-06-03 11:07:43', 'admin', '2016-06-03 11:07:43', 'ACTIVE', null, 'NO', '3', '2', null, '001', '权限管理-菜单-查询', '/pms/menu/list');
 
 -- ----------------------------
 -- Table structure for `pms_operator`
@@ -862,6 +863,7 @@ INSERT INTO `pms_role_menu` VALUES ('1121', null, null, null, null, null, null, 
 INSERT INTO `pms_role_menu` VALUES ('1122', null, null, null, null, null, null, null, '1', '1067');
 INSERT INTO `pms_role_menu` VALUES ('1123', null, null, null, null, null, null, null, '1', '1068');
 INSERT INTO `pms_role_menu` VALUES ('1124', null, null, null, null, null, null, null, '1', '1069');
+INSERT INTO `pms_role_menu` VALUES ('1125', null, null, null, null, null, null, null, '1', '1070');
 
 -- ----------------------------
 -- Table structure for `pms_role_permission`

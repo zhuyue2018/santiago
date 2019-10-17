@@ -3,7 +3,6 @@ package com.santiago.portal.controller;
 import com.github.pagehelper.PageInfo;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.portal.entity.domain.PmsMenu;
-import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.portal.entity.domain.PmsRoleMenu;
 import com.santiago.portal.entity.dto.query.MenuQuery;
@@ -13,13 +12,11 @@ import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -49,13 +46,14 @@ public class MenuCtrl {
     @ResponseBody
     public SimpleResponse insert(@RequestBody MenuInsertRequest request) {
         PmsMenu menu = new PmsMenu();
-        menu.setName(request.getName());
-        menu.setLevel(request.getLevel());
-        menu.setUrl(request.getUrl());
-        menu.setParentId(request.getParentId());
+        menu.setName(request.getInsertMenuName());
+        menu.setLevel(request.getInsertMenuLevel());
+        menu.setUrl(request.getInsertMenuUrl());
+        menu.setParentId(request.getInsertPid());
         menu.setGmtCreate(new Date());
         menu.setGmtModified(new Date());
         menu.setStatus("ACTIVE");
+        menu.setVersion(0L);
         menuService.insert(menu);
         PmsRole admin = roleService.getByRoleCode(RoleCodeEnum.ADMIN.getCode());
         PmsRoleMenu roleMenu = new PmsRoleMenu();

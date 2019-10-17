@@ -1,14 +1,14 @@
 package com.santiago.core.service.impl;
 
-import com.zhuyue.pay0929.commons.dto.resp.SimpleResponse;
-import com.zhuyue.pay0929.core.entity.domain.RpTradePaymentRecord;
-import com.zhuyue.pay0929.core.service.ChannelInteractService;
+import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.core.entity.domain.TradeRecord;
+import com.santiago.core.service.ChannelInteractService;
 import org.springframework.stereotype.Service;
 
 @Service(value = "aliChannel")
 public class aliInteractServiecImpl implements ChannelInteractService {
     @Override
-    public SimpleResponse interact(RpTradePaymentRecord tradePaymentRecord) {
+    public SimpleResponse interact(TradeRecord tradeRecord) {
         return null;
     }
 }

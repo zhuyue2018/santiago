@@ -31,9 +31,9 @@ public class TradeWss {
     public void preOrder(@RequestBody TradeRequest request) {
         MerchantPayConfig merchantPayConfig = merchantPayConfigService.getByMerchantNo(request.getMerchantNo());
         assertNotnull(merchantPayConfig);
-        validIp(request.getOrderIp());
         MerchantPayInfo merchantPayInfo = merchantPayInfoService.getByMerchantNo(request.getMerchantNo());
         assertNotnull(merchantPayInfo);
+        validIp(request.getOrderIp());
         validSign(request, merchantPayInfo.getMd5Key());
         request.setField1(merchantPayConfig.getMerchantNo());
         request.setField2(merchantPayInfo.getMerchantName());
@@ -47,6 +47,7 @@ public class TradeWss {
 
 
     private void validIp(String orderIp) {
+
         if (false) {
             throw TradeBizException.IP_ERROR;
         }

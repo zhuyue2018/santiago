@@ -1,8 +1,8 @@
 package com.santiago.core.service;
 
-import com.zhuyue.pay0929.commons.dto.resp.SimpleResponse;
-import com.zhuyue.pay0929.core.entity.domain.RpTradePaymentRecord;
+import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.core.entity.domain.TradeRecord;
 
 public interface ChannelInteractService {
-    SimpleResponse interact(RpTradePaymentRecord tradePaymentRecord);
+    SimpleResponse interact(TradeRecord tradeRecord);
 }

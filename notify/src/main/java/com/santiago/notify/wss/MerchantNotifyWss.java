@@ -1,20 +1,20 @@
 package com.santiago.notify.wss;
 
-import com.zhuyue.pay0929.commons.dto.resp.SimpleResponse;
-import com.zhuyue.pay0929.notify.entity.domain.RpNotifyRecord;
-import com.zhuyue.pay0929.notify.mapper.RpNotifyRecordMapper;
-import com.zhuyue.pay0929.notify.service.NotifyService;
+import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.notify.entity.domain.NotifyRecord;
+import com.santiago.notify.mapper.NotifyRecordMapper;
+import com.santiago.notify.service.NotifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController(value = "/notify")
-public class NotifyWss {
+public class MerchantNotifyWss {
     @Autowired
     NotifyService notifyService;
     @Autowired
-    RpNotifyRecordMapper notifyRecordMapper;
+    NotifyRecordMapper notifyRecordMapper;
 
-    public SimpleResponse insertNotifyRecord(RpNotifyRecord notifyRecord) {
+    public SimpleResponse insertNotifyRecord(NotifyRecord notifyRecord) {
         notifyRecordMapper.insert(notifyRecord);
         return new SimpleResponse("000000", "notify recode insert successed!");
     }
@@ -24,12 +24,12 @@ public class NotifyWss {
     }
 
 
-    public String doNotify(RpNotifyRecord notifyRecord) {
+    public String doNotify(NotifyRecord notifyRecord) {
         // todo
         return "000000";
     }
 
-    public void updateRecord(RpNotifyRecord notifyRecord) {
+    public void updateRecord(NotifyRecord notifyRecord) {
         notifyRecordMapper.updateByPrimaryKey(notifyRecord);
     }
 }

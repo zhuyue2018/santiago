@@ -19,10 +19,10 @@ public class MenuCtrlTest extends BaseJunit {
 
     private MenuInsertRequest createMenuInsertRequest() {
         MenuInsertRequest request = new MenuInsertRequest();
-        request.setName("添加菜单");
-        request.setLevel(Short.valueOf("3"));
-        request.setUrl("/pms/menu/page");
-        request.setParentId(2L);
+        request.setInsertMenuName("添加菜单");
+        request.setInsertMenuLevel(Short.valueOf("3"));
+        request.setInsertMenuUrl("/pms/menu/page");
+        request.setInsertPid(2L);
         return request;
     }
 
