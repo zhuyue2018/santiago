@@ -1,5 +1,6 @@
 package com.santiago.core.wss;
 
+import com.santiago.commons.enums.SecurityRatingEnum;
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.MerchantPayConfig;
 import com.santiago.core.entity.domain.MerchantPayInfo;
@@ -33,35 +34,51 @@ public class TradeWss {
         assertNotnull(merchantPayConfig);
         MerchantPayInfo merchantPayInfo = merchantPayInfoService.getByMerchantNo(request.getMerchantNo());
         assertNotnull(merchantPayInfo);
-        validIp(request.getOrderIp());
-        validSign(request, merchantPayInfo.getMd5Key());
-        request.setField1(merchantPayConfig.getMerchantNo());
-        request.setField2(merchantPayInfo.getMerchantName());
-        request.setField3(merchantPayConfig.getFundIntoType());
+        validate(request, merchantPayConfig.getSecurityRating(), merchantPayConfig.getMerchantServerIp(), merchantPayInfo.getMd5Key());
+        request.setField1(merchantPayInfo.getMerchantName());
+        request.setField2(merchantPayConfig.getFundIntoType());
         tradeService.preOrder(request);
     }
 
-    private void assertNotnull(MerchantPayInfo merchantPayInfo) {
+    private void validate(TradeRequest request, String securityRating, String merchantServerIp, String md5Key) {
+        if (SecurityRatingEnum.SIGN.getCode().equals(securityRating)) {
+            validateIp(request.getOrderIp(), merchantServerIp);
+            validateSign(request, md5Key);
+            return;
+        }
+        if (SecurityRatingEnum.IP.getCode().equals(securityRating)) {
+            validateIp(request.getOrderIp(), merchantServerIp);
+            return;
+        }
+        if (SecurityRatingEnum.NONE.getCode().equals(securityRating)) {
+            return;
+        } else {
+            throw UserBizException.SECURITY_RATING_ERROR;
+        }
+    }
 
+    private void assertNotnull(MerchantPayInfo merchantPayInfo) {
+        if (merchantPayInfo == null) {
+            throw UserBizException.USER_PAY_CONFIG_ERROR;
+        }
     }
 
 
-    private void validIp(String orderIp) {
-
-        if (false) {
+    private void validateIp(String orderIp, String merchantServerIp) {
+        if (merchantServerIp.indexOf(orderIp) < 0) {
             throw TradeBizException.IP_ERROR;
         }
     }
 
     private void assertNotnull(MerchantPayConfig merchantPayConfig) {
         if (merchantPayConfig == null) {
-            throw UserBizException.USER_PAY_CONFIG_ERRPR;
+            throw UserBizException.USER_PAY_CONFIG_ERROR;
         }
     }
 
-    private void validSign(TradeRequest request, String paySecret) {
+    private void validateSign(TradeRequest request, String md5Key) {
         try {
-            String sign = sign(paySecret, request.getMerchantNo(), request.getProductName(), request.getOrderNo());
+            String sign = sign(md5Key, request.getMerchantNo(), request.getProductName(), request.getOrderNo());
             if (!sign.equals(request.getSign())) {
                 throw TradeBizException.SIGN_ERROR;
             }
@@ -71,12 +88,12 @@ public class TradeWss {
         }
     }
 
-    private String sign(String paySecret, String... params) {
+    private String sign(String md5Key, String... params) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0 ; i < params.length ; i ++) {
+        for (int i = 0; i < params.length; i++) {
             sb.append(params[i]);
         }
-        sb.append(paySecret);
+        sb.append(md5Key);
         return EncryptUtil.encodeMD5String(sb.toString());
     }
 }

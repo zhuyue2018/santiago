@@ -41,7 +41,7 @@ public class TradeCtrlTest extends BaseJunit {
         request.setOrderPriceStr("99.99");
         request.setOrderIp("0.0.0.0");
         request.setPayProductCode("001");
-        request.setOrderTimeStr("201910172037");
+        request.setOrderTimeStr("20191017203700");
         request.setOrderPeriodStr("30");
         request.setReturnUrl("returnUrl");
         request.setNotifyUrl("notifyUrl");

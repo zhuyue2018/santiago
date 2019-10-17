@@ -9,5 +9,9 @@ public class UserBizException extends BizException {
         super(errCode, errMsg);
     }
 
-    public static final UserBizException USER_PAY_CONFIG_ERRPR = new UserBizException(ErrorCodeEnum.USER_PAY_CONFIG_ERRPR.getCode(), ErrorCodeEnum.USER_PAY_CONFIG_ERRPR.getMsg());
+    public static final UserBizException SECURITY_RATING_ERROR = new UserBizException(ErrorCodeEnum.SECURITY_RATING_ERROR.getCode(), ErrorCodeEnum.SECURITY_RATING_ERROR.getMsg());
+    public static final UserBizException USER_PAY_CONFIG_ERROR = new UserBizException(ErrorCodeEnum.USER_PAY_CONFIG_ERROR.getCode(), ErrorCodeEnum.USER_PAY_CONFIG_ERROR.getMsg());
+    public static final UserBizException USER_PAY_INFO_ERRPR = new UserBizException(ErrorCodeEnum.USER_PAY_INFO_ERROR.getCode(), ErrorCodeEnum.USER_PAY_INFO_ERROR.getMsg());
+
+
 }

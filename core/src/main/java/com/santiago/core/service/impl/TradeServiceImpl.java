@@ -35,9 +35,8 @@ public class TradeServiceImpl implements TradeService {
 
     @Override
     public void preOrder(TradeRequest request) {
-        String merchantNo = request.getField1();
         String orderNo = request.getOrderNo();
-        assertOrderNotExist(merchantNo, orderNo);
+        assertOrderNotExist(request.getMerchantNo(), orderNo);
         TradeOrder order = createTradeOrder(request);
         TradeRecord tradePaymentRecord = createTradePaymentRecord(order);
         channelSendWss.preOrder(tradePaymentRecord, request.getPayProductCode());
@@ -61,8 +60,8 @@ public class TradeServiceImpl implements TradeService {
         TradeOrder.setProductName(request.getProductName());// 商品名称
         TradeOrder.setMerchantOrderNo(request.getOrderNo());// 订单号
         TradeOrder.setOrderAmount(new BigDecimal(request.getOrderPriceStr()));// 订单金额
-        TradeOrder.setMerchantNo(request.getField1());// 商户编号
-        TradeOrder.setMerchantName(request.getField2());// 商户名称
+        TradeOrder.setMerchantNo(request.getMerchantNo());// 商户编号
+        TradeOrder.setMerchantName(request.getField1());// 商户名称
         try {
             Date orderTime = new SimpleDateFormat("yyyyMMddHHmmss").parse(request.getOrderTimeStr());
             TradeOrder.setOrderTime(orderTime);// 下单时间
@@ -80,7 +79,7 @@ public class TradeServiceImpl implements TradeService {
         TradeOrder.setNotifyUrl(request.getNotifyUrl());// 后台通知地址
         TradeOrder.setPayProductCode(request.getPayProductCode());// 支付产品编码
         TradeOrder.setStatus("0");// 订单状态
-        TradeOrder.setFundIntoType(request.getField3());// 资金流入方向
+        TradeOrder.setFundIntoType(request.getField2());// 资金流入方向
         TradeOrder.setRemark(request.getRemark());// 支付备注
         TradeOrder.setField1(null);// 扩展字段1
         TradeOrder.setField2(null);// 扩展字段2

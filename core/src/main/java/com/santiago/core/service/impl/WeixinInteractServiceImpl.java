@@ -11,6 +11,4 @@ public class WeixinInteractServiceImpl implements ChannelInteractService {
     public SimpleResponse interact(TradeRecord tradeRecord) {
         return new SimpleResponse("000000", "weixin");
     }
-
-
 }

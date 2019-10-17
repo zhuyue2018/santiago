@@ -33,9 +33,6 @@ public class MerchantPayConfig {
     @Column(name = "risk_day")
     private Integer riskDay;
 
-    @Column(name = "pay_key")
-    private String payKey;
-
     @Column(name = "fund_into_type")
     private String fundIntoType;
 
@@ -189,20 +186,6 @@ public class MerchantPayConfig {
      */
     public void setRiskDay(Integer riskDay) {
         this.riskDay = riskDay;
-    }
-
-    /**
-     * @return pay_key
-     */
-    public String getPayKey() {
-        return payKey;
-    }
-
-    /**
-     * @param payKey
-     */
-    public void setPayKey(String payKey) {
-        this.payKey = payKey;
     }
 
     /**

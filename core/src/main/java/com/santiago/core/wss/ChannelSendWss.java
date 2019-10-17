@@ -33,12 +33,12 @@ public class ChannelSendWss {
     MerchantNotifyWss notifyWss;
 
     @PostMapping("/channel/preOrder")
-    public SimpleResponse preOrder(TradeRecord tradeRecord, String payWayCode) {
+    public SimpleResponse preOrder(TradeRecord tradeRecord, String payProductCode) {
         ChannelInteractService channel = null;
-        if ("001".equals(payWayCode)) {
+        if ("001".equals(payProductCode)) {
             channel = (ChannelInteractService) SpringContextUtil.getBean("weixinChannel");
         }
-        if ("002".equals(payWayCode)) {
+        if ("002".equals(payProductCode)) {
             channel = (ChannelInteractService)SpringContextUtil.getBean("aliChannel");
         }
         return channel.interact(tradeRecord);

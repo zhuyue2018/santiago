@@ -15,7 +15,6 @@
     <result column="is_auto_sett" jdbcType="CHAR" property="isAutoSett" />
     <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
     <result column="risk_day" jdbcType="INTEGER" property="riskDay" />
-    <result column="pay_key" jdbcType="VARCHAR" property="payKey" />
     <result column="fund_into_type" jdbcType="VARCHAR" property="fundIntoType" />
     <result column="security_rating" jdbcType="VARCHAR" property="securityRating" />
     <result column="merchant_server_ip" jdbcType="VARCHAR" property="merchantServerIp" />
