@@ -3,7 +3,12 @@ package com.santiago.portal.controller;
 import com.santiago.commons.dto.exception.BizException;
 import com.santiago.commons.dto.resp.BaseResponse;
 import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.portal.entity.domain.PmsMenu;
+import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.exception.PmsBizException;
+import com.santiago.portal.service.MenuService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,8 +16,13 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
+
 @RestControllerAdvice(basePackages = "com.santiago.portal.controller")
 public class SpringControllerAdvice {
+    @Autowired
+    MenuService menuService;
+
     @ExceptionHandler(PmsBizException.class)
     public BaseResponse handleBizException(PmsBizException e) {
         return new SimpleResponse(e.getErrCode(), e.getErrMsg());
@@ -37,6 +47,11 @@ public class SpringControllerAdvice {
      */
     @ModelAttribute
     public void addAttributes(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!"anonymousUser".equals(principal.toString())) {
+            List<PmsMenu> menuTree= menuService.listMenuTree(((PmsOperator) principal).getId());
+            model.addAttribute("menuTree", menuTree);
+        }
         model.addAttribute("author", "santiago");
     }
 }

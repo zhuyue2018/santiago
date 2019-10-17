@@ -34,9 +34,9 @@ public class RoleCtrl {
 
     @ModelAttribute
     public void init(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<PmsMenu> menuTree= menuService.listMenuTree(((PmsOperator) principal).getId());
-        model.addAttribute("menuTree", menuTree);
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        List<PmsMenu> menuTree= menuService.listMenuTree(((PmsOperator) principal).getId());
+//        model.addAttribute("menuTree", menuTree);
         List<PmsMenu> menuList = menuService.list();
         model.addAttribute("menuList", menuList);
     }

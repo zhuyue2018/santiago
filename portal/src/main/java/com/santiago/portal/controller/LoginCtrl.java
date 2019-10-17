@@ -41,14 +41,13 @@ public class LoginCtrl {
 
     @GetMapping("/index")
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PmsOperator operator = (PmsOperator)authentication.getPrincipal();
-        logger.info("当前用户为:{},获取菜单开始");
-        List<PmsMenu> menuTree= menuService.listMenuTree(operator.getId());
-        System.out.println(new Date().toString());
-        model.addAttribute("menuTree", menuTree);
-        String welcomeMsg = String.format("欢迎您，%s！您的角色为，%s", (operator).getUsername(), "");
-        model.addAttribute("welcomeMsg", welcomeMsg);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        PmsOperator operator = (PmsOperator)authentication.getPrincipal();
+//        logger.info("当前用户为:{},获取菜单开始");
+//        List<PmsMenu> menuTree= menuService.listMenuTree(operator.getId());
+//        model.addAttribute("menuTree", menuTree);
+//        String welcomeMsg = String.format("欢迎您，%s！您的角色为，%s", (operator).getUsername(), "");
+//        model.addAttribute("welcomeMsg", welcomeMsg);
         return "index";
     }
 
