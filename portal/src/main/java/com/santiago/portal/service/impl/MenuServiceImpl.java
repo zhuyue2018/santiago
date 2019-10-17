@@ -14,17 +14,12 @@ import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -43,7 +38,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public PageInfo<PmsMenu> page(MenuQuery menuQuery) {
-
         PageHelper.startPage(menuQuery.getPageNum(), menuQuery.getPageSize());
         Example example = new Example(PmsMenu.class);
         Example.Criteria criteria = example.createCriteria();
