@@ -1,4 +1,4 @@
-package com.santiago.portal.entity.dto.query;
+package com.santiago.core.entity.dto.query;
 
 import com.santiago.commons.dto.query.BaseQuery;
 

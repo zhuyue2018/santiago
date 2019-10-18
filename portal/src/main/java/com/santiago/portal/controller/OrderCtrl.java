@@ -1,12 +1,13 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.santiago.core.entity.vo.TradeOrderVO;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
-import com.santiago.portal.entity.dto.query.TradeOrderQuery;
-import com.santiago.portal.entity.dto.vo.TradeOrderVO;
+import com.santiago.core.entity.dto.query.TradeOrderQuery;
 import com.santiago.portal.entity.enums.RoleCodeEnum;
 import com.santiago.portal.service.OperatorService;
+import com.santiago.portal.service.OrderService;
 import com.santiago.portal.service.RoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/trade/order")
 public class OrderCtrl {
-//    @Autowired
-//    OrderService orderService;
+    @Autowired
+    OrderService orderService;
     @Autowired
     OperatorService operatorService;
     @Autowired
@@ -38,8 +39,7 @@ public class OrderCtrl {
     @ResponseBody
     public PageInfo<TradeOrderVO> page(@RequestBody TradeOrderQuery tradeOrderQuery, HttpServletRequest request) {
         handleTradeOrderQuery(tradeOrderQuery, request);
-//        return orderService.pageTradeOrderVO(tradeOrderQuery);
-        return null;
+        return orderService.pageTradeOrderVO(tradeOrderQuery);
     }
 
     private void handleTradeOrderQuery(TradeOrderQuery tradeOrderQuery, HttpServletRequest request) {
@@ -55,17 +55,13 @@ public class OrderCtrl {
                 tradeOrderQuery.setMerchantNo(sb.toString());
             }
         }
-        Object pageNum = request.getAttribute("pageNum");
-        Object pageSize = request.getAttribute("pageSize");
+        Integer pageNum = tradeOrderQuery.getPageNum();
+        Integer pageSize = tradeOrderQuery.getPageSize();
         if (null == pageNum) {
             tradeOrderQuery.setPageNum(1);
-        } else {
-            tradeOrderQuery.setPageNum((Integer) pageNum);
         }
         if (null == pageSize) {
             tradeOrderQuery.setPageSize(10);
-        } else {
-            tradeOrderQuery.setPageSize((Integer) pageSize);
         }
     }
 

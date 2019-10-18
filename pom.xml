@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.santiago</groupId>
     <artifactId>dependency</artifactId>
-    <version>${dependency.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>dependency</name>
     <packaging>pom</packaging>
 
