@@ -2,6 +2,7 @@ package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.santiago.core.entity.vo.TradeOrderVO;
+import com.santiago.portal.annotation.LogParams;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
@@ -35,6 +36,7 @@ public class OrderCtrl {
         return "trade/order/list";
     }
 
+    @LogParams
     @RequestMapping(value = {"/page"})
     @ResponseBody
     public PageInfo<TradeOrderVO> page(@RequestBody TradeOrderQuery tradeOrderQuery, HttpServletRequest request) {

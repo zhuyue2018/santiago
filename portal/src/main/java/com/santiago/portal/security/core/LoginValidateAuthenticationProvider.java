@@ -1,5 +1,6 @@
 package com.santiago.portal.security.core;
 
+import com.santiago.portal.annotation.LogParams;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.portal.service.OperatorService;
@@ -38,7 +39,6 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         //获取输入phone
         String username = authentication.getName();
         String rawPassword = (String) authentication.getCredentials();

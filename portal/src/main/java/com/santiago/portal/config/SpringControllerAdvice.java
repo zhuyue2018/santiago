@@ -1,4 +1,4 @@
-package com.santiago.portal.controller;
+package com.santiago.portal.config;
 
 import com.santiago.commons.dto.exception.BizException;
 import com.santiago.commons.dto.resp.BaseResponse;
