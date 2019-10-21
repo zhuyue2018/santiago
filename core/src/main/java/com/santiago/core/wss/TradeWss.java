@@ -5,6 +5,7 @@ import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.MerchantPayConfig;
 import com.santiago.core.entity.domain.MerchantPayInfo;
 import com.santiago.core.entity.dto.request.TradeRequest;
+import com.santiago.core.entity.dto.response.PreOrderResponse;
 import com.santiago.core.entity.exception.TradeBizException;
 import com.santiago.core.entity.exception.UserBizException;
 import com.santiago.core.service.MerchantPayConfigService;
@@ -28,18 +29,6 @@ public class TradeWss {
     @Autowired
     TradeService tradeService;
 
-    @PostMapping(value = "/preOrder")
-    public void preOrder(@RequestBody TradeRequest request) {
-        MerchantPayConfig merchantPayConfig = merchantPayConfigService.getByMerchantNo(request.getMerchantNo());
-        assertNotnull(merchantPayConfig);
-        MerchantPayInfo merchantPayInfo = merchantPayInfoService.getByMerchantNo(request.getMerchantNo());
-        assertNotnull(merchantPayInfo);
-        validate(request, merchantPayConfig.getSecurityRating(), merchantPayConfig.getMerchantServerIp(), merchantPayInfo.getMd5Key());
-        request.setField1(merchantPayInfo.getMerchantName());
-        request.setField2(merchantPayConfig.getFundIntoType());
-        tradeService.preOrder(request);
-    }
-
     private void validate(TradeRequest request, String securityRating, String merchantServerIp, String md5Key) {
         if (SecurityRatingEnum.SIGN.getCode().equals(securityRating)) {
             validateIp(request.getOrderIp(), merchantServerIp);
@@ -57,12 +46,23 @@ public class TradeWss {
         }
     }
 
+    @PostMapping(value = "/preOrder")
+    public PreOrderResponse preOrder(@RequestBody TradeRequest request) {
+        MerchantPayConfig merchantPayConfig = merchantPayConfigService.getByMerchantNo(request.getMerchantNo());
+        assertNotnull(merchantPayConfig);
+        MerchantPayInfo merchantPayInfo = merchantPayInfoService.getByMerchantNo(request.getMerchantNo());
+        assertNotnull(merchantPayInfo);
+        validate(request, merchantPayConfig.getSecurityRating(), merchantPayConfig.getMerchantServerIp(), merchantPayInfo.getMd5Key());
+        request.setField1(merchantPayInfo.getMerchantName());
+        request.setField2(merchantPayConfig.getFundIntoType());
+        return tradeService.preOrder(request);
+    }
+
     private void assertNotnull(MerchantPayInfo merchantPayInfo) {
         if (merchantPayInfo == null) {
             throw UserBizException.USER_PAY_CONFIG_ERROR;
         }
     }
-
 
     private void validateIp(String orderIp, String merchantServerIp) {
         if (merchantServerIp.indexOf(orderIp) < 0) {

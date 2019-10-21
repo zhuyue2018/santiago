@@ -5,6 +5,7 @@ import com.santiago.commons.util.DateUtil;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
 import com.santiago.core.entity.dto.request.TradeRequest;
+import com.santiago.core.entity.dto.response.PreOrderResponse;
 import com.santiago.core.entity.exception.TradeBizException;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.mapper.TradeRecordMapper;
@@ -34,12 +35,12 @@ public class TradeServiceImpl implements TradeService {
     TradeRecordMapper tradeRecordMapper;
 
     @Override
-    public void preOrder(TradeRequest request) {
+    public PreOrderResponse preOrder(TradeRequest request) {
         String orderNo = request.getOrderNo();
         assertOrderNotExist(request.getMerchantNo(), orderNo);
         TradeOrder order = createTradeOrder(request);
         TradeRecord tradePaymentRecord = createTradePaymentRecord(order);
-        channelSendWss.preOrder(tradePaymentRecord, request.getPayProductCode());
+        return channelSendWss.preOrder(tradePaymentRecord, request.getPayProductCode());
     }
 
     private void assertOrderNotExist(String merchantNo, String orderNo) {

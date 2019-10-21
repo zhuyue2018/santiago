@@ -9,6 +9,7 @@ public enum ErrorCodeEnum {
     USER_PAY_CONFIG_ERROR("100005", "用户支付配置有误"),
     USER_PAY_INFO_ERROR("100006", "用户配置有误"),
     SECURITY_RATING_ERROR("100007", "用户安全级别配置有误"),
+    TRADE_STATUS_ERROR("100008", "交易状态异常"),
     SYSTEM_ERROR("999999", "系统内部错误");
     private String code;
     private String msg;

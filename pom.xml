@@ -32,10 +32,18 @@
         <swagger.annotations.version>2.0.9</swagger.annotations.version>
         <thymeleaf.extras.springsecurity5.version>3.0.4.RELEASE</thymeleaf.extras.springsecurity5.version>
         <xstream.version>1.4.11.1</xstream.version>
+        <commons.collections4.version>4.4</commons.collections4.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons.collections4.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.santiago</groupId>
                 <artifactId>channel-interact</artifactId>

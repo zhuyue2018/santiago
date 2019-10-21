@@ -1,7 +1,11 @@
 package com.santiago.core.entity.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class WeixinNotifyRequest {
+    @NotNull
     private String bankOrderNo;
+    @NotNull
     private String status;
 
     public String getBankOrderNo() {

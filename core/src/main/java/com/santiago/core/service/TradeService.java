@@ -1,7 +1,8 @@
 package com.santiago.core.service;
 
 import com.santiago.core.entity.dto.request.TradeRequest;
+import com.santiago.core.entity.dto.response.PreOrderResponse;
 
 public interface TradeService {
-    void preOrder(TradeRequest request);
+    PreOrderResponse preOrder(TradeRequest request);
 }

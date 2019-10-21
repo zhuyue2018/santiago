@@ -16,7 +16,7 @@ public class MerchantNotifyWss {
 
     public SimpleResponse insertNotifyRecord(NotifyRecord notifyRecord) {
         notifyRecordMapper.insert(notifyRecord);
-        return new SimpleResponse("000000", "notify recode insert successed!");
+        return new SimpleResponse("000000", "notify recode insert success!");
     }
 
     public SimpleResponse pageNotifyRecord(){

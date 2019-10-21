@@ -2,9 +2,12 @@ package com.santiago.core.wss;
 
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.util.JsonUtil;
+import com.santiago.core.entity.domain.MerchantPayProduct;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
 import com.santiago.core.entity.dto.WeixinNotifyRequest;
+import com.santiago.core.entity.dto.response.PreOrderResponse;
+import com.santiago.core.mapper.MerchantPayProductMapper;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.mapper.TradeRecordMapper;
 import com.santiago.core.service.ChannelInteractService;
@@ -31,74 +34,30 @@ public class ChannelSendWss {
     TradeRecordMapper recordMapper;
     @Autowired
     MerchantNotifyWss notifyWss;
+    @Autowired
+    MerchantPayProductMapper merchantPayProductMapper;
+
 
     @PostMapping("/channel/preOrder")
-    public SimpleResponse preOrder(TradeRecord tradeRecord, String payProductCode) {
-        ChannelInteractService channel = null;
-        if ("001".equals(payProductCode)) {
-            channel = (ChannelInteractService) SpringContextUtil.getBean("weixinChannel");
+    public PreOrderResponse preOrder(TradeRecord tradeRecord, String payProductCode) {
+        MerchantPayProduct merchantPayProduct = getByMerchantNoAndPayProductCode(tradeRecord.getMerchantNo(), payProductCode);
+        if (null == merchantPayProduct) {
+            logger.warn("merchantOrderNo:{},trxNo:{},merchantNo:{},productCode:{},payProduct not available");
         }
-        if ("002".equals(payProductCode)) {
-            channel = (ChannelInteractService)SpringContextUtil.getBean("aliChannel");
-        }
+        ChannelInteractService channel = (ChannelInteractService) SpringContextUtil.getBean(merchantPayProduct.getPayProductCode());
         return channel.interact(tradeRecord);
     }
 
-    @RequestMapping("/channel/weixin/receiveNotify")
-    public String receiveNotify(@RequestBody WeixinNotifyRequest request) {
-        logger.info("收到回调通知，request:{}", JsonUtil.create().objectToJson(request));
-        String bankOrderNo = request.getBankOrderNo();
-        if (StringUtils.isEmpty(bankOrderNo)) {
-            logger.error("bankOrderNo空");
-            return "error";
-        }
-        TradeRecord tradePaymentRecordTemp = new TradeRecord();
-        tradePaymentRecordTemp.setBankOrderNo(bankOrderNo);
-        TradeRecord tradePaymentRecord = recordMapper.selectOne(tradePaymentRecordTemp);
-        TradeOrder tradePaymentOrderTemp = new TradeOrder();
-        tradePaymentOrderTemp.setMerchantNo(tradePaymentRecord.getMerchantNo());
-        tradePaymentOrderTemp.setMerchantOrderNo(tradePaymentRecord.getMerchantOrderNo());
-        TradeOrder tradePaymentOrder = orderMapper.selectOne(tradePaymentOrderTemp);
-        if ("success".equals(request.getStatus())) {
-            if ("0".equals(tradePaymentOrder.getStatus()) && "0".equals(tradePaymentRecord.getStatus())) {
-                tradePaymentOrder.setStatus("1");
-                tradePaymentOrder.setGmtModified(new Date());
-                orderMapper.updateByPrimaryKey(tradePaymentOrder);
-                tradePaymentRecord.setStatus("1");
-                tradePaymentRecord.setGmtModified(new Date());
-                recordMapper.updateByPrimaryKey(tradePaymentRecord);
-                NotifyRecord notifyRecord = createNotifyRecord(tradePaymentOrder, "1");
-                String result = notifyWss.doNotify(notifyRecord);
-                if ("000000".equals(result)) {
-                    notifyRecord.setGmtModified(new Date());
-                    notifyRecord.setNotifyTimes(1);
-                    notifyRecord.setStatus("1");
-                    notifyWss.updateRecord(notifyRecord);
-                }
-            } else {
-                logger.info("bankOrderNo:{},状态不为0，不能更新", tradePaymentRecord.getBankOrderNo());
-                return "success";
-            }
-        }
-
-        return "success";
+    private MerchantPayProduct getByMerchantNoAndPayProductCode(String merchantNo, String payProductCode) {
+        MerchantPayProduct merchantPayProductTemp = new MerchantPayProduct();
+        merchantPayProductTemp.setMerchantNo(merchantNo);
+        merchantPayProductTemp.setPayProductCode(payProductCode);
+        MerchantPayProduct merchantPayProduct = merchantPayProductMapper.selectOne(merchantPayProductTemp);
+        return merchantPayProduct;
     }
 
-    private NotifyRecord createNotifyRecord(TradeOrder tradePaymentOrder, String orderStatus) {
-        NotifyRecord notifyRecord = new NotifyRecord();
-        notifyRecord.setVersion("1.0.0");
-        notifyRecord.setGmtCreate(new Date());
-        notifyRecord.setGmtModified(new Date());
-        notifyRecord.setNotifyTimes(0);
-        notifyRecord.setLimitNotifyTimes(20);
-        notifyRecord.setStatus("0");
-        notifyRecord.setUrl(tradePaymentOrder.getNotifyUrl());
-        notifyRecord.setMerchantNo(tradePaymentOrder.getMerchantNo());
-        notifyRecord.setMerchantOrderNo(tradePaymentOrder.getMerchantOrderNo());
-        notifyRecord.setOrderStatus(orderStatus);
-        notifyWss.insertNotifyRecord(notifyRecord);
-        return notifyRecord;
-    }
+
+
 
 
 }

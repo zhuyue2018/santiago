@@ -49,31 +49,5 @@ public class TradeCtrlTest extends BaseJunit {
         request.setSign("sign");
         return request;
     }
-    /**
-     * @NotNull(message = "merchantNo should not be null")
-     *     private String merchantNo;
-     *     @Size(max = 20, min = 1, message = "productName should be between 1 and 20")
-     *     private String productName;
-     *     @Size(max = 20, min = 1, message = "orderNo should be between 1 and 20")
-     *     private String orderNo;
-     *     @NotNull(message = "orderPriceStr should not be null")
-     *     private String orderPriceStr;
-     *     @NotNull(message = "orderIp should not be null")
-     *     private String orderIp;
-     *     @NotNull(message = "payProductCode should not be null")
-     *     private String payProductCode;
-     *     @NotNull(message = "orderTimeStr should not be null")
-     *     private String orderTimeStr;
-     *     @NotNull(message = "orderPeriodStr should not be null")
-     *     private String orderPeriodStr;
-     *     @NotNull(message = "returnUrl should not be null")
-     *     private String returnUrl;
-     *     @NotNull(message = "notifyUrl should not be null")
-     *     private String notifyUrl;
-     *     @NotNull(message = "remark should not be null")
-     *     private String remark;
-     *     @NotNull(message = "sign should not be null")
-     *     private String sign; // 签名
-     */
 
 }
