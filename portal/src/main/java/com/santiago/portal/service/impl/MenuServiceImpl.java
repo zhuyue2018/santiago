@@ -73,14 +73,14 @@ public class MenuServiceImpl implements MenuService {
         List<PmsMenu> menuList = listByOperatorId(operatorId);
         List<PmsMenu> menuTree = menuList.stream().filter(menu -> "1".equals(String.valueOf(menu.getLevel()))).collect(Collectors.toList());
         List<PmsMenu> menuLeaf = menuList.stream().filter(menu -> "2".equals(String.valueOf(menu.getLevel()))).collect(Collectors.toList());
-        menuTree.forEach(menu1 -> {
+        menuTree.forEach(level1 -> {
             ArrayList<PmsMenu> sonMenus = new ArrayList<>();
-            menuLeaf.forEach(menu2 -> {
-                if (menu1.getId().compareTo(menu2.getParentId()) == 0) {
-                    sonMenus.add(menu2);
+            menuLeaf.forEach(level2 -> {
+                if (level1.getId().compareTo(level2.getParentId()) == 0) {
+                    sonMenus.add(level2);
                 }
             });
-            menu1.setSonMenus(sonMenus);
+            level1.setSonMenus(sonMenus);
         });
         String menuTreeStr = jsonUtil.objectToJson(menuTree);
         redisService.set("menuTree:operatorId:" + operatorId, menuTreeStr, 300);

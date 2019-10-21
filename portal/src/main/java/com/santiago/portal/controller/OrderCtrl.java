@@ -31,7 +31,7 @@ public class OrderCtrl {
     @Autowired
     RoleService roleService;
 
-    @RequestMapping(value = {"", "/list", "/init"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/list", "/init"})
     public String init() {
         return "trade/order/list";
     }

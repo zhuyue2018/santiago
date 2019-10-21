@@ -1,27 +1,19 @@
 package com.santiago.portal.controller;
 
-import com.santiago.portal.entity.domain.PmsMenu;
-import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -39,7 +31,7 @@ public class LoginCtrl {
         return "login";
     }
 
-    @GetMapping("/index")
+    @RequestMapping(value = "/index")
     public String index(Model model) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        PmsOperator operator = (PmsOperator)authentication.getPrincipal();
@@ -48,7 +40,7 @@ public class LoginCtrl {
 //        model.addAttribute("menuTree", menuTree);
 //        String welcomeMsg = String.format("欢迎您，%s！您的角色为，%s", (operator).getUsername(), "");
 //        model.addAttribute("welcomeMsg", welcomeMsg);
-        return "index";
+        return "index2";
     }
 
     public String tryCache(String viewName, Model model, HttpServletRequest request, HttpServletResponse response) {

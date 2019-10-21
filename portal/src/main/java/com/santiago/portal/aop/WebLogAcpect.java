@@ -27,7 +27,7 @@ public class WebLogAcpect {
 
 
     @Before("@annotation(com.santiago.portal.annotation.LogParams)")
-    public void doBefore(JoinPoint joinPoint) throws Throwable {
+    public void doBefore(JoinPoint joinPoint) {
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -39,7 +39,7 @@ public class WebLogAcpect {
     }
 
     @AfterReturning(returning = "ret", pointcut = "@annotation(com.santiago.portal.annotation.LogParams)")
-    public void doAfterReturning(Object ret) throws Throwable {
+    public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容
         logger.info("RESPONSE : " + ret);
     }
