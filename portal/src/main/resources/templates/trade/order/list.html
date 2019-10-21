@@ -166,7 +166,7 @@
         // }
 
         // function getData() {
-        //     $.post("/trade/order/page",
+        //     $.get("/trade/order/page",
         //         $("#orderQuery").serialize(),
         //         function callback(data) {
         //             $("#Pagination").pagination(data.total,
@@ -174,7 +174,7 @@
         //                     current_page:(data.pageNum - 1),
         //                     items_per_page:data.pageSize,
         //                     callback: function (current_page,per_page){
-        //                         $.post("/merchant/query",
+        //                         $.get("/trade/order/page",
         //                             $("#orderQuery").serialize()+"&pageNum=" + (current_page) + "&pageSize=" + per_page,
         //                             function callback(data) {
         //                                 analyzeData(data);

@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //自定义标签权限配置
         web.privilegeEvaluator(secTagPrivilegeEvaluator);
-        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("static/**");
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

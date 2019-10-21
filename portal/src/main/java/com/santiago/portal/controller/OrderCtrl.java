@@ -44,6 +44,51 @@ public class OrderCtrl {
         return orderService.pageTradeOrderVO(tradeOrderQuery);
     }
 
+//    @LogParams
+//    @RequestMapping(value = {"/page"})
+//    @ResponseBody
+//    public PageInfo<TradeOrderVO> page(HttpServletRequest request) {
+//        TradeOrderQuery tradeOrderQuery = httpRequest2Query(request);
+//        return orderService.pageTradeOrderVO(tradeOrderQuery);
+//    }
+
+    private TradeOrderQuery httpRequest2Query(HttpServletRequest request) {
+        TradeOrderQuery tradeOrderQuery = new TradeOrderQuery();
+        Object status = request.getAttribute("status");
+        Object merchantOrderNo = request.getAttribute("merchantOrderNo");
+        Object merchantNo = request.getAttribute("merchantNo");
+        Object payProductCode = request.getAttribute("payProductCode");
+        Object trxNo = request.getAttribute("trxNo");
+        Object pageNum = request.getAttribute("pageNum");
+        Object pageSize = request.getAttribute("pageSize");
+        if (null != status) {
+            tradeOrderQuery.setStatus(status.toString());
+        }
+        if (null != merchantOrderNo) {
+            tradeOrderQuery.setMerchantOrderNo(merchantOrderNo.toString());
+        }
+        if (null != merchantNo) {
+            tradeOrderQuery.setMerchantNo(merchantNo.toString());
+        }
+        if (null != payProductCode) {
+            tradeOrderQuery.setPayProductCode(payProductCode.toString());
+        }
+        if (null != trxNo) {
+            tradeOrderQuery.setTrxNo(trxNo.toString());
+        }
+        if (null == tradeOrderQuery.getPageNum()) {
+            tradeOrderQuery.setPageNum(1);
+        } else {
+            tradeOrderQuery.setPageNum((Integer) pageNum);
+        }
+        if (null == tradeOrderQuery.getPageSize()) {
+            tradeOrderQuery.setPageSize(10);
+        } else {
+            tradeOrderQuery.setPageSize((Integer) pageSize);
+        }
+        return tradeOrderQuery;
+    }
+
     private void handleTradeOrderQuery(TradeOrderQuery tradeOrderQuery, HttpServletRequest request) {
         if (StringUtils.isEmpty(tradeOrderQuery.getMerchantNo())) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -57,12 +102,10 @@ public class OrderCtrl {
                 tradeOrderQuery.setMerchantNo(sb.toString());
             }
         }
-        Integer pageNum = tradeOrderQuery.getPageNum();
-        Integer pageSize = tradeOrderQuery.getPageSize();
-        if (null == pageNum) {
+        if (null == tradeOrderQuery.getPageNum()) {
             tradeOrderQuery.setPageNum(1);
         }
-        if (null == pageSize) {
+        if (null == tradeOrderQuery.getPageSize()) {
             tradeOrderQuery.setPageSize(10);
         }
     }
