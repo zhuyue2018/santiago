@@ -27,8 +27,8 @@ public class TradeCtrlTest extends BaseJunit {
     }
 
     @Test
-//    @Transactional
-//    @Rollback(value = true)
+    @Transactional
+    @Rollback(value = true)
     public void successCase() throws Exception {
         TradeRequest request = createRequest();
         mock(request, "000000");
@@ -37,7 +37,7 @@ public class TradeCtrlTest extends BaseJunit {
     private TradeRequest createRequest() {
         TradeRequest request = new TradeRequest();
         request.setMerchantNo("001");
-        request.setOrderNo("123458");
+        request.setOrderNo("123459");
         request.setOrderPriceStr("99.99");
         request.setOrderIp("0.0.0.0");
         request.setPayProductCode("001");

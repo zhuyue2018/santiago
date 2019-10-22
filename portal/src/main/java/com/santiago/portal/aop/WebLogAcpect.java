@@ -22,11 +22,16 @@ public class WebLogAcpect {
     private Logger logger = LoggerFactory.getLogger(WebLogAcpect.class);
 
 //    @Pointcut("execution(public * com.santiago.portal.controller.*.*(..))")
-//    @Before("webLog()")
-//    @AfterReturning(returning = "ret", pointcut = "webLog()")
+//    @Pointcut("@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)")
+//    @Before("pointcut()")
+//    @AfterReturning(returning = "ret", pointcut = "pointcut()")
 
+    @Pointcut("@within(com.santiago.portal.annotation.WebLogParams)")
+    public void pointcut() {
 
-    @Before("@annotation(com.santiago.portal.annotation.LogParams)")
+    }
+
+    @Before("@annotation(com.santiago.portal.annotation.WebLogParams)")
     public void doBefore(JoinPoint joinPoint) {
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -38,7 +43,7 @@ public class WebLogAcpect {
         logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
 
-    @AfterReturning(returning = "ret", pointcut = "@annotation(com.santiago.portal.annotation.LogParams)")
+    @AfterReturning(returning = "ret", pointcut = "@annotation(com.santiago.portal.annotation.WebLogParams)")
     public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容
         logger.info("RESPONSE : " + ret);

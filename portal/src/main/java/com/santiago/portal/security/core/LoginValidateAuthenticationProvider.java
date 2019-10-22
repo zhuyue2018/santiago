@@ -1,6 +1,5 @@
 package com.santiago.portal.security.core;
 
-import com.santiago.portal.annotation.LogParams;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.portal.service.OperatorService;

@@ -19,4 +19,13 @@ public class SimpleResponse extends BaseResponse {
         super(code, msg);
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "SimpleResponse{" +
+                "content='" + content + '\'' +
+                ", code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

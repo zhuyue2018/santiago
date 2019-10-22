@@ -174,4 +174,27 @@ public class TradeRequest {
     public void setField5(String field5) {
         this.field5 = field5;
     }
+
+    @Override
+    public String toString() {
+        return "TradeRequest{" +
+                "merchantNo='" + merchantNo + '\'' +
+                ", productName='" + productName + '\'' +
+                ", orderNo='" + orderNo + '\'' +
+                ", orderPriceStr='" + orderPriceStr + '\'' +
+                ", orderIp='" + orderIp + '\'' +
+                ", payProductCode='" + payProductCode + '\'' +
+                ", orderTimeStr='" + orderTimeStr + '\'' +
+                ", orderPeriodStr='" + orderPeriodStr + '\'' +
+                ", returnUrl='" + returnUrl + '\'' +
+                ", notifyUrl='" + notifyUrl + '\'' +
+                ", remark='" + remark + '\'' +
+                ", sign='" + sign + '\'' +
+                ", field1='" + field1 + '\'' +
+                ", field2='" + field2 + '\'' +
+                ", field3='" + field3 + '\'' +
+                ", field4='" + field4 + '\'' +
+                ", field5='" + field5 + '\'' +
+                '}';
+    }
 }

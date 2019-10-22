@@ -1,5 +1,6 @@
 package com.santiago.gateway.controller;
 
+import com.santiago.commons.annotation.LogParams;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.enums.ErrorCodeEnum;
 import com.santiago.commons.util.JsonUtil;
@@ -23,9 +24,9 @@ public class TradeController {
     @Autowired
     TradeWss tradeWss;
 
+    @LogParams
     @RequestMapping("/preOrder")
     public SimpleResponse preOrder(@Valid @RequestBody TradeRequest request, BindingResult result) {
-        logger.info("扫码支付,接收参数:{}", JsonUtil.create().objectToJson(request));
         if (result.hasErrors()) {
             String message = result.getFieldError().getDefaultMessage();
             throw new TradeBizException(ErrorCodeEnum.PARAMS_ERROR.getCode(), message);
@@ -33,6 +34,4 @@ public class TradeController {
         tradeWss.preOrder(request);
         return new SimpleResponse(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getMsg());
     }
-
-
 }
