@@ -10,7 +10,7 @@ public class SeqTableServiceImpl implements SeqTableService {
     @Autowired
     SeqTableMapper seqTableMapper;
     @Override
-    public SeqTable getSeqNextValue(SeqTable seqTable) {
+    public synchronized SeqTable getSeqNextValue(SeqTable seqTable) {
         SeqTable table = seqTableMapper.selectOne(seqTable);
         table.setCurrentValue(table.getCurrentValue() + table.getIncrement());
         seqTableMapper.updateByPrimaryKey(table);

@@ -10,6 +10,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,16 +33,49 @@ public class TradeCtrlTest extends BaseJunit {
 
     @Test
     @Transactional
-    @Rollback(value = true)
+    @Rollback
     public void successCase() throws Exception {
-        TradeRequest request = createRequest();
-        mock(request, "000000");
+        long start = new Date().getTime();
+        CountDownLatch countDownLatch = new CountDownLatch(5);
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        threadPool.submit(new Call(countDownLatch, "1"));
+        threadPool.submit(new Call(countDownLatch, "2"));
+        threadPool.submit(new Call(countDownLatch, "3"));
+        threadPool.submit(new Call(countDownLatch, "4"));
+        threadPool.submit(new Call(countDownLatch, "5"));
+        countDownLatch.await();
+        long timeLong = new Date().getTime() - start;
+        System.out.println(timeLong);
+
     }
 
-    private TradeRequest createRequest() {
+    class Call implements Runnable {
+        private CountDownLatch countDownLatch;
+        private String prefix;
+
+        public Call(CountDownLatch countDownLatch, String prefix) {
+            this.countDownLatch = countDownLatch;
+            this.prefix = prefix;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0 ; i < 100 ; i++) {
+                TradeRequest request = createRequest(prefix + new Date().getTime());
+                try {
+                    mock(request, "000000");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            countDownLatch.countDown();
+        }
+    }
+
+    private TradeRequest createRequest(String orderNo) {
         TradeRequest request = new TradeRequest();
         request.setMerchantNo("001");
-        request.setOrderNo("123459");
+        request.setOrderNo(orderNo);
         request.setOrderPriceStr("99.99");
         request.setOrderIp("0.0.0.0");
         request.setPayProductCode("001");
