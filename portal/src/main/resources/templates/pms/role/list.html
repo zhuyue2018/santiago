@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="layer1">
 <div th:fragment="content">
+<!--    <link rel="stylesheet" href="http://106.54.105.3:9080/cdn/zTree_v3/css/demo.css" type="text/css">-->
+<!--    <link rel="stylesheet" href="http://106.54.105.3:9080/cdn/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">-->
+<!--    <script type="text/javascript" src="http://106.54.105.3:9080/cdn/zTree_v3/js/jquery.ztree.core.js"></script>-->
+<!--    <script type="text/javascript" src="http://106.54.105.3:9080/cdn/zTree_v3/js/jquery.ztree.excheck.js"></script>-->
+
     <div class="container">
         <caption>角色管理</caption>
         <form action="" method="post" id = "roleQuery">
@@ -58,7 +63,31 @@
                 </div>
             </div>
         </form>
+        <div class="modal fade" id="relateMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel2">
+                            关联菜单
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="zTreeDemoBackground left">
+                            <ul id="menuTree" class="ztree"></ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
     </div>
+
+
     <!--<a href="/role/insert">新增角色</a>-->
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#insertRole">新增角色</button>
     <div class="modal fade" id="insertRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -161,20 +190,18 @@
             $.post("/pms/role/page",
                 $("#roleQuery").serialize(),
                 function callback(data) {
-                    $("#Pagination").pagination(data.total,
-                        {
+                    $("#Pagination").pagination(data.total, {
                             current_page:(data.pageNum - 1),
                             items_per_page:data.pageSize,
-                            callback: function (current_page,per_page){
-                                $.post("/role/query",
+                            callback: function (current_page,per_page) {
+                                $.post("/pms/role/page",
                                     $("#roleQuery").serialize()+"&pageNum=" + (current_page) + "&pageSize=" + per_page,
                                     function callback(data) {
                                         analyzeData(data);
                                     }
                                 );
                             }
-                        }
-                    );
+                        });
                     analyzeData(data);
                 }
             );
@@ -197,12 +224,22 @@
                     str += role.id + "</td><td>";
                     str += role.roleName + "</td><td>";
                     str += role.roleResources + "</td><td>";
-                    str += "<a href=\"/pms/role/relateMenu/" + role.id + "\">关联菜单</a><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
+                    // str += "<a href=\"/pms/role/relateMenuInit/" + role.id + "\">关联菜单</a><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
+                    str += "<button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#relateMenu' onclick='relateMenu(" + role.id + ")'>管理菜单</button></td></tr><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
                     $("#roleList").append(str);
                 }
             } else {
                 $("#roleList").html("无数据");
             }
+        }
+
+
+        function relateMenu(id) {
+            var url = "/pms/role/relateMenu/" + id;
+            $.get(url, function (zNodes) {
+                var str = "";
+
+            });
         }
     </script>
 </div>
