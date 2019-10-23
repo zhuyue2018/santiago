@@ -67,6 +67,7 @@ public class TradeOrderServiceImpl implements TradeOrderService {
 
     private TradeOrderVO transfer2VO(TradeOrder order) {
         TradeOrderVO vo = new TradeOrderVO();
+        vo.setId(String.valueOf(order.getId()));
         vo.setOrderTime(new DateTime(order.getGmtModified()).toString("yyyy-MM-dd HH:mm:ss"));
         vo.setGmtCreate(new DateTime(order.getGmtCreate()).toString("yyyy-MM-dd HH:mm:ss"));
         vo.setGmtModified(new DateTime(order.getGmtModified()).toString("yyyy-MM-dd HH:mm:ss"));

@@ -6,6 +6,7 @@ import com.santiago.portal.annotation.WebLogParams;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
+import com.santiago.portal.entity.dto.vo.TradeDetail;
 import com.santiago.portal.entity.enums.RoleCodeEnum;
 import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.OrderService;
@@ -43,6 +44,20 @@ public class OrderCtrl {
         handleTradeOrderQuery(tradeOrderQuery);
         return orderService.pageTradeOrderVO(tradeOrderQuery);
     }
+
+    @RequestMapping(value = {"/detail"})
+    @ResponseBody
+    public TradeDetail detail(HttpServletRequest request) {
+        String tradeOrderId = request.getParameter("id");
+        return getTradeDetail(tradeOrderId);
+    }
+
+    private TradeDetail getTradeDetail(String tradeOrderId) {
+        TradeDetail tradeDetail = new TradeDetail();
+        tradeDetail.setTradeOrderId(tradeOrderId);
+        return tradeDetail;
+    }
+
 
 //    @WebLogParams
 //    @RequestMapping(value = {"/page"})

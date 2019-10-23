@@ -3,15 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>登录页</title>
-</head>
-<body>
+    <link href="favicon.ico" rel="shortcut icon" />
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <h2>登录页</h2>
-    <form id="loginForm" action="/login" method="post">
-        用户名：<input type="text" id="username" name="username"/><br/><br/>
-        密&nbsp;&nbsp;&nbsp;码：<input type="password" id="password" name="password"/><br/><br/>
-        <input type="checkbox" name="remember-me"/>记住我<br/><br/>
-        <button id="loginBtn" type="button">登录</button>
+</head>
+<body style=" background: url(http://global.bing.com/az/hprichbg/rb/RavenWolf_EN-US4433795745_1920x1080.jpg) no-repeat center center fixed; background-size: 100%;">
+
+    <!--<h2>登录页</h2>-->
+    <!--<form id="loginForm" action="/login" method="post">-->
+        <!--用户名：<input type="text" id="username" name="username"/><br/><br/>-->
+        <!--密&nbsp;&nbsp;&nbsp;码：<input type="password" id="password" name="password"/><br/><br/>-->
+        <!--<input type="checkbox" name="remember-me"/>记住我<br/><br/>-->
+        <!--<button id="loginBtn" type="button">登录</button>-->
+    <!--</form>-->
+
+    <form id="loginForm" class="modal-dialog" style="margin-top: 10%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" id="myModalLabel">登录</h4>
+            </div>
+            <div class="modal-body" id = "model-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码" autocomplete="off">
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<input type="checkbox" name="remember-me"/>记住我<br/><br/>-->
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary form-control" id="loginBtn">登录</button>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default form-control" id="registerBtn">注册</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
     </form>
 
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>

@@ -1,6 +1,7 @@
 package com.santiago.core.entity.vo;
 
 public class TradeOrderVO {
+    private String id;
     private String gmtCreate;
     private String gmtModified;
     private String status;
@@ -12,6 +13,14 @@ public class TradeOrderVO {
     private String remark;
     private String trxNo;
     private String productName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getGmtCreate() {
         return gmtCreate;
