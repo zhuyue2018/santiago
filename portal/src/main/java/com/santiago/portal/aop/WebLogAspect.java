@@ -17,9 +17,9 @@ import java.util.Arrays;
 
 @Aspect
 @Component
-public class WebLogAcpect {
+public class WebLogAspect {
 
-    private Logger logger = LoggerFactory.getLogger(WebLogAcpect.class);
+    private Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
 
 //    @Pointcut("execution(public * com.santiago.portal.controller.*.*(..))")
 //    @Pointcut("@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)")

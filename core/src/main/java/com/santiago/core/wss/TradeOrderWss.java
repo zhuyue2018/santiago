@@ -18,7 +18,7 @@ public class TradeOrderWss {
         return null;
     }
 
-    @RequestMapping(value = "page", method = RequestMethod.POST)
+    @RequestMapping(value = "page###", method = RequestMethod.POST)
     public PageInfo page(TradeOrderQuery tradeOrderQuery) {
         PageInfo pageInfo =  tradeOrderService.pageTradeOrder(tradeOrderQuery);
         return pageInfo;

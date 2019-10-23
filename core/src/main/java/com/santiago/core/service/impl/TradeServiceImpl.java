@@ -63,6 +63,7 @@ public class TradeServiceImpl implements TradeService {
         TradeOrder.setOrderAmount(new BigDecimal(request.getOrderPriceStr()));// 订单金额
         TradeOrder.setMerchantNo(request.getMerchantNo());// 商户编号
         TradeOrder.setMerchantName(request.getField1());// 商户名称
+        TradeOrder.setTrxNo(buildNoService.buildTrxNo());
         try {
             Date orderTime = new SimpleDateFormat("yyyyMMddHHmmss").parse(request.getOrderTimeStr());
             TradeOrder.setOrderTime(orderTime);// 下单时间
@@ -100,7 +101,7 @@ public class TradeServiceImpl implements TradeService {
         tradePaymentRecord.setStatus("0");
         tradePaymentRecord.setProductName(order.getProductName());
         tradePaymentRecord.setMerchantOrderNo(order.getMerchantOrderNo());
-        tradePaymentRecord.setTrxNo(buildNoService.buildTrxNo());
+        tradePaymentRecord.setTrxNo(order.getTrxNo());
         tradePaymentRecord.setBankOrderNo(buildNoService.buildBankOrderNo());
         tradePaymentRecord.setMerchantName(order.getMerchantName());
         tradePaymentRecord.setMerchantNo(order.getMerchantNo());

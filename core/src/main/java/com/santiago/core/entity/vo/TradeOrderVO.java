@@ -1,14 +1,25 @@
 package com.santiago.core.entity.vo;
 
 public class TradeOrderVO {
+    private String gmtCreate;
     private String gmtModified;
     private String status;
     private String merchantOrderNo;
     private String orderAmount;
     private String merchantName;
     private String orderTime;
-    private String payWayName;
+    private String payProductName;
     private String remark;
+    private String trxNo;
+    private String productName;
+
+    public String getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(String gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
 
     public String getGmtModified() {
         return gmtModified;
@@ -58,12 +69,28 @@ public class TradeOrderVO {
         this.orderTime = orderTime;
     }
 
-    public String getPayWayName() {
-        return payWayName;
+    public String getPayProductName() {
+        return payProductName;
     }
 
-    public void setPayWayName(String payWayName) {
-        this.payWayName = payWayName;
+    public void setPayProductName(String payProductName) {
+        this.payProductName = payProductName;
+    }
+
+    public String getTrxNo() {
+        return trxNo;
+    }
+
+    public void setTrxNo(String trxNo) {
+        this.trxNo = trxNo;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getRemark() {

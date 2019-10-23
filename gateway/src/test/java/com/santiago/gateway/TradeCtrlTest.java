@@ -60,7 +60,7 @@ public class TradeCtrlTest extends BaseJunit {
 
         @Override
         public void run() {
-            for (int i = 0 ; i < 100 ; i++) {
+            for (int i = 0 ; i < 10 ; i++) {
                 TradeRequest request = createRequest(prefix + new Date().getTime());
                 try {
                     mock(request, "000000");
@@ -78,6 +78,7 @@ public class TradeCtrlTest extends BaseJunit {
         request.setOrderNo(orderNo);
         request.setOrderPriceStr("99.99");
         request.setOrderIp("0.0.0.0");
+        request.setProductName("benz");
         request.setPayProductCode("001");
         request.setOrderTimeStr("20191017203700");
         request.setOrderPeriodStr("30");

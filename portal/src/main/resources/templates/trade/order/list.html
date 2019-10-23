@@ -26,6 +26,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <td align="right">订单状态</td>
+                    <td>
+                        <select class="form-control" id="status" name="status">
+                            <option value="" selected>所有</option>
+                            <option value="0">初始化</option>
+                            <option value="1">成功</option>
+                            <option value="2">失败</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td align="right" >起始时间：</td>
                     <td>
                         <input type="text" class="form-control" name="beginTime" id="beginTime"/>
@@ -76,15 +87,15 @@
 
     <script>
         $(document).ready(function(){
-            // getData();
+            getData();
             $("#query").click(function(){
                 query();
             });
             $("#beginTime").click(function(){
-                WdatePicker({readOnly:true,maxDate:'#F{\'%y-%M-%d\'}',dateFmt:'yyyy-MM-dd'});
+                WdatePicker({readOnly:true,maxDate:'#F{\'%y-%M-%d\'}',dateFmt:'yyyy-M-d H:mm:ss'});
             });
             $("#endTime").click(function(){
-                WdatePicker({readOnly:true,maxDate:'#F{\'%y-%M-%d\'}',dateFmt:'yyyy-MM-dd'});
+                WdatePicker({readOnly:true,maxDate:'#F{\'%y-%M-%d\'}',dateFmt:'yyyy-M-d H:mm:ss'});
             });
         });
         function query() {
@@ -232,5 +243,6 @@
             }
         }
     </script>
+
 </div>
 

@@ -39,8 +39,8 @@ public class OrderCtrl {
     @WebLogParams
     @RequestMapping(value = {"/page"})
     @ResponseBody
-    public PageInfo<TradeOrderVO> page(@RequestBody TradeOrderQuery tradeOrderQuery, HttpServletRequest request) {
-        handleTradeOrderQuery(tradeOrderQuery, request);
+    public PageInfo<TradeOrderVO> page(@RequestBody TradeOrderQuery tradeOrderQuery) {
+        handleTradeOrderQuery(tradeOrderQuery);
         return orderService.pageTradeOrderVO(tradeOrderQuery);
     }
 
@@ -89,7 +89,7 @@ public class OrderCtrl {
         return tradeOrderQuery;
     }
 
-    private void handleTradeOrderQuery(TradeOrderQuery tradeOrderQuery, HttpServletRequest request) {
+    private void handleTradeOrderQuery(TradeOrderQuery tradeOrderQuery) {
         if (StringUtils.isEmpty(tradeOrderQuery.getMerchantNo())) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             PmsOperator operator = (PmsOperator) authentication.getPrincipal();

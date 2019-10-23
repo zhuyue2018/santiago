@@ -7,8 +7,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    #    url: jdbc:mysql://106.54.105.3:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    url: jdbc:mysql://127.0.0.1:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://106.54.105.3:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: root
   jackson:

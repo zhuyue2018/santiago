@@ -21,4 +21,14 @@ public enum StatusEnum {
     public String getMsg() {
         return msg;
     }
+
+    public static String getMsgByCode(String code) {
+        StatusEnum[] values = StatusEnum.values();
+        for (StatusEnum status : values) {
+            if (status.getCode().equals(code)) {
+                return status.getMsg();
+            }
+        }
+        return null;
+    }
 }
