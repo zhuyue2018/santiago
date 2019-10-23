@@ -1,16 +1,16 @@
 package com.santiago.portal.entity.dto.vo;
 
 public class RoleVO {
-    private Integer id;
+    private Long id;
     private String roleName;
-    private String roleKey;
+    private String roleCode;
     private String roleResources;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -22,12 +22,12 @@ public class RoleVO {
         this.roleName = roleName;
     }
 
-    public String getRoleKey() {
-        return roleKey;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setRoleKey(String roleKey) {
-        this.roleKey = roleKey;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
     public String getRoleResources() {

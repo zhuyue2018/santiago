@@ -9,8 +9,10 @@ import com.santiago.portal.entity.dto.vo.RoleVO;
 import com.santiago.portal.mapper.PmsOperatorRoleMapper;
 import com.santiago.portal.mapper.PmsRoleMapper;
 import com.santiago.portal.service.RoleService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,15 +68,29 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public PageInfo<RoleVO> page(RoleQuery queryDTO) {
-//        Integer pageNum = null == queryDTO.getPageNum() ? 1 : queryDTO.getPageNum();
-//        Integer pageSize = null == queryDTO.getPageSize() ? 10 : queryDTO.getPageSize();
         PageHelper.startPage(queryDTO.getPageNum(), queryDTO.getPageSize());
-        List<RoleVO> roleVOList = listVO(queryDTO);
-        PageInfo<RoleVO> pageInfo = new PageInfo<>(roleVOList);
+        Example example = new Example(PmsRole.class);
+        Example.Criteria criteria = example.createCriteria();
+        List<PmsRole> roleList = roleMapper.selectByExample(example);
+        PageInfo pageInfo = new PageInfo(roleList);
+        List<RoleVO> VOList = transfer2VO(pageInfo.getList());
+        pageInfo.setList(VOList);
         return pageInfo;
     }
 
-    private List<RoleVO> listVO(RoleQuery queryDTO) {
-        return null;
+    private List<RoleVO> transfer2VO(List<PmsRole> roleList) {
+        if (CollectionUtils.isEmpty(roleList)) {
+            return null;
+        }
+        List<RoleVO> VOList = new ArrayList<>();
+        roleList.forEach(pmsRole -> {
+            RoleVO roleVO = new RoleVO();
+            roleVO.setId(pmsRole.getId());
+            roleVO.setRoleCode(pmsRole.getRoleCode());
+            roleVO.setRoleName(pmsRole.getRoleName());
+            VOList.add(roleVO);
+        });
+        return VOList;
     }
+
 }

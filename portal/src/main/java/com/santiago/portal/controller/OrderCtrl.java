@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,16 +106,31 @@ public class OrderCtrl {
     }
 
     private void handleTradeOrderQuery(TradeOrderQuery tradeOrderQuery) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PmsOperator operator = (PmsOperator) authentication.getPrincipal();
         if (StringUtils.isEmpty(tradeOrderQuery.getMerchantNo())) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            PmsOperator operator = (PmsOperator) authentication.getPrincipal();
 //            List<PmsRole> roleList = authentication.getAuthorities().stream().map(grantedAuthority -> (PmsRole) grantedAuthority).collect(Collectors.toList());
             if (!hasAdminRole(operator)) {
                 List<String> merchantNoList = operatorService.listMerchantNoByOperatorId(operator.getId());
-                StringBuilder sb = new StringBuilder();
-                merchantNoList.forEach(s -> sb.append(s).append("|"));
-                sb.deleteCharAt(sb.length() - 1);
-                tradeOrderQuery.setMerchantNo(sb.toString());
+                if (CollectionUtils.isEmpty(merchantNoList)) {
+                    tradeOrderQuery.setMerchantNo("000");
+                } else {
+                    StringBuilder sb = new StringBuilder();
+                    merchantNoList.forEach(s -> sb.append(s).append("|"));
+                    sb.deleteCharAt(sb.length() - 1);
+                    tradeOrderQuery.setMerchantNo(sb.toString());
+                }
+            }
+        } else {
+            if (!hasAdminRole(operator)) {
+                List<String> merchantNoList = operatorService.listMerchantNoByOperatorId(operator.getId());
+                if (CollectionUtils.isEmpty(merchantNoList)) {
+                    tradeOrderQuery.setMerchantNo("000");
+                } else {
+                    if (!merchantNoList.contains(tradeOrderQuery.getMerchantNo())) {
+                        tradeOrderQuery.setMerchantNo("000");
+                    }
+                }
             }
         }
         if (null == tradeOrderQuery.getPageNum()) {

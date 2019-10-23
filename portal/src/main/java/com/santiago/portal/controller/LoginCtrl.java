@@ -40,7 +40,7 @@ public class LoginCtrl {
 //        model.addAttribute("menuTree", menuTree);
 //        String welcomeMsg = String.format("欢迎您，%s！您的角色为，%s", (operator).getUsername(), "");
 //        model.addAttribute("welcomeMsg", welcomeMsg);
-        return "index2";
+        return "index";
     }
 
     public String tryCache(String viewName, Model model, HttpServletRequest request, HttpServletResponse response) {

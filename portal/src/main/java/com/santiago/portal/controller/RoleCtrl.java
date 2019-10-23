@@ -4,11 +4,14 @@ import com.github.pagehelper.PageInfo;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.portal.entity.domain.*;
 import com.santiago.portal.entity.dto.query.RoleQuery;
+import com.santiago.portal.entity.dto.vo.RelateMenu;
 import com.santiago.portal.entity.dto.vo.RoleVO;
 import com.santiago.portal.mapper.PmsOperatorRoleMapper;
 import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,10 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/role")
+@RequestMapping(value = "/pms/role")
 public class RoleCtrl {
     @Autowired
     RoleService roleService;
@@ -41,9 +45,9 @@ public class RoleCtrl {
         model.addAttribute("menuList", menuList);
     }
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = {"", "list", "init"}, method = RequestMethod.GET)
     public String init() {
-        return "/menu/role";
+        return "pms/role/list";
     }
 
     @PostMapping(value = "/insert")
@@ -57,6 +61,47 @@ public class RoleCtrl {
         role.setRoleName(roleName);
         roleService.insert(role);
         return new SimpleResponse("000000", "cg");
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/relateMenu/{id}")
+    public List<RelateMenu> relateMenu(@PathVariable(value = "id") String id) {
+        List<PmsMenu> allMenus = menuService.list();
+        List<PmsMenu> relatedMenus = menuService.listByRoleId(Long.parseLong(id));
+        List<RelateMenu> list = new ArrayList();
+        allMenus.forEach(pmsMenu -> {
+            RelateMenu menu = new RelateMenu();
+            menu.setId(String.valueOf(pmsMenu.getId()));
+            menu.setName(pmsMenu.getName());
+            menu.setpId(String.valueOf(pmsMenu.getParentId()));
+            if ("1".equals(pmsMenu.getLevel()) || "2".equals(pmsMenu.getLevel())) {
+                menu.setOpen(false);
+            }
+            relatedMenus.forEach(pmsMenu1 -> {
+                if (pmsMenu.equals(pmsMenu1)) {
+                    menu.setChecked(true);
+                }
+            });
+            list.add(menu);
+        });
+        return list;
+        /**
+         *         var zNodes =[
+         *             { id:1, pId:0, name:"随意勾选 1", open:false},
+         *             { id:11, pId:1, name:"随意勾选 1-1", open:false},
+         *             { id:111, pId:11, name:"随意勾选 1-1-1"},
+         *             { id:112, pId:11, name:"随意勾选 1-1-2"},
+         *             { id:12, pId:1, name:"随意勾选 1-2", open:false},
+         *             { id:121, pId:12, name:"随意勾选 1-2-1"},
+         *             { id:122, pId:12, name:"随意勾选 1-2-2"},
+         *             { id:2, pId:0, name:"随意勾选 2", checked:true, open:false},
+         *             { id:21, pId:2, name:"随意勾选 2-1"},
+         *             { id:22, pId:2, name:"随意勾选 2-2", open:false},
+         *             { id:221, pId:22, name:"随意勾选 2-2-1", checked:true},
+         *             { id:222, pId:22, name:"随意勾选 2-2-2"},
+         *             { id:23, pId:2, name:"随意勾选 2-3"}
+         *         ];
+         */
     }
 
     @PostMapping(value = "/delete/{id}")
@@ -73,9 +118,9 @@ public class RoleCtrl {
         return new SimpleResponse("000000", "cg");
     }
 
-    @PostMapping(value = "query")
+    @PostMapping(value = "/page")
     @ResponseBody
-    public PageInfo<RoleVO> query(HttpServletRequest request) {
+    public PageInfo<RoleVO> page(HttpServletRequest request) {
         RoleQuery queryDTO = transferQueryDTO(request);
         PageInfo<RoleVO> pageInfo = roleService.page(queryDTO);
         return pageInfo;

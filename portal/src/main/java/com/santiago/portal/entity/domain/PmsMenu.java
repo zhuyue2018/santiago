@@ -3,6 +3,7 @@ package com.santiago.portal.entity.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 @Table(name = "pms_menu")
@@ -304,5 +305,18 @@ public class PmsMenu implements Serializable {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PmsMenu menu = (PmsMenu) o;
+        return id.equals(menu.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

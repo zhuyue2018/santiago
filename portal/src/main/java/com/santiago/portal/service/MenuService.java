@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.List;
 
 public interface MenuService {
-    List<PmsMenu> listMenuTree(Long userId);
+    List<PmsMenu> listMenuTree(Long operatorId);
     PageInfo<PmsMenu> page(MenuQuery menuQuery);
     List<PmsMenu> listByRoleId(Long id);
     List<PmsMenu> list();
