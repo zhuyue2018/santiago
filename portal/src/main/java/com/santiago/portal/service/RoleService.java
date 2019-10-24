@@ -14,4 +14,5 @@ public interface RoleService {
     List<PmsRole> list();
     List<PmsRole> listByOperatorId(Long id);
     PageInfo<RoleVO> page(RoleQuery queryDTO);
+    PmsRole getMerchant();
 }

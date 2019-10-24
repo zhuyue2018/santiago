@@ -1,7 +1,9 @@
 package com.santiago.gateway;
 
+import com.santiago.commons.util.EncryptUtil;
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.entity.dto.request.TradeRequest;
+import com.santiago.core.entity.exception.TradeBizException;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -34,7 +36,7 @@ public class TradeCtrlTest extends BaseJunit {
     @Test
     @Transactional
     @Rollback
-    public void successCase() throws Exception {
+    public void concurrentCase() throws Exception {
         long start = new Date().getTime();
         CountDownLatch countDownLatch = new CountDownLatch(5);
         ExecutorService threadPool = Executors.newFixedThreadPool(5);
@@ -74,19 +76,37 @@ public class TradeCtrlTest extends BaseJunit {
 
     private TradeRequest createRequest(String orderNo) {
         TradeRequest request = new TradeRequest();
-        request.setMerchantNo("001");
+        String merNo = "001";
+        String productName = "benz";
+        request.setMerchantNo(merNo);
         request.setOrderNo(orderNo);
         request.setOrderPriceStr("99.99");
         request.setOrderIp("0.0.0.0");
-        request.setProductName("benz");
+        request.setProductName(productName);
         request.setPayProductCode("001");
         request.setOrderTimeStr("20191017203700");
         request.setOrderPeriodStr("30");
         request.setReturnUrl("returnUrl");
         request.setNotifyUrl("notifyUrl");
         request.setRemark("test");
-        request.setSign("sign");
+        request.setSign(sign("123456", merNo, productName, orderNo));
         return request;
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void successCase() throws Exception {
+        TradeRequest request = createRequest("201910241145");
+        mock(request, "000000");
+    }
+
+    private String sign(String md5Key, String... params) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < params.length; i++) {
+            sb.append(params[i]);
+        }
+        sb.append(md5Key);
+        return EncryptUtil.encodeMD5String(sb.toString());
+    }
 }

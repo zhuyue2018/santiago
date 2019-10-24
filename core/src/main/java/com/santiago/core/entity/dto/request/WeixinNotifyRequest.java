@@ -1,4 +1,4 @@
-package com.santiago.core.entity.dto;
+package com.santiago.core.entity.dto.request;
 
 import javax.validation.constraints.NotNull;
 

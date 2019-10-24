@@ -3,7 +3,7 @@ package com.santiago.core.wss;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
-import com.santiago.core.entity.dto.WeixinNotifyRequest;
+import com.santiago.core.entity.dto.request.WeixinNotifyRequest;
 import com.santiago.core.entity.exception.ChannelReceiveBizException;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.mapper.TradeRecordMapper;

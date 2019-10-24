@@ -4,7 +4,7 @@ import com.santiago.commons.dto.resp.BaseResponse;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.enums.ErrorCodeEnum;
 import com.santiago.commons.util.JsonUtil;
-import com.santiago.core.entity.dto.WeixinNotifyRequest;
+import com.santiago.core.entity.dto.request.WeixinNotifyRequest;
 import com.santiago.core.entity.exception.TradeBizException;
 import com.santiago.core.wss.ChannelReceiveWss;
 import org.slf4j.Logger;

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layer1">
+<div th:fragment="content">
+    <div class="container">
+        <caption>商户管理</caption>
+        <form action="" method="post" id = "menuQuery">
+            <table class="table table-striped" >
+                <tr>
+                    <td align="right" >菜单Id：</td>
+                    <td>
+                        <input type="text" class="form-control" id="menuId" name="menuId">
+                    </td>
+                    <td align="right" >菜单名称：</td>
+                    <td>
+                        <input type="text" class="form-control" id="menuName" name="menuName">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="outer clearfix u-inquire">
+            <button id="query" class="btn large panel-green">查询</button>
+        </div>
+    </div>
+    <div class="container">
+        <caption>菜单列表</caption>
+        <form action="" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>菜单Id</td>
+                        <td>菜单名称</td>
+                        <td>菜单url</td>
+                        <td>菜单级别</td>
+                        <td>父菜单id</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody id="menuList">
+                </tbody>
+            </table>
+            <div id="fixed-table-pagination" class="clearfix">
+                <div class="pull-right">
+                    <div class="pages">
+                        <div id="Pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#insertmenu">新增商户</button>
+    <div class="modal fade" id="insertmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新增商户
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="insertForm">
+                        <table class="table table-striped" >
+                            <tr>
+                                <td align="right" >商户名称：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertMerchantName" name="insertMerchantName">
+                                </td>
+                                <td align="right" >账户号：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertUrl" name="insertMenuUrl">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" >手机号码：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertMobile" name="insertMobile">
+                                </td>
+                                <td align="right" >登录密码：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertPassword" name="insertPassword">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" >支付密码：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertPayPassword" name="insertPayPassword">
+                                </td>
+                                <td align="right" >自动对账：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertAutoSettle" name="insertAutoSettle">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" >安全策略：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertSecurityRate" name="insertSecurityRate">
+                                </td>
+                                <td align="right" >ip白名单：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertMerchantServerIp" name="insertMerchantServerIp">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" >支付产品：</td>
+                                <td id="payProductDiv">
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id = "submitInsert">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            getPayProduct();
+
+            // getData();
+            // $("#query").click(function () {
+            //     query();
+            // });
+            $("#submitInsert").click(function () {
+                insert();
+            });
+            // $("#insertMenuLevel").change(function () {
+            //     var level = $("#insertMenuLevel").val() - 1;
+            //     var json = {};
+            //     json["level"] = level;
+            //     $.ajax("/pms/menu/query", {
+            //         data: JSON.stringify(json),
+            //         contentType: "application/json",
+            //         datatype: "json",
+            //         type: "post",
+            //         success: function (data) {
+            //             $("#insertPid").empty();
+            //             if (data.length > 0) {
+            //                 for (var i = 0; i < data.length; i++) {
+            //                     var pMenu = data[i];
+            //                     var str = "<option value=" + pMenu.id + ">" + pMenu.name + "</option>";
+            //                     $("#insertPid").append(str);
+            //                 }
+            //             }
+            //         }
+            //     });
+            // });
+        });
+
+        function insert() {
+            $("#insertmenu").modal("hide");
+            var array = $("#insertForm").serializeArray();
+            var obj = {};
+            var map = {};
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].name.indexOf("feeRate") < 0) {
+                    obj[array[i].name] = array[i].value;
+                } else {
+                    map[array[i].name] = array[i].value;
+                }
+            }
+            obj["insertPayProductCode"] = map;
+            console.log(obj);
+            console.log(JSON.stringify(obj));
+            $.ajax("/merchant/merchantInfo/add", {
+                data: JSON.stringify(obj),
+                contentType: "application/json",
+                datatype: "json",
+                type: "post",
+                success: function (data) {
+                    if ("000000" == data.code) {
+                        alert("新增菜单成功");
+                    } else {
+                        alert("新增菜单失败");
+                    }
+                    query();
+                }
+            });
+        }
+
+        function deletemenu(id) {
+            if (confirm("确定删除菜单？")) {
+                $.post("/menu/delete/" + id,
+                    function callback(data) {
+                        if ("000000" == data.code) {
+                            alert("删除菜单成功！");
+                        } else {
+                            alert("删除菜单失败！")
+                        }
+                    }
+                );
+            }
+        }
+
+        function query() {
+            if (!checkParam()) {
+                return;
+            }
+            getData();
+        }
+
+        function getPayProduct() {
+            $.get("/pay/payProduct/list", function (data) {
+                data.length;
+                var str = "";
+                for (var i = 0 ; i < data.length ; i++) {
+                    var payProduct = data[i];
+                    str += "产品编码："+ payProduct.payProductCode +"；费率：<input type='text' class='form-control' name='" + payProduct.payProductCode + ":feeRate'><br>"
+                }
+                $("#payProductDiv").empty();
+                $("#payProductDiv").append(str);
+            });
+        }
+
+        function getData() {
+            var array = $("#menuQuery").serializeArray();
+            var obj = {};
+            for (var i = 0; i < array.length; i++) {
+                obj[array[i].name] = array[i].value;
+            }
+            $.ajax("/pms/menu/page", {
+                data: JSON.stringify(obj),
+                contentType: "application/json",
+                datatype: "json",
+                type: "post",
+                success: function (data) {
+                    $("#Pagination").pagination(data.total, {
+                        current_page: (data.pageNum - 1),
+                        items_per_page: data.pageSize,
+                        callback: function (current_page, per_page) {
+                            obj["pageNum"] = current_page;
+                            obj["pageSize"] = per_page;
+                            console.log(JSON.stringify(obj));
+                            $.ajax("/pms/menu/page", {
+                                data: JSON.stringify(obj),
+                                contentType: "application/json",
+                                datatype: "json",
+                                type: "post",
+                                success: function (data) {
+                                    analyzeData(data);
+                                }
+                            });
+                        }
+                    });
+                    analyzeData(data);
+                }
+            });
+        }
+
+        // 检查参数
+        function checkParam() {
+            return true;
+        }
+
+        // 解析数据
+        function analyzeData(data) {
+            $("#menuList").empty();
+            if (data.total > 0) {
+                var menuList = data.list;
+                var length = data.size;
+                for (var i = 0; i < length; i++) {
+                    var menu = menuList[i];
+                    var str = "<tr><td>";
+                    str += menu.id + "</td><td>";
+                    str += menu.name + "</td><td>";
+                    str += menu.url + "</td><td>";
+                    str += menu.level + "</td><td>";
+                    str += menu.parentId + "</td><td>";
+                    str += "<button href= '/menu/update/'" + menu.id + ">修改</button><button onclick='deletemenu("+ menu.id +")'>删除</button></td></tr>";
+                    $("#menuList").append(str);
+                }
+            } else {
+                $("#menuList").html("无数据");
+            }
+        }
+    </script>
+</div>
+

@@ -78,6 +78,11 @@ public class RoleServiceImpl implements RoleService {
         return pageInfo;
     }
 
+    @Override
+    public PmsRole getMerchant() {
+        return getByRoleCode("merchant");
+    }
+
     private List<RoleVO> transfer2VO(List<PmsRole> roleList) {
         if (CollectionUtils.isEmpty(roleList)) {
             return null;
