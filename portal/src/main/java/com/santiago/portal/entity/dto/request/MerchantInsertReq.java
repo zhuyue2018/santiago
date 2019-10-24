@@ -1,5 +1,6 @@
 package com.santiago.portal.entity.dto.request;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 /**
@@ -9,15 +10,25 @@ import java.util.HashMap;
  * @create: 2019-10-24 12:15
  **/
 public class MerchantInsertReq {
+    @NotNull
     private String insertMerchantName;
+    @NotNull
     private String insertAccountNo;
+    @NotNull
     private String insertMobile;
+    @NotNull
     private String insertPassword;
+    @NotNull
     private String insertPayPassword;
+    @NotNull
     private boolean insertAutoSettle;
+    @NotNull
     private String insertSecurityRate;
+    @NotNull
     private String insertMerchantServerIp;
+    @NotNull
     private HashMap<String, String> insertPayProductCode;
+    @NotNull
     private String insertRealName;
 
     public String getInsertMerchantName() {

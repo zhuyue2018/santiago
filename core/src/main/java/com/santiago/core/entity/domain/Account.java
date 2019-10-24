@@ -104,7 +104,7 @@ public class Account {
     /**
      * 逻辑删除：0为未删除，1为删除
      */
-    private Boolean delete;
+    private String delete;
 
     /**
      * @return id
@@ -413,7 +413,7 @@ public class Account {
      *
      * @return delete - 逻辑删除：0为未删除，1为删除
      */
-    public Boolean getDelete() {
+    public String getDelete() {
         return delete;
     }
 
@@ -422,7 +422,7 @@ public class Account {
      *
      * @param delete 逻辑删除：0为未删除，1为删除
      */
-    public void setDelete(Boolean delete) {
+    public void setDelete(String delete) {
         this.delete = delete;
     }
 }

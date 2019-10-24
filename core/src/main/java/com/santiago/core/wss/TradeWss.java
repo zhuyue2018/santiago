@@ -77,14 +77,15 @@ public class TradeWss {
     }
 
     private void validateSign(TradeRequest request, String md5Key) {
+        String sign = "";
         try {
-            String sign = sign(md5Key, request.getMerchantNo(), request.getProductName(), request.getOrderNo());
-            if (!sign.equals(request.getSign())) {
-                throw TradeBizException.SIGN_ERROR;
-            }
+            sign = sign(md5Key, request.getMerchantNo(), request.getProductName(), request.getOrderNo());
         } catch (Exception e) {
             logger.warn("orderNo:{},系统构造签名异常", request.getOrderNo());
             throw TradeBizException.SYSTEM_ERROR;
+        }
+        if (!sign.equals(request.getSign())) {
+            throw TradeBizException.SIGN_ERROR;
         }
     }
 

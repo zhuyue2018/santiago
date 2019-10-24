@@ -64,9 +64,16 @@ public class MerchantCtrl {
     }
 
     private MerchantInsertDTO createMerchantInsertDTO(MerchantInsertReq req) {
-
-        return null;
+        MerchantInsertDTO dto = new MerchantInsertDTO();
+        dto.setAccountNo(req.getInsertAccountNo());
+        dto.setMobile(req.getInsertMobile());
+        dto.setPassword(req.getInsertPassword());
+        dto.setPayPassword(req.getInsertPayPassword());
+        dto.setAutoSettle(req.isInsertAutoSettle());
+        dto.setSecurityRate(req.getInsertSecurityRate());
+        dto.setMerchantServerIp(req.getInsertMerchantServerIp());
+        dto.setPayProductCode(req.getInsertPayProductCode());
+        dto.setRealName(req.getInsertRealName());
+        return dto;
     }
-
-
 }

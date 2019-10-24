@@ -2,10 +2,7 @@ package com.santiago.core.wss;
 
 import com.santiago.commons.enums.PublicStatusEnum;
 import com.santiago.commons.util.EncryptUtil;
-import com.santiago.core.entity.domain.Account;
-import com.santiago.core.entity.domain.MerchantInfo;
-import com.santiago.core.entity.domain.MerchantPayConfig;
-import com.santiago.core.entity.domain.MerchantPayInfo;
+import com.santiago.core.entity.domain.*;
 import com.santiago.core.entity.dto.MerchantInsertDTO;
 import com.santiago.core.mapper.AccountMapper;
 import com.santiago.core.mapper.MerchantInfoMapper;
@@ -41,7 +38,7 @@ public class MerchantWss {
         MerchantInfo merchantInfo = new MerchantInfo();
         merchantInfo.setGmtCreate(new Date());
         merchantInfo.setGmtModified(new Date());
-        merchantInfo.setStatus(PublicStatusEnum.ACTIVE.name());
+        merchantInfo.setStatus(PublicStatusEnum.ACTIVE.getCode());
         merchantInfo.setMerchantNo(merchantNo);
         merchantInfo.setMerchantName(dto.getMerchantName());
         merchantInfo.setAccountNo(accountNo);
@@ -54,11 +51,12 @@ public class MerchantWss {
         account.setGmtCreate(new Date());
         account.setGmtModified(new Date());
         account.setVersion("1.0.0");
+        account.setRemark("2");
         account.setAccountNo(accountNo);// todo
         account.setBalance(new BigDecimal("0"));
         account.setFreezeBalance(new BigDecimal("0"));
         account.setSecurityMoney(new BigDecimal("0"));
-        account.setStatus(PublicStatusEnum.ACTIVE.name());
+        account.setStatus(PublicStatusEnum.ACTIVE.getCode());
         account.setTotalExpend(new BigDecimal("0"));
         account.setTotalIncome(new BigDecimal("0"));
         account.setTodayIncome(new BigDecimal("0"));
@@ -66,7 +64,8 @@ public class MerchantWss {
         account.setAccountType("0");
         account.setSettAmount(new BigDecimal("0"));
         account.setMerchantNo(merchantNo);
-        accountMapper.insert(account);
+        account.setDelete("0");
+        accountMapper.insertUseGeneratedKeys(account);
         // 生成支付配置
         MerchantPayConfig payConfig = new MerchantPayConfig();
         payConfig.setGmtCreate(new Date());
@@ -85,8 +84,12 @@ public class MerchantWss {
         payInfo.setStatus(PublicStatusEnum.ACTIVE.getCode());
         payInfo.setMerchantNo(merchantNo);
         payInfo.setMerchantName(dto.getMerchantName());
-        payInfo.setMd5Key("todo");
+        payInfo.setMd5Key("123456");
         payInfoMapper.insert(payInfo);
+        MerchantPayProduct merchantPayProduct = new MerchantPayProduct();
+        merchantPayProduct.setMerchantNo(merchantNo);
+        merchantPayProduct.setPayProductCode("001"); // todo
+        merchantPayProduct.setFeeRate(new BigDecimal("0")); // todo
         return merchantInfo.getId();
     }
 }

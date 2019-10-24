@@ -76,8 +76,8 @@ public class TradeCtrlTest extends BaseJunit {
 
     private TradeRequest createRequest(String orderNo) {
         TradeRequest request = new TradeRequest();
-        String merNo = "001";
-        String productName = "benz";
+        String merNo = "88882019102410001136";
+        String productName = "volvo";
         request.setMerchantNo(merNo);
         request.setOrderNo(orderNo);
         request.setOrderPriceStr("99.99");
@@ -94,10 +94,10 @@ public class TradeCtrlTest extends BaseJunit {
     }
 
     @Test
-    @Transactional
-    @Rollback
+//    @Transactional
+//    @Rollback
     public void successCase() throws Exception {
-        TradeRequest request = createRequest("201910241145");
+        TradeRequest request = createRequest("201910241146");
         mock(request, "000000");
     }
 

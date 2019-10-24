@@ -69,7 +69,7 @@
                                 </td>
                                 <td align="right" >账户号：</td>
                                 <td>
-                                    <input type="text" class="form-control" id="insertUrl" name="insertMenuUrl">
+                                    <input type="text" class="form-control" id="insertAccountNo" name="insertAccountNo">
                                 </td>
                             </tr>
                             <tr>
@@ -105,6 +105,10 @@
                             <tr>
                                 <td align="right" >支付产品：</td>
                                 <td id="payProductDiv">
+                                </td>
+                                <td align="right" >真实姓名：</td>
+                                <td>
+                                    <input type="text" class="form-control" id="insertRealName" name="insertRealName">
                                 </td>
                             </tr>
 
@@ -166,8 +170,6 @@
                 }
             }
             obj["insertPayProductCode"] = map;
-            console.log(obj);
-            console.log(JSON.stringify(obj));
             $.ajax("/merchant/merchantInfo/add", {
                 data: JSON.stringify(obj),
                 contentType: "application/json",
@@ -179,7 +181,7 @@
                     } else {
                         alert("新增菜单失败");
                     }
-                    query();
+                    // query();
                 }
             });
         }
