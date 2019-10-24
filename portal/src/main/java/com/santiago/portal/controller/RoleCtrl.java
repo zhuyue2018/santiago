@@ -2,25 +2,30 @@ package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.commons.enums.ErrorCodeEnum;
 import com.santiago.portal.entity.domain.*;
 import com.santiago.portal.entity.dto.query.RoleQuery;
+import com.santiago.portal.entity.dto.request.RelateMenuReq;
 import com.santiago.portal.entity.dto.vo.RelateMenu;
 import com.santiago.portal.entity.dto.vo.RoleVO;
+import com.santiago.portal.entity.enums.MenuLevelEnum;
+import com.santiago.portal.mapper.PmsMenuMapper;
 import com.santiago.portal.mapper.PmsOperatorRoleMapper;
 import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,6 +39,8 @@ public class RoleCtrl {
     PmsOperatorRoleMapper operatorRoleMapper;
     @Autowired
     PmsRoleMenuMapper roleMenuMapper;
+    @Autowired
+    PmsMenuMapper menuMapper;
 
 
     @ModelAttribute
@@ -63,15 +70,15 @@ public class RoleCtrl {
         return new SimpleResponse("000000", "cg");
     }
 
-//    @RequestMapping(value = "/relateMenuInit/{id}")
-//    public String relateMenuInit(@PathVariable(value = "id") String id, Model model) {
-//        model.addAttribute("id", id);
-//        return "pms/role/relateMenu";
-//    }
+    @RequestMapping(value = "/relateMenuInit/{id}")
+    public String relateMenuInit(@PathVariable(value = "id") String id, Model model) {
+        model.addAttribute("id", id);
+        return "pms/role/relateMenu";
+    }
 
     @ResponseBody
     @RequestMapping(value = "/relateMenu/{id}")
-    public List<RelateMenu> relateMenu(@PathVariable(value = "id") String id) {
+    public List<RelateMenu> getRelateMenu(@PathVariable(value = "id") String id) {
         List<PmsMenu> allMenus = menuService.list();
         List<PmsMenu> relatedMenus = menuService.listByRoleId(Long.parseLong(id));
         List<RelateMenu> list = new ArrayList();
@@ -92,6 +99,57 @@ public class RoleCtrl {
             list.add(menu);
         });
         return list;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/relateMenu")
+    public SimpleResponse relateMenu(@Valid  @RequestBody RelateMenuReq relateMenuReq, BindingResult result) {
+        if (result.hasErrors()) {
+            return new SimpleResponse("999999", "请求参数不完整");
+        }
+        List<PmsRoleMenu> list = new ArrayList();
+        if (new Integer(0).equals(relateMenuReq.getLevel())) {
+            list.add(createRoleMenu(relateMenuReq.getRoleId(), relateMenuReq.getMenuId()));
+            Long pid = relateMenuReq.getMenuId();
+            List<PmsMenu> level2List = menuService.listByPid(pid);
+            level2List.forEach(pmsMenu -> {
+                list.add(createRoleMenu(relateMenuReq.getRoleId(), pmsMenu.getId()));
+                List<PmsMenu> level3List = menuService.listByPid(pid);
+                level3List.forEach(pmsMenu1 -> {
+                    list.add(createRoleMenu(relateMenuReq.getRoleId(), pmsMenu1.getId()));
+                });
+            });
+        } else if (new Integer(1).equals(relateMenuReq.getLevel())) {
+            list.add(createRoleMenu(relateMenuReq.getRoleId(), relateMenuReq.getMenuId()));
+            Long pid = relateMenuReq.getMenuId();
+            List<PmsMenu> level3List = menuService.listByPid(pid);
+            level3List.forEach(pmsMenu1 -> {
+                list.add(createRoleMenu(relateMenuReq.getRoleId(), pmsMenu1.getId()));
+            });
+        } else {
+            list.add(createRoleMenu(relateMenuReq.getRoleId(), relateMenuReq.getMenuId()));
+        }
+        for (PmsRoleMenu rm : list) {
+            Example example = new Example(PmsRoleMenu.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("roleId", rm.getRoleId());
+            criteria.andEqualTo("menuId", rm.getMenuId());
+            roleMenuMapper.deleteByExample(example);
+        }
+        if (relateMenuReq.isChecked()) {
+            roleMenuMapper.insertList(list);
+        }
+        return new SimpleResponse(ErrorCodeEnum.SUCCESS.getCode(), "");
+    }
+
+    private PmsRoleMenu createRoleMenu(Long roleId, Long MenuId) {
+        PmsRoleMenu roleMenu = new PmsRoleMenu();
+        roleMenu.setCreater("portal");
+        roleMenu.setGmtCreate(new Date());
+        roleMenu.setGmtModified(new Date());
+        roleMenu.setRoleId(roleId);
+        roleMenu.setMenuId(MenuId);
+        return roleMenu;
     }
 
     @PostMapping(value = "/delete/{id}")

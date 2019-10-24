@@ -224,8 +224,8 @@
                     str += role.id + "</td><td>";
                     str += role.roleName + "</td><td>";
                     str += role.roleResources + "</td><td>";
-                    // str += "<a href=\"/pms/role/relateMenuInit/" + role.id + "\">关联菜单</a><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
-                    str += "<button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#relateMenu' onclick='relateMenu(" + role.id + ")'>管理菜单</button></td></tr><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
+                    str += "<a href=\"/pms/role/relateMenuInit/" + role.id + "\">关联菜单</a><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
+                    // str += "<button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#relateMenu' onclick='relateMenu(" + role.id + ")'>管理菜单</button></td></tr><button onclick='deleteRole("+ role.id +")'>删除</button>"+ "</td></tr>";
                     $("#roleList").append(str);
                 }
             } else {

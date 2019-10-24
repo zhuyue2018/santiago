@@ -13,6 +13,7 @@ import com.santiago.portal.mapper.PmsRoleMapper;
 import com.santiago.portal.mapper.PmsRoleMenuMapper;
 import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.RoleService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -57,6 +58,13 @@ public class MenuServiceImpl implements MenuService {
             criteria.andEqualTo("parentId", queryDTO.getParentId());
         }
         return menuMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<PmsMenu> listByPid(Long pid) {
+        PmsMenu menu = new PmsMenu();
+        menu.setParentId(pid);
+        return menuMapper.select(menu);
     }
 
     public List<PmsMenu> listMenuTree(Long operatorId) {
@@ -114,6 +122,9 @@ public class MenuServiceImpl implements MenuService {
         PmsRoleMenu roleMenuTemp = new PmsRoleMenu();
         roleMenuTemp.setRoleId(id);
         List<PmsRoleMenu> roleMenuList = roleMenuMapper.select(roleMenuTemp);
+        if (CollectionUtils.isEmpty(roleMenuList)) {
+            return null;
+        }
         Example example = new Example(PmsMenu.class);
         Example.Criteria criteria = example.createCriteria();
         roleMenuList.forEach(roleMenu -> {

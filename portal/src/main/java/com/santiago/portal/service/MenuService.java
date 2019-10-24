@@ -16,4 +16,5 @@ public interface MenuService {
     void insert(PmsMenu menu);
     void deleteByPrimaryKey(Long id);
     List<PmsMenu> list(MenuQuery menuQuery);
+    List<PmsMenu> listByPid(Long pid);
 }
