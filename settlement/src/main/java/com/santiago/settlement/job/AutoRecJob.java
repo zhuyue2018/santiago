@@ -24,10 +24,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @program: dependency
@@ -99,7 +96,14 @@ public class AutoRecJob {
         }
         Set<String> sysExceed = redisService.sdiff("sys:record", "chnl:record");
         Set<String> chnlExceed = redisService.sdiff("chnl:record", "sys:record");
-
+        List<DiffRecord> sysExceedList = toDiffRecord(sysExceed);
+        List<DiffRecord> sysExceedList = toDiffRecord(sysExceed);
+        Iterator<String> iterator = sysExceed.iterator();
+        if (iterator.hasNext()) {
+            /**
+             *
+             */
+        }
         return null;
     }
 }
