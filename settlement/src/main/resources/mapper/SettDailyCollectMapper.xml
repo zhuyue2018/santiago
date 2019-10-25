@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.settlement.mapper.SettDailyCollectMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.settlement.entity.domain.SettDailyCollect">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="collect_date" jdbcType="DATE" property="collectDate" />
+    <result column="collect_type" jdbcType="VARCHAR" property="collectType" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="total_count" jdbcType="INTEGER" property="totalCount" />
+    <result column="sett_status" jdbcType="VARCHAR" property="settStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="risk_day" jdbcType="INTEGER" property="riskDay" />
+  </resultMap>
+</mapper>

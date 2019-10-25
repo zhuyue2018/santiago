@@ -37,6 +37,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.santiago</groupId>
+                <artifactId>settlement</artifactId>
+                <version>${dependency.version}</version>
+            </dependency>
             <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>

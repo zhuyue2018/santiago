@@ -1,10 +1,11 @@
-package com.santiago.portal.service;
+package com.santiago.core.service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public interface RedisService {
+    Set<String> sdiff(String key1, String key2);
     /**
      * 指定缓存失效时间
      *

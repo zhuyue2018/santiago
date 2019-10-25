@@ -1,6 +1,9 @@
 package com.santiago.core.service.impl;
 
 import com.santiago.commons.enums.ErrorCodeEnum;
+import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.StatusEnum;
+import com.santiago.commons.enums.VersionEnum;
 import com.santiago.commons.util.DateUtil;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
@@ -57,7 +60,7 @@ public class TradeServiceImpl implements TradeService {
         TradeOrder TradeOrder = new TradeOrder();
         TradeOrder.setGmtCreate(new Date());
         TradeOrder.setGmtModified(new Date());
-        TradeOrder.setVersion("1.0.0");
+        TradeOrder.setVersion(VersionEnum.INIT.getCode());
         TradeOrder.setProductName(request.getProductName());// 商品名称
         TradeOrder.setMerchantOrderNo(request.getOrderNo());// 订单号
         TradeOrder.setOrderAmount(new BigDecimal(request.getOrderPriceStr()));// 订单金额
@@ -72,7 +75,7 @@ public class TradeServiceImpl implements TradeService {
             Date expireTime = DateUtil.addMinute(orderTime, orderPeriod);// 订单过期时间
             TradeOrder.setExpireTime(expireTime);// 订单过期时间
         } catch (ParseException e) {
-            logger.error("orderNo:{},orderTimeStr{},parse error", request.getOrderNo(), request.getOrderTimeStr());
+            logger.error("orderNo:{}, orderTimeStr{}, parse error", request.getOrderNo(), request.getOrderTimeStr());
             throw new TradeBizException(ErrorCodeEnum.PARAMS_ERROR.getCode(), "orderTimeStr parse error");
         }
         TradeOrder.setOrderIp(request.getOrderIp());// 下单IP
@@ -95,10 +98,10 @@ public class TradeServiceImpl implements TradeService {
 
     private TradeRecord createTradePaymentRecord(TradeOrder order) {
         TradeRecord tradePaymentRecord = new TradeRecord();
-        tradePaymentRecord.setVersion("1.0.0");
+        tradePaymentRecord.setVersion(VersionEnum.INIT.getCode());
         tradePaymentRecord.setGmtCreate(new Date());
         tradePaymentRecord.setGmtModified(new Date());
-        tradePaymentRecord.setStatus("0");
+        tradePaymentRecord.setStatus(StatusEnum.INIT.getCode());
         tradePaymentRecord.setProductName(order.getProductName());
         tradePaymentRecord.setMerchantOrderNo(order.getMerchantOrderNo());
         tradePaymentRecord.setTrxNo(order.getTrxNo());

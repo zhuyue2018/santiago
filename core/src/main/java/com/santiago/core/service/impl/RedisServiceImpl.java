@@ -1,6 +1,6 @@
-package com.santiago.portal.service.impl;
+package com.santiago.core.service.impl;
 
-import com.santiago.portal.service.RedisService;
+import com.santiago.core.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,11 @@ public class RedisServiceImpl implements RedisService {
     @Autowired
     private RedisTemplate redisTemplate;
     // =============================common============================
+
+    @Override
+    public Set<String> sdiff(String key1, String key2) {
+        return redisTemplate.opsForSet().difference(key1, key2);
+    }
 
     /**
      * 指定缓存失效时间

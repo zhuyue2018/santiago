@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.settlement.mapper.AccountCheckMistakeScratchPoolMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.settlement.entity.domain.AccountCheckMistakeScratchPool">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="merchant_order_no" jdbcType="VARCHAR" property="merchantOrderNo" />
+    <result column="trx_no" jdbcType="CHAR" property="trxNo" />
+    <result column="bank_order_no" jdbcType="CHAR" property="bankOrderNo" />
+    <result column="bank_trx_no" jdbcType="VARCHAR" property="bankTrxNo" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="plat_income" jdbcType="DECIMAL" property="platIncome" />
+    <result column="fee_rate" jdbcType="DECIMAL" property="feeRate" />
+    <result column="plat_cost" jdbcType="DECIMAL" property="platCost" />
+    <result column="plat_profit" jdbcType="DECIMAL" property="platProfit" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="pay_way_code" jdbcType="VARCHAR" property="payWayCode" />
+    <result column="pay_way_name" jdbcType="VARCHAR" property="payWayName" />
+    <result column="pay_success_time" jdbcType="TIMESTAMP" property="paySuccessTime" />
+    <result column="complete_time" jdbcType="TIMESTAMP" property="completeTime" />
+    <result column="is_refund" jdbcType="VARCHAR" property="isRefund" />
+    <result column="refund_times" jdbcType="SMALLINT" property="refundTimes" />
+    <result column="success_refund_amount" jdbcType="DECIMAL" property="successRefundAmount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="batch_no" jdbcType="VARCHAR" property="batchNo" />
+    <result column="bill_date" jdbcType="TIMESTAMP" property="billDate" />
+  </resultMap>
+</mapper>

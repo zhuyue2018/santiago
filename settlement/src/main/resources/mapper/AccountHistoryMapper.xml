@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.settlement.mapper.AccountHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.settlement.entity.domain.AccountHistory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="rec_date" jdbcType="CHAR" property="recDate" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="balance" jdbcType="DECIMAL" property="balance" />
+    <result column="fund_direction" jdbcType="VARCHAR" property="fundDirection" />
+    <result column="is_allow_sett" jdbcType="CHAR" property="isAllowSett" />
+    <result column="sett_status" jdbcType="CHAR" property="settStatus" />
+    <result column="request_no" jdbcType="VARCHAR" property="requestNo" />
+    <result column="bank_trx_no" jdbcType="VARCHAR" property="bankTrxNo" />
+    <result column="trx_type" jdbcType="VARCHAR" property="trxType" />
+    <result column="risk_day" jdbcType="INTEGER" property="riskDay" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+  </resultMap>
+</mapper>

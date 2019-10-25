@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.settlement.mapper.SettRecordMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.settlement.entity.domain.SettRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="sett_mode" jdbcType="VARCHAR" property="settMode" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="merchant_type" jdbcType="VARCHAR" property="merchantType" />
+    <result column="sett_date" jdbcType="DATE" property="settDate" />
+    <result column="bank_code" jdbcType="VARCHAR" property="bankCode" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_account_name" jdbcType="VARCHAR" property="bankAccountName" />
+    <result column="bank_account_no" jdbcType="VARCHAR" property="bankAccountNo" />
+    <result column="bank_account_type" jdbcType="VARCHAR" property="bankAccountType" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="areas" jdbcType="VARCHAR" property="areas" />
+    <result column="bank_account_address" jdbcType="VARCHAR" property="bankAccountAddress" />
+    <result column="mobile_no" jdbcType="VARCHAR" property="mobileNo" />
+    <result column="sett_amount" jdbcType="DECIMAL" property="settAmount" />
+    <result column="sett_fee" jdbcType="DECIMAL" property="settFee" />
+    <result column="remit_amount" jdbcType="DECIMAL" property="remitAmount" />
+    <result column="sett_status" jdbcType="VARCHAR" property="settStatus" />
+    <result column="remit_confirm_time" jdbcType="TIMESTAMP" property="remitConfirmTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="remit_remark" jdbcType="VARCHAR" property="remitRemark" />
+    <result column="operator_loginname" jdbcType="VARCHAR" property="operatorLoginname" />
+    <result column="operator_realname" jdbcType="VARCHAR" property="operatorRealname" />
+  </resultMap>
+</mapper>

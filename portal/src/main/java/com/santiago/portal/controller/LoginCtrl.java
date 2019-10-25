@@ -1,7 +1,7 @@
 package com.santiago.portal.controller;
 
 import com.santiago.portal.service.MenuService;
-import com.santiago.portal.service.RedisService;
+import com.santiago.core.service.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

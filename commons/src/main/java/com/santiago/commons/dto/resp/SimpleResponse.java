@@ -1,7 +1,17 @@
 package com.santiago.commons.dto.resp;
 
+import com.santiago.commons.enums.ErrorCodeEnum;
+
 public class SimpleResponse extends BaseResponse {
     private String content;
+
+    public static SimpleResponse success() {
+        return new SimpleResponse(ErrorCodeEnum.SUCCESS.getCode(), "success");
+    }
+
+    public static SimpleResponse success(String msg) {
+        return new SimpleResponse(ErrorCodeEnum.SUCCESS.getCode(), msg);
+    }
 
     public String getContent() {
         return content;

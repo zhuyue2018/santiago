@@ -40,6 +40,8 @@ public class MerchantCtrl {
     OperatorMerchantService operatorMerchantService;
     @Autowired
     RoleService roleService;
+    @Autowired
+    MerchantSettleConfigWss merchantSettleConfigWss;
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -53,10 +55,9 @@ public class MerchantCtrl {
         PmsRole merchantRole = roleService.getMerchant();
         PmsOperatorRole operatorRole = operatorRoleService.create(operator.getId(), merchantRole.getId());
         PmsOperatorMerchant pmsOperatorMerchant = operatorMerchantService.create(operator.getId(), merchantId);
-        return new SimpleResponse(ErrorCodeEnum.SUCCESS.getCode(), "merchant inserted!");
+        merchantSettleConfigWss.insert();
+        return SimpleResponse.success("merchant inserted!");
     }
-
-
 
     @RequestMapping(value = "/view")
     public String view() {
