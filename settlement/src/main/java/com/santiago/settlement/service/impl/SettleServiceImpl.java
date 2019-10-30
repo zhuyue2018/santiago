@@ -1,6 +1,7 @@
 package com.santiago.settlement.service.impl;
 
-import com.santiago.settlement.entity.domain.Account;
+import com.santiago.commons.enums.VersionEnum;
+import com.santiago.core.entity.domain.Account;
 import com.santiago.settlement.entity.domain.AccountHistory;
 import com.santiago.settlement.entity.domain.MerchantSettleConfig;
 import com.santiago.settlement.entity.domain.SettRecord;
@@ -28,7 +29,7 @@ public class SettleServiceImpl implements SettleService {
     @Override
     public void settle(MerchantSettleConfig settleConfig, AccountHistory accountHistory) {
         SettRecord settRecord = new SettRecord();
-        settRecord.setVersion("1.0.0");
+        settRecord.setVersion(VersionEnum.INIT.getCode());
         settRecord.setGmtCreate(new Date());
         settRecord.setGmtModified(new Date());
         settRecord.setAccountNo(accountHistory.getAccountNo());

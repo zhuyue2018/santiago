@@ -45,9 +45,9 @@ public class AutoSettleJob {
         for (MerchantSettleConfig settleConfig : list ) {
             Integer settlePeriod = settleConfig.getSettlePeriod();
             String date = DateTime.now().minusDays(settlePeriod).toString("yyyyMMdd");
-            AccountHistory accountHistory = accountHistoryService.getByMerchantNoAndRecDate(settleConfig.getMerchantNo(), date);
-            if ("1".equals(accountHistory.getSettStatus())) {
-                logger.warn("merchantNo:[{}], recDate:[{}], 已结算，勿重复结算", settleConfig.getMerchantNo(), date);
+            AccountHistory accountHistory = accountHistoryService.getByMerchantNoAndRecDate(String.valueOf(settleConfig.getMerchantId()), date);
+            if (StatusEnum.SUCCESS.getCode().equals(accountHistory.getSettStatus())) {
+                logger.warn("merchantId:[{}], recDate:[{}], 已结算，勿重复结算", String.valueOf(settleConfig.getMerchantId()), date);
                 continue;
             }
             settleService.settle(settleConfig, accountHistory);

@@ -14,6 +14,8 @@ import com.santiago.portal.service.OperatorMerchantService;
 import com.santiago.portal.service.OperatorRoleService;
 import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.RoleService;
+import com.santiago.settlement.entity.domain.MerchantSettleConfig;
+import com.santiago.settlement.wss.MerchantSettleConfigWss;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -55,7 +57,9 @@ public class MerchantCtrl {
         PmsRole merchantRole = roleService.getMerchant();
         PmsOperatorRole operatorRole = operatorRoleService.create(operator.getId(), merchantRole.getId());
         PmsOperatorMerchant pmsOperatorMerchant = operatorMerchantService.create(operator.getId(), merchantId);
-        merchantSettleConfigWss.insert();
+        MerchantSettleConfig settleConfig = new MerchantSettleConfig();
+        settleConfig.setMerchantId(merchantId);
+        merchantSettleConfigWss.insert(settleConfig);
         return SimpleResponse.success("merchant inserted!");
     }
 

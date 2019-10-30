@@ -15,4 +15,6 @@ public interface AccountHistoryService {
     List<AccountHistory> list(AccountHistory accountHistory);
     AccountHistory get(AccountHistory accountHistory);
     void update(AccountHistory accountHistory);
+
+    void insert(AccountHistory accountHistory);
 }

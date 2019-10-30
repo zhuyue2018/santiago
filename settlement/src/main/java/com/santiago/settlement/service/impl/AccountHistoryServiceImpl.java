@@ -42,5 +42,10 @@ public class AccountHistoryServiceImpl implements AccountHistoryService {
         accountHistoryMapper.updateByPrimaryKey(accountHistory);
     }
 
+    @Override
+    public void insert(AccountHistory accountHistory) {
+        accountHistoryMapper.insert(accountHistory);
+    }
+
 
 }

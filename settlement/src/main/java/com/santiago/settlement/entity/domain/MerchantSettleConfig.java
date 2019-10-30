@@ -21,8 +21,8 @@ public class MerchantSettleConfig {
 
     private String editor;
 
-    @Column(name = "merchant_no")
-    private String merchantNo;
+    @Column(name = "merchant_id")
+    private Long merchantId;
 
     @Column(name = "settle_type")
     private String settleType;
@@ -118,17 +118,17 @@ public class MerchantSettleConfig {
     }
 
     /**
-     * @return merchant_no
+     * @return merchant_id
      */
-    public String getMerchantNo() {
-        return merchantNo;
+    public Long getMerchantId() {
+        return merchantId;
     }
 
     /**
-     * @param merchantNo
+     * @param merchantId
      */
-    public void setMerchantNo(String merchantNo) {
-        this.merchantNo = merchantNo;
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
     }
 
     /**

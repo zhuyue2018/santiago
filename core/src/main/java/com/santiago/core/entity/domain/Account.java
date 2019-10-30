@@ -92,8 +92,8 @@ public class Account {
     /**
      * 可结算金额
      */
-    @Column(name = "sett_amount")
-    private BigDecimal settAmount;
+    @Column(name = "unsett_balance")
+    private BigDecimal unsettBalance;
 
     /**
      * 商户号
@@ -375,19 +375,19 @@ public class Account {
     /**
      * 获取可结算金额
      *
-     * @return sett_amount - 可结算金额
+     * @return unsett_balance - 可结算金额
      */
-    public BigDecimal getSettAmount() {
-        return settAmount;
+    public BigDecimal getUnsettBalance() {
+        return unsettBalance;
     }
 
     /**
      * 设置可结算金额
      *
-     * @param settAmount 可结算金额
+     * @param unsettBalance 可结算金额
      */
-    public void setSettAmount(BigDecimal settAmount) {
-        this.settAmount = settAmount;
+    public void setUnsettBalance(BigDecimal unsettBalance) {
+        this.unsettBalance = unsettBalance;
     }
 
     /**

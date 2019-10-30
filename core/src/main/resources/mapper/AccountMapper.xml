@@ -20,7 +20,7 @@
     <result column="today_income" jdbcType="DECIMAL" property="todayIncome" />
     <result column="today_expend" jdbcType="DECIMAL" property="todayExpend" />
     <result column="account_type" jdbcType="CHAR" property="accountType" />
-    <result column="sett_amount" jdbcType="DECIMAL" property="settAmount" />
+    <result column="unsett_balance" jdbcType="DECIMAL" property="unsettBalance" />
     <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
     <result column="delete" jdbcType="CHAR" property="delete" />
   </resultMap>

@@ -1,7 +1,7 @@
 package com.santiago.settlement.service.impl;
 
-import com.santiago.settlement.entity.domain.Account;
-import com.santiago.settlement.mapper.AccountMapper;
+import com.santiago.core.entity.domain.Account;
+import com.santiago.core.mapper.AccountMapper;
 import com.santiago.settlement.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +38,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> list(Account account) {
         return accountMapper.select(account);
+    }
+
+    @Override
+    public List<Account> listAll() {
+        Account account = new Account();
+        return list(account);
     }
 }

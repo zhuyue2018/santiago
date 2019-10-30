@@ -11,7 +11,7 @@
     <result column="version" jdbcType="CHAR" property="version" />
     <result column="creater" jdbcType="VARCHAR" property="creater" />
     <result column="editor" jdbcType="VARCHAR" property="editor" />
-    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="merchant_id" jdbcType="BIGINT" property="merchantId" />
     <result column="settle_type" jdbcType="CHAR" property="settleType" />
     <result column="settle_period" jdbcType="INTEGER" property="settlePeriod" />
     <result column="is_auto_settle" jdbcType="CHAR" property="isAutoSettle" />

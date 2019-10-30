@@ -9,14 +9,11 @@ import com.santiago.core.mapper.MerchantInfoMapper;
 import com.santiago.core.mapper.MerchantPayConfigMapper;
 import com.santiago.core.mapper.MerchantPayInfoMapper;
 import com.santiago.core.service.BuildNoService;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import sun.security.provider.MD5;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.UUID;
 
 @Controller
 public class MerchantWss {
@@ -62,7 +59,6 @@ public class MerchantWss {
         account.setTodayIncome(new BigDecimal("0"));
         account.setTodayExpend(new BigDecimal("0"));
         account.setAccountType("0");
-        account.setSettAmount(new BigDecimal("0"));
         account.setMerchantNo(merchantNo);
         account.setDelete("0");
         accountMapper.insertUseGeneratedKeys(account);

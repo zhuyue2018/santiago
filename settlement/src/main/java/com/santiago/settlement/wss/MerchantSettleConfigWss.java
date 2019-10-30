@@ -19,15 +19,14 @@ import java.util.Date;
 public class MerchantSettleConfigWss {
     @Autowired
     MerchantSettleConfigService configService;
-    public SimpleResponse insert() {
+    public SimpleResponse insert(MerchantSettleConfig merchantSettleConfig) {
         MerchantSettleConfig settleConfig = new MerchantSettleConfig();
         settleConfig.setGmtCreate(new Date());
         settleConfig.setGmtModified(new Date());
         settleConfig.setVersion(VersionEnum.INIT.getCode());
         settleConfig.setCreater("settlement");
-        settleConfig.setMerchantNo("");
-        settleConfig.setSettleType("");
-        settleConfig.setIsAutoSettle("");
+        settleConfig.setSettleType("0");
+        settleConfig.setIsAutoSettle("0");
         settleConfig.setSettlePeriod(1);
         configService.insert(settleConfig);
         return SimpleResponse.success();
