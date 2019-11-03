@@ -45,7 +45,7 @@ public class CLHLock {
     public static void main(String[] args) throws InterruptedException {
         final CLHLock lock = new CLHLock();
         for (int i = 1; i <= 10; i++) {
-            new Thread(generateTask(lock, String.valueOf(i))).start();
+            new Thread(generateTask(lock, "node:" + i)).start();
         }
 
     }
@@ -55,7 +55,7 @@ public class CLHLock {
             lock.lock(name);
             try {
                 Thread.sleep(1000);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
 
             }
             System.out.println(String.format("Thread %s Completed", name));
