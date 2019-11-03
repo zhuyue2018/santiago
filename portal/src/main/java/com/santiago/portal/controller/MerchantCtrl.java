@@ -57,9 +57,6 @@ public class MerchantCtrl {
         PmsRole merchantRole = roleService.getMerchant();
         PmsOperatorRole operatorRole = operatorRoleService.create(operator.getId(), merchantRole.getId());
         PmsOperatorMerchant pmsOperatorMerchant = operatorMerchantService.create(operator.getId(), merchantId);
-        MerchantSettleConfig settleConfig = new MerchantSettleConfig();
-        settleConfig.setMerchantId(merchantId);
-        merchantSettleConfigWss.insert(settleConfig);
         return SimpleResponse.success("merchant inserted!");
     }
 

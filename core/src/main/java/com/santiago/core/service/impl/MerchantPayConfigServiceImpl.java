@@ -1,11 +1,14 @@
 package com.santiago.core.service.impl;
 
+import com.santiago.commons.enums.PublicStatusEnum;
 import com.santiago.core.entity.domain.MerchantPayConfig;
 import com.santiago.core.mapper.MerchantPayConfigMapper;
 import com.santiago.core.service.MerchantPayConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.Date;
 
 @Service
 public class MerchantPayConfigServiceImpl implements MerchantPayConfigService {
@@ -29,6 +32,19 @@ public class MerchantPayConfigServiceImpl implements MerchantPayConfigService {
     @Override
     public void insert(MerchantPayConfig userPayConfig) {
         merchantPayConfigMapper.insert(userPayConfig);
+    }
+
+    @Override
+    public void createDefault(String merchantNo, String securityRate, String merchantServerIp) {
+        MerchantPayConfig payConfig = new MerchantPayConfig();
+        payConfig.setGmtCreate(new Date());
+        payConfig.setGmtModified(new Date());
+        payConfig.setVersion("1.0.0");
+        payConfig.setStatus(PublicStatusEnum.ACTIVE.getCode());
+        payConfig.setMerchantNo(merchantNo);
+        payConfig.setSecurityRating(securityRate);
+        payConfig.setMerchantServerIp(merchantServerIp);
+        merchantPayConfigMapper.insert(payConfig);
     }
 
 }

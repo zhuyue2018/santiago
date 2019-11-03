@@ -4,4 +4,6 @@ import com.santiago.core.entity.domain.MerchantPayInfo;
 
 public interface MerchantPayInfoService {
     MerchantPayInfo getByMerchantNo(String merchantNo);
+
+    void createDefault(String merchantNo, String merchantName, String s);
 }

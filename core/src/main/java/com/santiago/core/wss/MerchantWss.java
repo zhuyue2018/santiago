@@ -1,6 +1,7 @@
 package com.santiago.core.wss;
 
 import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.StatusEnum;
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.*;
 import com.santiago.core.entity.dto.MerchantInsertDTO;
@@ -8,7 +9,7 @@ import com.santiago.core.mapper.AccountMapper;
 import com.santiago.core.mapper.MerchantInfoMapper;
 import com.santiago.core.mapper.MerchantPayConfigMapper;
 import com.santiago.core.mapper.MerchantPayInfoMapper;
-import com.santiago.core.service.BuildNoService;
+import com.santiago.core.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -20,72 +21,45 @@ public class MerchantWss {
     @Autowired
     BuildNoService buildNoService;
     @Autowired
-    MerchantInfoMapper merchantInfoMapper;
+    MerchantInfoService merchantInfoService;
     @Autowired
-    AccountMapper accountMapper;
+    MerchantPayInfoService merchantPayInfoService;
     @Autowired
-    MerchantPayConfigMapper payConfigMapper;
+    MerchantPayConfigService merchantPayConfigService;
     @Autowired
-    MerchantPayInfoMapper payInfoMapper;
+    MerchantSettleConfigWss merchantSettleConfigWss;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    MerchantPayProductService merchantPayProductService;
+
 
     public Long register(MerchantInsertDTO dto) {
         String merchantNo = buildNoService.buildUserNo();
         String accountNo = buildNoService.buildAccountNo();
         //生成用户信息
         MerchantInfo merchantInfo = new MerchantInfo();
-        merchantInfo.setGmtCreate(new Date());
-        merchantInfo.setGmtModified(new Date());
-        merchantInfo.setStatus(PublicStatusEnum.ACTIVE.getCode());
         merchantInfo.setMerchantNo(merchantNo);
         merchantInfo.setMerchantName(dto.getMerchantName());
         merchantInfo.setAccountNo(accountNo);
         merchantInfo.setMobile(dto.getMobile());
         merchantInfo.setPassword(EncryptUtil.encodeMD5String(dto.getPassword()));
         merchantInfo.setPayPwd(EncryptUtil.encodeMD5String(dto.getPayPassword()));
-        merchantInfoMapper.insert(merchantInfo);
+        merchantInfoService.createDefault(merchantInfo);
         // 生成账户信息
-        Account account = new Account();
-        account.setGmtCreate(new Date());
-        account.setGmtModified(new Date());
-        account.setVersion("1.0.0");
-        account.setRemark("2");
-        account.setAccountNo(accountNo);// todo
-        account.setBalance(new BigDecimal("0"));
-        account.setFreezeBalance(new BigDecimal("0"));
-        account.setSecurityMoney(new BigDecimal("0"));
-        account.setStatus(PublicStatusEnum.ACTIVE.getCode());
-        account.setTotalExpend(new BigDecimal("0"));
-        account.setTotalIncome(new BigDecimal("0"));
-        account.setTodayIncome(new BigDecimal("0"));
-        account.setTodayExpend(new BigDecimal("0"));
-        account.setAccountType("0");
-        account.setMerchantNo(merchantNo);
-        account.setDelete("0");
-        accountMapper.insertUseGeneratedKeys(account);
+        accountService.createDaefaultAccount(accountNo, merchantNo);
         // 生成支付配置
-        MerchantPayConfig payConfig = new MerchantPayConfig();
-        payConfig.setGmtCreate(new Date());
-        payConfig.setGmtModified(new Date());
-        payConfig.setVersion("1.0.0");
-        payConfig.setStatus(PublicStatusEnum.ACTIVE.getCode());
-        payConfig.setMerchantNo(merchantNo);
-        payConfig.setSecurityRating(dto.getSecurityRate());
-        payConfig.setMerchantServerIp(dto.getMerchantServerIp());
-        payConfigMapper.insert(payConfig);
+        merchantPayConfigService.createDefault(merchantNo, dto.getSecurityRate(), dto.getMerchantServerIp());
         // 生成支付信息
-        MerchantPayInfo payInfo = new MerchantPayInfo();
-        payInfo.setGmtCreate(new Date());
-        payInfo.setGmtModified(new Date());
-        payInfo.setVersion("1.0.0");
-        payInfo.setStatus(PublicStatusEnum.ACTIVE.getCode());
-        payInfo.setMerchantNo(merchantNo);
-        payInfo.setMerchantName(dto.getMerchantName());
-        payInfo.setMd5Key("123456");
-        payInfoMapper.insert(payInfo);
-        MerchantPayProduct merchantPayProduct = new MerchantPayProduct();
-        merchantPayProduct.setMerchantNo(merchantNo);
-        merchantPayProduct.setPayProductCode("001"); // todo
-        merchantPayProduct.setFeeRate(new BigDecimal("0")); // todo
+        merchantPayInfoService.createDefault(merchantNo, dto.getMerchantName(), "123456");
+        // 生成支付产品
+        String payProductCode = "001";
+        BigDecimal feeRate = new BigDecimal("0");
+        merchantPayProductService.create(merchantNo, payProductCode, feeRate);
+        //生成对账配置信息
+        MerchantSettleConfig settleConfig = new MerchantSettleConfig();
+        settleConfig.setMerchantId(merchantId);
+        merchantSettleConfigWss.insert(settleConfig);
         return merchantInfo.getId();
     }
 }
