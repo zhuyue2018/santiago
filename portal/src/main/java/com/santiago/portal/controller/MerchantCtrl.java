@@ -1,7 +1,6 @@
 package com.santiago.portal.controller;
 
 import com.santiago.commons.dto.resp.SimpleResponse;
-import com.santiago.commons.enums.ErrorCodeEnum;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.core.wss.MerchantWss;
 import com.santiago.portal.entity.domain.PmsOperator;
@@ -14,7 +13,6 @@ import com.santiago.portal.service.OperatorMerchantService;
 import com.santiago.portal.service.OperatorRoleService;
 import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.RoleService;
-import com.santiago.settlement.entity.domain.MerchantSettleConfig;
 import com.santiago.settlement.wss.MerchantSettleConfigWss;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

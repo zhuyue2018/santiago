@@ -1,4 +1,4 @@
-package com.santiago.settlement.entity.domain;
+package com.santiago.core.entity.domain;
 
 import java.util.Date;
 import javax.persistence.*;
@@ -21,8 +21,8 @@ public class MerchantSettleConfig {
 
     private String editor;
 
-    @Column(name = "merchant_id")
-    private Long merchantId;
+    @Column(name = "merchant_no")
+    private String merchantNo;
 
     @Column(name = "settle_type")
     private String settleType;
@@ -118,17 +118,17 @@ public class MerchantSettleConfig {
     }
 
     /**
-     * @return merchant_id
+     * @return merchant_no
      */
-    public Long getMerchantId() {
-        return merchantId;
+    public String getMerchantNo() {
+        return merchantNo;
     }
 
     /**
-     * @param merchantId
+     * @param merchantNo
      */
-    public void setMerchantId(Long merchantId) {
-        this.merchantId = merchantId;
+    public void setMerchantNo(String merchantNo) {
+        this.merchantNo = merchantNo;
     }
 
     /**

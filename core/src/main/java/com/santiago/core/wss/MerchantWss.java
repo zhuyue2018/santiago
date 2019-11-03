@@ -27,7 +27,7 @@ public class MerchantWss {
     @Autowired
     MerchantPayConfigService merchantPayConfigService;
     @Autowired
-    MerchantSettleConfigWss merchantSettleConfigWss;
+    MerchantSettleConfigService merchantSettleConfigService;
     @Autowired
     AccountService accountService;
     @Autowired
@@ -58,8 +58,8 @@ public class MerchantWss {
         merchantPayProductService.create(merchantNo, payProductCode, feeRate);
         //生成对账配置信息
         MerchantSettleConfig settleConfig = new MerchantSettleConfig();
-        settleConfig.setMerchantId(merchantId);
-        merchantSettleConfigWss.insert(settleConfig);
+        settleConfig.setMerchantNo(merchantNo);
+        merchantSettleConfigService.insert(settleConfig);
         return merchantInfo.getId();
     }
 }

@@ -2,8 +2,8 @@ package com.santiago.settlement.service.impl;
 
 import com.santiago.commons.enums.VersionEnum;
 import com.santiago.core.entity.domain.Account;
+import com.santiago.core.entity.domain.MerchantSettleConfig;
 import com.santiago.settlement.entity.domain.AccountHistory;
-import com.santiago.settlement.entity.domain.MerchantSettleConfig;
 import com.santiago.settlement.entity.domain.SettRecord;
 import com.santiago.settlement.entity.enums.SettRecordStatusEnum;
 import com.santiago.settlement.mapper.SettRecordMapper;

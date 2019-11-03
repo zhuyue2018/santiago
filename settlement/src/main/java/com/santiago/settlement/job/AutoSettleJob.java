@@ -1,8 +1,8 @@
 package com.santiago.settlement.job;
 
 import com.santiago.commons.enums.StatusEnum;
+import com.santiago.core.entity.domain.MerchantSettleConfig;
 import com.santiago.settlement.entity.domain.AccountHistory;
-import com.santiago.settlement.entity.domain.MerchantSettleConfig;
 import com.santiago.settlement.entity.domain.SettDailyCollect;
 import com.santiago.settlement.mapper.SettDailyCollectMapper;
 import com.santiago.settlement.service.AccountHistoryService;
@@ -45,9 +45,9 @@ public class AutoSettleJob {
         for (MerchantSettleConfig settleConfig : list ) {
             Integer settlePeriod = settleConfig.getSettlePeriod();
             String date = DateTime.now().minusDays(settlePeriod).toString("yyyyMMdd");
-            AccountHistory accountHistory = accountHistoryService.getByMerchantNoAndRecDate(String.valueOf(settleConfig.getMerchantId()), date);
+            AccountHistory accountHistory = accountHistoryService.getByMerchantNoAndRecDate(String.valueOf(settleConfig.getMerchantNo()), date);
             if (StatusEnum.SUCCESS.getCode().equals(accountHistory.getSettStatus())) {
-                logger.warn("merchantId:[{}], recDate:[{}], 已结算，勿重复结算", String.valueOf(settleConfig.getMerchantId()), date);
+                logger.warn("merchantNo:[{}], recDate:[{}], 已结算，勿重复结算", String.valueOf(settleConfig.getMerchantNo()), date);
                 continue;
             }
             settleService.settle(settleConfig, accountHistory);

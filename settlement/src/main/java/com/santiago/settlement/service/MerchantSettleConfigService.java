@@ -1,6 +1,6 @@
 package com.santiago.settlement.service;
 
-import com.santiago.settlement.entity.domain.MerchantSettleConfig;
+import com.santiago.core.entity.domain.MerchantSettleConfig;
 
 import java.util.List;
 
