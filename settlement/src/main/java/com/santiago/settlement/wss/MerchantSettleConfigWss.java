@@ -3,7 +3,7 @@ package com.santiago.settlement.wss;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.enums.VersionEnum;
 import com.santiago.core.entity.domain.MerchantSettleConfig;
-import com.santiago.settlement.service.MerchantSettleConfigService;
+import com.santiago.core.service.MerchantSettleConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

@@ -164,6 +164,9 @@ public class TradeOrder {
     @Column(name = "trx_no")
     private String trxNo;
 
+    @Column(name = "bank_order_no")
+    private String bankOrderNo;
+
     /**
      * 资金流入类型
      */
@@ -682,6 +685,20 @@ public class TradeOrder {
      */
     public void setTrxNo(String trxNo) {
         this.trxNo = trxNo;
+    }
+
+    /**
+     * @return bank_order_no
+     */
+    public String getBankOrderNo() {
+        return bankOrderNo;
+    }
+
+    /**
+     * @param bankOrderNo
+     */
+    public void setBankOrderNo(String bankOrderNo) {
+        this.bankOrderNo = bankOrderNo;
     }
 
     /**

@@ -32,6 +32,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="trx_type" jdbcType="CHAR" property="trxType" />
     <result column="trx_no" jdbcType="VARCHAR" property="trxNo" />
+    <result column="bank_order_no" jdbcType="VARCHAR" property="bankOrderNo" />
     <result column="fund_into_type" jdbcType="VARCHAR" property="fundIntoType" />
     <result column="is_refund" jdbcType="VARCHAR" property="isRefund" />
     <result column="refund_times" jdbcType="INTEGER" property="refundTimes" />

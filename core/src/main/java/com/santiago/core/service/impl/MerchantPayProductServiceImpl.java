@@ -4,9 +4,10 @@ import com.santiago.core.entity.domain.MerchantPayProduct;
 import com.santiago.core.mapper.MerchantPayProductMapper;
 import com.santiago.core.service.MerchantPayProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-
+@Service
 public class MerchantPayProductServiceImpl implements MerchantPayProductService {
     @Autowired
     MerchantPayProductMapper merchantPayProductMapper;

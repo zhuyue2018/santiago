@@ -13,7 +13,6 @@ import com.santiago.portal.service.OperatorMerchantService;
 import com.santiago.portal.service.OperatorRoleService;
 import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.RoleService;
-import com.santiago.settlement.wss.MerchantSettleConfigWss;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -40,8 +39,8 @@ public class MerchantCtrl {
     OperatorMerchantService operatorMerchantService;
     @Autowired
     RoleService roleService;
-    @Autowired
-    MerchantSettleConfigWss merchantSettleConfigWss;
+//    @Autowired
+//    MerchantSettleConfigWss merchantSettleConfigWss;
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)

@@ -2,11 +2,11 @@ package com.santiago.settlement.job;
 
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.core.entity.domain.MerchantSettleConfig;
+import com.santiago.core.service.MerchantSettleConfigService;
 import com.santiago.settlement.entity.domain.AccountHistory;
 import com.santiago.settlement.entity.domain.SettDailyCollect;
 import com.santiago.settlement.mapper.SettDailyCollectMapper;
 import com.santiago.settlement.service.AccountHistoryService;
-import com.santiago.settlement.service.MerchantSettleConfigService;
 import com.santiago.settlement.service.SettleService;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;

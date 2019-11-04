@@ -5,10 +5,13 @@ import com.santiago.core.entity.domain.Account;
 import com.santiago.core.mapper.AccountMapper;
 import com.santiago.core.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+@Service
 public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountMapper accountMapper;
@@ -32,5 +35,32 @@ public class AccountServiceImpl implements AccountService {
         account.setMerchantNo(merchantNo);
         account.setDelete("0");
         accountMapper.insert(account);
+    }
+    @Override
+    public Account getByAccountNo(String accountNo) {
+        Account account = new Account();
+        account.setAccountNo(accountNo);
+        return get(account);
+    }
+
+    @Override
+    public void update(Account account) {
+
+    }
+
+    @Override
+    public Account get(Account account) {
+        return accountMapper.selectOne(account);
+    }
+
+    @Override
+    public List<Account> list(Account account) {
+        return accountMapper.select(account);
+    }
+
+    @Override
+    public List<Account> listAll() {
+        Account account = new Account();
+        return list(account);
     }
 }

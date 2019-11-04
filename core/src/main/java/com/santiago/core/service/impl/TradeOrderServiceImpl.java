@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.core.entity.domain.TradeOrder;
+import com.santiago.core.entity.domain.TradeRecord;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
+import com.santiago.core.entity.result.RecCountResult;
 import com.santiago.core.entity.vo.TradeOrderVO;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.service.TradeOrderService;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +59,17 @@ public class TradeOrderServiceImpl implements TradeOrderService {
         tradeOrderPageInfo.setList(voList);
         return tradeOrderPageInfo;
     }
+
+    @Override
+    public List<TradeOrder> listRecData(String code, DateTime billDate) {
+        Example example = new Example(TradeOrder.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("payProductCode", code);
+        criteria.andGreaterThanOrEqualTo("gmt_create", billDate.toString("yyyyMMdd"));
+        criteria.andLessThan("gmt_create", billDate.plusDays(1).toString("yyyyMMdd"));
+        return orderMapper.selectByExample(criteria);
+    }
+
 
     private List<TradeOrderVO> transfer2VOList(List<TradeOrder> orderList) {
         ArrayList<TradeOrderVO> voList = new ArrayList<TradeOrderVO>();
