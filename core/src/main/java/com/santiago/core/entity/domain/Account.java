@@ -104,7 +104,8 @@ public class Account {
     /**
      * 逻辑删除：0为未删除，1为删除
      */
-    private String delete;
+    @Column(name = "delete_flag")
+    private String deleteFlag;
 
     /**
      * @return id
@@ -411,18 +412,18 @@ public class Account {
     /**
      * 获取逻辑删除：0为未删除，1为删除
      *
-     * @return delete - 逻辑删除：0为未删除，1为删除
+     * @return delete_flag - 逻辑删除：0为未删除，1为删除
      */
-    public String getDelete() {
-        return delete;
+    public String getDeleteFlag() {
+        return deleteFlag;
     }
 
     /**
      * 设置逻辑删除：0为未删除，1为删除
      *
-     * @param delete 逻辑删除：0为未删除，1为删除
+     * @param deleteFlag 逻辑删除：0为未删除，1为删除
      */
-    public void setDelete(String delete) {
-        this.delete = delete;
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 }

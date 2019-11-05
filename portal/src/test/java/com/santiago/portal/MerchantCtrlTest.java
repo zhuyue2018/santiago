@@ -2,9 +2,11 @@ package com.santiago.portal;
 
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
+import com.santiago.portal.controller.MerchantCtrl;
 import com.santiago.portal.entity.dto.request.MerchantInsertReq;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -18,9 +20,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class MerchantCtrlTest extends BaseJunit {
+    @Autowired
+    MerchantCtrl merchantCtrl;
 
     private void mock(MerchantInsertReq req, String code) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/merchant/merchantInfo/add")
+        mockMvc.perform(MockMvcRequestBuilders.post("/merchant/info/add")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(JsonUtil.create()
                         .objectToJson(req))
@@ -35,23 +39,23 @@ public class MerchantCtrlTest extends BaseJunit {
 //    @Rollback(value = true)
     public void successCase() throws Exception {
         MerchantInsertReq merchant = createMerchant();
-        mock(merchant, "000000");
+        merchantCtrl.insert2(merchant);
     }
 
     private MerchantInsertReq createMerchant() {
         MerchantInsertReq req = new MerchantInsertReq();
-//        req.setMerchantName("jack");
-//        req.setAccountNo("123456");
-//        req.setMobile("13900000000");
-//        req.setPassword("123456");
-//        req.setPayPassword("123456");
-//        req.setAutoSettle(true);
-//        req.setSecurityRate("sign");
-//        req.setMerchantServerIp("1.1.1.1");
-//        Map<String, String> payProductCode = new HashMap();
-//        payProductCode.put("001", "0.06");
-//        req.setPayProductCode(payProductCode);
-//        req.setRealName("jack real");
+        req.setInsertMerchantName("jack");
+        req.setInsertAccountNo("123456");
+        req.setInsertMobile("13900000000");
+        req.setInsertPassword("123456");
+        req.setInsertPayPassword("123456");
+        req.setInsertAutoSettle(true);
+        req.setInsertSecurityRate("sign");
+        req.setInsertMerchantServerIp("1.1.1.1");
+        HashMap<String, String> payProductCode = new HashMap();
+        payProductCode.put("001", "0.06");
+        req.setInsertPayProductCode(payProductCode);
+        req.setInsertRealName("jack real");
         return req;
     }
 

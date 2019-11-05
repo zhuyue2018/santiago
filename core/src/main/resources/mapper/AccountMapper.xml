@@ -22,6 +22,6 @@
     <result column="account_type" jdbcType="CHAR" property="accountType" />
     <result column="unsett_balance" jdbcType="DECIMAL" property="unsettBalance" />
     <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
-    <result column="delete" jdbcType="CHAR" property="delete" />
+    <result column="delete_flag" jdbcType="CHAR" property="deleteFlag" />
   </resultMap>
 </mapper>

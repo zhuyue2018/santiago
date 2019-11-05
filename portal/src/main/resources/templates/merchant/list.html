@@ -3,16 +3,16 @@
 <div th:fragment="content">
     <div class="container">
         <caption>商户管理</caption>
-        <form action="" method="post" id = "menuQuery">
+        <form action="" method="post" id = "merchantQuery">
             <table class="table table-striped" >
                 <tr>
-                    <td align="right" >菜单Id：</td>
+                    <td align="right" >商户Id：</td>
                     <td>
-                        <input type="text" class="form-control" id="menuId" name="menuId">
+                        <input type="text" class="form-control" id="merchantId" name="merchantId">
                     </td>
-                    <td align="right" >菜单名称：</td>
+                    <td align="right" >商户名称：</td>
                     <td>
-                        <input type="text" class="form-control" id="menuName" name="menuName">
+                        <input type="text" class="form-control" id="merchantName" name="merchantName">
                     </td>
                 </tr>
             </table>
@@ -22,20 +22,18 @@
         </div>
     </div>
     <div class="container">
-        <caption>菜单列表</caption>
+        <caption>商户列表</caption>
         <form action="" method="post">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <td>菜单Id</td>
-                        <td>菜单名称</td>
-                        <td>菜单url</td>
-                        <td>菜单级别</td>
-                        <td>父菜单id</td>
+                        <td>商户号</td>
+                        <td>商户名称</td>
+                        <td>账户号</td>
                         <td>操作</td>
                     </tr>
                 </thead>
-                <tbody id="menuList">
+                <tbody id="merchantList">
                 </tbody>
             </table>
             <div id="fixed-table-pagination" class="clearfix">
@@ -47,8 +45,8 @@
             </div>
         </form>
     </div>
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#insertmenu">新增商户</button>
-    <div class="modal fade" id="insertmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#insertmerchant">新增商户</button>
+    <div class="modal fade" id="insertmerchant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,40 +123,17 @@
 
     <script>
         $(document).ready(function() {
-            getPayProduct();
-
-            // getData();
-            // $("#query").click(function () {
-            //     query();
-            // });
+            getData();
+            $("#query").click(function () {
+                query();
+            });
             $("#submitInsert").click(function () {
                 insert();
             });
-            // $("#insertMenuLevel").change(function () {
-            //     var level = $("#insertMenuLevel").val() - 1;
-            //     var json = {};
-            //     json["level"] = level;
-            //     $.ajax("/pms/menu/query", {
-            //         data: JSON.stringify(json),
-            //         contentType: "application/json",
-            //         datatype: "json",
-            //         type: "post",
-            //         success: function (data) {
-            //             $("#insertPid").empty();
-            //             if (data.length > 0) {
-            //                 for (var i = 0; i < data.length; i++) {
-            //                     var pMenu = data[i];
-            //                     var str = "<option value=" + pMenu.id + ">" + pMenu.name + "</option>";
-            //                     $("#insertPid").append(str);
-            //                 }
-            //             }
-            //         }
-            //     });
-            // });
         });
 
         function insert() {
-            $("#insertmenu").modal("hide");
+            $("#insertmerchant").modal("hide");
             var array = $("#insertForm").serializeArray();
             var obj = {};
             var map = {};
@@ -170,7 +145,7 @@
                 }
             }
             obj["insertPayProductCode"] = map;
-            $.ajax("/merchant/merchantInfo/add", {
+            $.ajax("/merchant/info/add", {
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 datatype: "json",
@@ -186,14 +161,14 @@
             });
         }
 
-        function deletemenu(id) {
-            if (confirm("确定删除菜单？")) {
-                $.post("/menu/delete/" + id,
+        function deleteMerchant(id) {
+            if (confirm("确定删除商户？")) {
+                $.post("/merchant/info/delete/" + id,
                     function callback(data) {
                         if ("000000" == data.code) {
-                            alert("删除菜单成功！");
+                            alert("删除成功！");
                         } else {
-                            alert("删除菜单失败！")
+                            alert("删除失败！")
                         }
                     }
                 );
@@ -207,26 +182,13 @@
             getData();
         }
 
-        function getPayProduct() {
-            $.get("/pay/payProduct/list", function (data) {
-                data.length;
-                var str = "";
-                for (var i = 0 ; i < data.length ; i++) {
-                    var payProduct = data[i];
-                    str += "产品编码："+ payProduct.payProductCode +"；费率：<input type='text' class='form-control' name='" + payProduct.payProductCode + ":feeRate'><br>"
-                }
-                $("#payProductDiv").empty();
-                $("#payProductDiv").append(str);
-            });
-        }
-
         function getData() {
-            var array = $("#menuQuery").serializeArray();
+            var array = $("#merchantQuery").serializeArray();
             var obj = {};
             for (var i = 0; i < array.length; i++) {
                 obj[array[i].name] = array[i].value;
             }
-            $.ajax("/pms/menu/page", {
+            $.ajax("/merchant/info/page", {
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 datatype: "json",
@@ -239,7 +201,7 @@
                             obj["pageNum"] = current_page;
                             obj["pageSize"] = per_page;
                             console.log(JSON.stringify(obj));
-                            $.ajax("/pms/menu/page", {
+                            $.ajax("/merchant/info/page", {
                                 data: JSON.stringify(obj),
                                 contentType: "application/json",
                                 datatype: "json",
@@ -262,23 +224,21 @@
 
         // 解析数据
         function analyzeData(data) {
-            $("#menuList").empty();
+            $("#merchantList").empty();
             if (data.total > 0) {
-                var menuList = data.list;
+                var merchantList = data.list;
                 var length = data.size;
                 for (var i = 0; i < length; i++) {
-                    var menu = menuList[i];
+                    var merchant = merchantList[i];
                     var str = "<tr><td>";
-                    str += menu.id + "</td><td>";
-                    str += menu.name + "</td><td>";
-                    str += menu.url + "</td><td>";
-                    str += menu.level + "</td><td>";
-                    str += menu.parentId + "</td><td>";
-                    str += "<button href= '/menu/update/'" + menu.id + ">修改</button><button onclick='deletemenu("+ menu.id +")'>删除</button></td></tr>";
-                    $("#menuList").append(str);
+                    str += merchant.merchantNo + "</td><td>";
+                    str += merchant.merchantName + "</td><td>";
+                    str += merchant.accountNo + "</td><td>";
+                    str += "<button href= '/merchant/update/'" + merchant.id + ">修改</button><button onclick='deleteMerchant("+ merchant.id +")'>删除</button></td></tr>";
+                    $("#merchantList").append(str);
                 }
             } else {
-                $("#menuList").html("无数据");
+                $("#merchantList").html("无数据");
             }
         }
     </script>

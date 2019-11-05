@@ -2,6 +2,7 @@ package com.santiago.core.wss;
 
 import com.santiago.commons.enums.PublicStatusEnum;
 import com.santiago.commons.enums.StatusEnum;
+import com.santiago.commons.enums.VersionEnum;
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.*;
 import com.santiago.core.entity.dto.MerchantInsertDTO;
@@ -10,6 +11,7 @@ import com.santiago.core.mapper.MerchantInfoMapper;
 import com.santiago.core.mapper.MerchantPayConfigMapper;
 import com.santiago.core.mapper.MerchantPayInfoMapper;
 import com.santiago.core.service.*;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -58,7 +60,14 @@ public class MerchantWss {
         merchantPayProductService.create(merchantNo, payProductCode, feeRate);
         //生成对账配置信息
         MerchantSettleConfig settleConfig = new MerchantSettleConfig();
+        settleConfig.setGmtCreate(DateTime.now().toDate());
+        settleConfig.setGmtModified(DateTime.now().toDate());
+        settleConfig.setVersion(VersionEnum.INIT.getCode());
+        settleConfig.setCreater("core");
         settleConfig.setMerchantNo(merchantNo);
+        settleConfig.setSettleType("1");
+        settleConfig.setSettlePeriod(1);
+        settleConfig.setIsAutoSettle("0");
         merchantSettleConfigService.insert(settleConfig);
         return merchantInfo.getId();
     }

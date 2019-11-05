@@ -6,6 +6,9 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="CHAR" property="version" />
     <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
     <result column="pay_product_code" jdbcType="VARCHAR" property="payProductCode" />
     <result column="fee_rate" jdbcType="DECIMAL" property="feeRate" />

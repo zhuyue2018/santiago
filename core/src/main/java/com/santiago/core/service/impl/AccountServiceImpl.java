@@ -23,17 +23,18 @@ public class AccountServiceImpl implements AccountService {
         account.setVersion("1.0.0");
         account.setRemark("2");
         account.setAccountNo(accountNo);
-        account.setBalance(new BigDecimal("0"));
-        account.setFreezeBalance(new BigDecimal("0"));
-        account.setSecurityMoney(new BigDecimal("0"));
+        account.setBalance(BigDecimal.ZERO);
+        account.setFreezeBalance(BigDecimal.ZERO);
+        account.setSecurityMoney(BigDecimal.ZERO);
         account.setStatus(PublicStatusEnum.ACTIVE.getCode());
-        account.setTotalExpend(new BigDecimal("0"));
-        account.setTotalIncome(new BigDecimal("0"));
-        account.setTodayIncome(new BigDecimal("0"));
-        account.setTodayExpend(new BigDecimal("0"));
+        account.setTotalExpend(BigDecimal.ZERO);
+        account.setTotalIncome(BigDecimal.ZERO);
+        account.setTodayIncome(BigDecimal.ZERO);
+        account.setTodayExpend(BigDecimal.ZERO);
         account.setAccountType("0");
+        account.setUnsettBalance(BigDecimal.ZERO);
         account.setMerchantNo(merchantNo);
-        account.setDelete("0");
+        account.setDeleteFlag("0");
         accountMapper.insert(account);
     }
     @Override

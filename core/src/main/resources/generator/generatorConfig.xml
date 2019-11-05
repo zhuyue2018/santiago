@@ -35,7 +35,7 @@
             enableUpdateByExample:Update语句中加入where条件查询，默认为true开启 enableDeleteByExample:Delete语句中加入where条件查询，默认为true开启
             enableSelectByExample:Select多条语句中加入where条件查询，默认为true开启 selectByExampleQueryId:Select单个对象语句中加入where条件查询，默认为true开启 -->
         <!--<table tableName="tb_user">-->
-        <table schema="" tableName="trade_order">
+        <table schema="" tableName="merchant_pay_product">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"></generatedKey>
         </table>
     </context>

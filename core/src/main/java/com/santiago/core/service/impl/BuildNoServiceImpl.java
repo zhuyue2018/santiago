@@ -38,18 +38,18 @@ public class BuildNoServiceImpl implements BuildNoService {
 	private static final Log LOG = LogFactory.getLog(BuildNoServiceImpl.class);
 
 	/** 对账批次号前缀 **/
-	private static final String RECONCILIATION_BATCH_NO = "5555";
+	private static final String RECONCILIATION_BATCH_NO = "recb";
 
 	/** 银行订单号 **/
-	private static final String BANK_ORDER_NO_PREFIX = "6666";
+	private static final String BANK_ORDER_NO_PREFIX = "bank";
 	/** 支付流水号前缀 **/
-	private static final String TRX_NO_PREFIX = "7777";
+	private static final String TRX_NO_PREFIX = "trxn";
 
 	/** 用户编号前缀 **/
-	private static final String USER_NO_PREFIX = "8888";
+	private static final String USER_NO_PREFIX = "merc";
 
 	/** 账户编号前缀 **/
-	private static final String ACCOUNT_NO_PREFIX = "9999";
+	private static final String ACCOUNT_NO_PREFIX = "acct";
 
 	@Autowired
 	private SeqTableService seqTableService;

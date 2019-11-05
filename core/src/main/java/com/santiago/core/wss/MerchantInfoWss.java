@@ -10,6 +10,6 @@ public class MerchantInfoWss {
     MerchantInfoService merchantInfoService;
 
     public void listNeedSettle() {
-        merchantInfoService.listNeedSettle();
+//        merchantInfoService.list();
     }
 }

@@ -1,5 +1,6 @@
 package com.santiago.core.service.impl;
 
+import com.santiago.commons.enums.VersionEnum;
 import com.santiago.core.entity.domain.MerchantPayProduct;
 import com.santiago.core.mapper.MerchantPayProductMapper;
 import com.santiago.core.service.MerchantPayProductService;
@@ -14,6 +15,7 @@ public class MerchantPayProductServiceImpl implements MerchantPayProductService 
     @Override
     public void create(String merchantNo, String payProductCode, BigDecimal feeRate) {
         MerchantPayProduct merchantPayProduct = new MerchantPayProduct();
+        merchantPayProduct.setVersion(VersionEnum.INIT.getCode());
         merchantPayProduct.setMerchantNo(merchantNo);
         merchantPayProduct.setPayProductCode(payProductCode);
         merchantPayProduct.setFeeRate(feeRate);
