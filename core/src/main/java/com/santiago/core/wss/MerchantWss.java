@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Controller
 public class MerchantWss {
@@ -70,5 +72,14 @@ public class MerchantWss {
         settleConfig.setIsAutoSettle("0");
         merchantSettleConfigService.insert(settleConfig);
         return merchantInfo.getId();
+    }
+
+    public static void main(String[] args) {
+        ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+        lock.readLock().lock();
+        System.out.println(1);
+        lock.readLock().unlock();
+        lock.writeLock().lock();
+        lock.writeLock().unlock();
     }
 }
