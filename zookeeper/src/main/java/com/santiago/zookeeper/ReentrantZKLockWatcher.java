@@ -12,9 +12,11 @@ public class ReentrantZKLockWatcher implements Watcher {
         this.latch = latch;
     }
 
-    public void process(WatchedEvent event) {
-        if (Watcher.Event.EventType.NodeDeleted == event.getType()) {
+    @Override
+    public void process(WatchedEvent watchedEvent) {
+        if (Watcher.Event.EventType.NodeDeleted == watchedEvent.getType()) {
             latch.countDown();
         }
     }
+
 }

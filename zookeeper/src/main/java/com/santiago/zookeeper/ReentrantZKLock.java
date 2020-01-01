@@ -3,6 +3,7 @@ package com.santiago.zookeeper;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
@@ -18,9 +19,11 @@ public class ReentrantZKLock {
     private static byte[] data = new byte[0];
     private static String lockNode = "lock_";
 
+
     private ZooKeeper zooKeeper;
     private String categoryPath;
     private String nodePath;
+    private Long watchTimeout = 5000L;
 
     private CountDownLatch latch = new CountDownLatch(1);
 
@@ -29,7 +32,7 @@ public class ReentrantZKLock {
         this.categoryPath = categoryPath;
     }
 
-    public void lock() {
+    public boolean lock() {
         try {
             String rawNodePath = categoryPath + "/" + lockNode;
             // 创建临时顺序节点
@@ -48,20 +51,28 @@ public class ReentrantZKLock {
 
             // 如果最前的节点为当前阶段，认为获取锁成功
             if (firstNodeId == nodeId) {
-                return;
+                return true;
             }
 
             String preNodeId = nodeIdSet.lower(nodeId);
             if (preNodeId != null) {
+                System.out.println("nodeId=" + nodeId + ", preNodeId=" + preNodeId);
                 String preNodePath = categoryPath + "/" + preNodeId;
-                Stat stat = zooKeeper.exists(preNodePath, new ReentrantZKLockWatcher(latch));
-                if (stat != null) {
-                    latch.await();
-                    System.out.println("nodeId=" + nodeId + ", preNodeId=" + preNodeId);
+                if (null != zooKeeper.exists(preNodePath, new ReentrantZKLockWatcher(latch))) {
+                    if (latch.await(watchTimeout, TimeUnit.MILLISECONDS)) {
+                        return true;
+                    } else { // 获取锁超时
+                        zooKeeper.delete(rawNodePath, -1);
+                        return false;
+                    }
                 }
+                return true;
+            } else {
+                return false;
             }
         } catch (Exception e) {
             LOG.error("lock " + categoryPath, e);
+            return false;
         }
     }
 
