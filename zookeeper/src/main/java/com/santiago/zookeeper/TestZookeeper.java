@@ -60,7 +60,7 @@ public class TestZookeeper implements Watcher{
      * 同步创建一个持久节点,ACL为 world:anyone:cdrwa 等同于如下命令：
      * create /node 123 world:anyone:cdrwa
      */
-    zookeeper1.create("/node",
+    zookeeper1.create("/node2",
         "123".getBytes(),
         ZooDefs.Ids.OPEN_ACL_UNSAFE,
         CreateMode.PERSISTENT);

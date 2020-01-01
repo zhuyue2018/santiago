@@ -2,8 +2,11 @@ package com.santiago.commons.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
+
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -29,7 +32,7 @@ public class EncryptUtil {
 
 	/**
 	 * 用MD5算法进行加密
-	 * 
+	 *
 	 * @param str
 	 *            需要加密的字符串
 	 * @return MD5加密后的结果
@@ -40,7 +43,7 @@ public class EncryptUtil {
 
 	/**
 	 * 用SHA算法进行加密
-	 * 
+	 *
 	 * @param str
 	 *            需要加密的字符串
 	 * @return SHA加密后的结果
@@ -51,27 +54,31 @@ public class EncryptUtil {
 
 	/**
 	 * 用base64算法进行加密
-	 * 
+	 *
 	 * @param str
 	 *            需要加密的字符串
 	 * @return base64加密后的结果
 	 */
 	public static String encodeBase64String(String str) {
-		BASE64Encoder encoder = new BASE64Encoder();
-		return encoder.encode(str.getBytes());
+		Encoder encoder = Base64.getEncoder();
+		return new String(encoder.encode(str.getBytes()));
+//		BASE64Encoder encoder = new BASE64Encoder();
+//		return encoder.encode(str.getBytes());
 	}
 
 	/**
 	 * 用base64算法进行解密
-	 * 
+	 *
 	 * @param str
 	 *            需要解密的字符串
 	 * @return base64解密后的结果
 	 * @throws IOException
 	 */
 	public static String decodeBase64String(String str) throws IOException {
-		BASE64Decoder encoder = new BASE64Decoder();
-		return new String(encoder.decodeBuffer(str));
+		Base64.Decoder decoder = Base64.getDecoder();
+		return new String(decoder.decode(str));
+//		BASE64Decoder? encoder = new BASE64Decoder();
+//		return new String(encoder.decodeBuffer(str));
 	}
 
 	private static String encode(String str, String method) {
