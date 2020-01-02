@@ -62,7 +62,7 @@ public class TradeCtrlTest extends BaseJunit {
 
         @Override
         public void run() {
-            for (int i = 0 ; i < 10 ; i++) {
+            for (int i = 0; i < 10; i++) {
                 TradeRequest request = createRequest(prefix + new Date().getTime());
                 try {
                     mock(request, "000000");
@@ -97,7 +97,7 @@ public class TradeCtrlTest extends BaseJunit {
 //    @Transactional
 //    @Rollback
     public void successCase() throws Exception {
-        TradeRequest request = createRequest("201910241146");
+        TradeRequest request = createRequest("test" + System.currentTimeMillis());
         mock(request, "000000");
     }
 

@@ -1,0 +1,7 @@
+package com.santiago.zookeeper.mapper;
+
+import com.santiago.commons.util.MyMapper;
+import com.santiago.zookeeper.entity.domain.AccountCheckBatch;
+
+public interface AccountCheckBatchMapper extends MyMapper<AccountCheckBatch> {
+}

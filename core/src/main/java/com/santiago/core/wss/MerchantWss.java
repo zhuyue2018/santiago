@@ -74,12 +74,4 @@ public class MerchantWss {
         return merchantInfo.getId();
     }
 
-    public static void main(String[] args) {
-        ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-        lock.readLock().lock();
-        System.out.println(1);
-        lock.readLock().unlock();
-        lock.writeLock().lock();
-        lock.writeLock().unlock();
-    }
 }

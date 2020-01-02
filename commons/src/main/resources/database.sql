@@ -1,4 +1,4 @@
-/*
+/*select * from notify_record
 Navicat MySQL Data Transfer
 
 Source Server         : 腾讯云0917

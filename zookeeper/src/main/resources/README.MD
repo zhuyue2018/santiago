@@ -36,3 +36,15 @@ services:
       ZOO_SERVERS: server.1=zk1.cloud:2888:3888 server.2=zk2.cloud:2888:3888 server.3=0.0.0.0:2888:3888
 ```
 注意版本号是3.4.14
+
+执行
+
+docker exec -it zk1.cloud bash ./bin/zkServer.sh status
+
+验证
+
+
+ZooKeeper JMX enabled by default
+Using config: /conf/zoo.cfg
+Mode: follower
+

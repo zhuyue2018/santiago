@@ -45,9 +45,11 @@
     </form>
 
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+</script>
 <script type="text/javascript">
-
     $("#loginBtn").click(function () {
+
         $.ajax({
             type: "POST",
             url: "/login",
@@ -57,9 +59,7 @@
                 window.location.href = "/index";
             }
         });
-
     });
-
 </script>
 </body>
 </html>

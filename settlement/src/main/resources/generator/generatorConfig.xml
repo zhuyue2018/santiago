@@ -16,7 +16,7 @@
         </jdbcConnection>
 
         <!-- 生成Pojo包名和位置 -->
-        <javaModelGenerator targetPackage="com.santiago.settlement.entity.domain"
+        <javaModelGenerator targetPackage="com.santiago.zookeeper.entity.domain"
                             targetProject="src/main/java">
         </javaModelGenerator>
 
@@ -26,7 +26,7 @@
         </sqlMapGenerator>
 
         <!-- 生成Mapper接口文件位置 -->
-        <javaClientGenerator targetPackage="com.santiago.settlement.mapper"
+        <javaClientGenerator targetPackage="com.santiago.zookeeper.mapper"
                              targetProject="src/main/java" type="XMLMAPPER">
         </javaClientGenerator>
 
