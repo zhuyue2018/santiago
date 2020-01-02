@@ -5,6 +5,7 @@
     <modules>
         <module>zookeeper</module>
         <module>rcs</module>
+        <module>cg</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
