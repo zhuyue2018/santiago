@@ -7,7 +7,7 @@ import com.santiago.core.mapper.MerchantPayProductMapper;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.mapper.TradeRecordMapper;
 import com.santiago.core.service.ChannelInteractService;
-import com.santiago.core.service.SpringContextUtil;
+import com.santiago.core.service.impl.SpringContextUtil;
 import com.santiago.notify.wss.MerchantNotifyWss;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

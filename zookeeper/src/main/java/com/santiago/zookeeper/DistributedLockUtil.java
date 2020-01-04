@@ -20,7 +20,7 @@ public class DistributedLockUtil implements InitializingBean {
         try {
             DistributedLockUtil.lockmgr = new ReentrantZKLockMgr(address, sessionTimeout);
         } catch (Exception e) {
-            logger.warn("分布式锁初始哈异常", e);
+            logger.warn("分布式锁初始化异常", e);
         }
     }
 

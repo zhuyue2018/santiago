@@ -19,8 +19,8 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/channel/receive")
-public class ChannelReceiveCtrl {
-    private static final Logger logger = LoggerFactory.getLogger(ChannelReceiveCtrl.class);
+public class ChannelCtrl {
+    private static final Logger logger = LoggerFactory.getLogger(ChannelCtrl.class);
     @Autowired
     ChannelReceiveWss channelReceiveWss;
 

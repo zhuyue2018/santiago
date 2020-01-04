@@ -6,6 +6,14 @@
         <module>zookeeper</module>
         <module>rcs</module>
         <module>cg</module>
+        <module>core</module>
+        <module>commons</module>
+        <module>gateway</module>
+        <module>notify</module>
+        <module>portal</module>
+        <module>settlement</module>
+        <module>job</module>
+        <module>api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -38,10 +46,40 @@
         <thymeleaf.extras.springsecurity5.version>3.0.4.RELEASE</thymeleaf.extras.springsecurity5.version>
         <xstream.version>1.4.11.1</xstream.version>
         <commons.collections4.version>4.4</commons.collections4.version>
+        <nacos.version>0.2.1</nacos.version>
+        <springcloud.nacos.version>2.1.1.RELEASE</springcloud.nacos.version>
+        <uid.generator.version>1.0.0-SNAPSHOT</uid.generator.version>
+        <feign.version>2.1.1.RELEASE</feign.version>
+
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.santiago</groupId>
+                <artifactId>api</artifactId>
+                <version>${dependency.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${springcloud.nacos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baidu.fsg</groupId>
+                <artifactId>uid-generator</artifactId>
+                <version>${uid.generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.santiago</groupId>
                 <artifactId>settlement</artifactId>

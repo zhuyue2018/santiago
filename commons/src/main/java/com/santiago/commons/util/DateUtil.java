@@ -1,10 +1,13 @@
 package com.santiago.commons.util;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 //import org.apache.log4j.Logger;
@@ -44,14 +47,28 @@ public class DateUtil extends DateUtils {
 	 */
 	public static String DATE_FORMAT_DATEONLY = "yyyy-MM-dd"; // 年/月/日
 	public static String DATE_FORMAT_DATETIME = "yyyy-MM-dd HH:mm:ss"; // 年/月/日
-//	public static SimpleDateFormat sdfDateTime = new SimpleDateFormat(DateUtils.DATE_FORMAT_DATETIME);
-	// Global SimpleDateFormat object
-//	public static SimpleDateFormat sdfDateOnly = new SimpleDateFormat(DateUtils.DATE_FORMAT_DATEONLY);
 	public static final SimpleDateFormat SHORTDATEFORMAT = new SimpleDateFormat("yyyyMMdd");
 	public static final SimpleDateFormat SHORT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	public static final SimpleDateFormat LONG_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final SimpleDateFormat HMS_FORMAT = new SimpleDateFormat("HH:mm:ss");
 	public static final SimpleDateFormat formatTimestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	public static final String YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
+	public static final String HHMMSS = "HH:mm:ss";
+
+	public static final String getCurrentDateStr(String pattern) {
+		LocalDateTime currentTime = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+		return currentTime.format(dtf);
+	}
+
+	public static void main(String[] args) {
+		System.out.println(DateUtil.getCurrentDateStr(DateUtil.YYYYMMDDHHMMSS));
+	}
+
+	public static String parseDate(Date date, String pattern) {
+		return DateFormatUtils.format(date, pattern);
+	};
 
 	/**
 	 * 根据日期格式字符串解析日期字符串

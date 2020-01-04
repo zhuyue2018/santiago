@@ -5,9 +5,12 @@ import com.santiago.notify.entity.domain.NotifyRecord;
 import com.santiago.notify.mapper.NotifyRecordMapper;
 import com.santiago.notify.service.NotifyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(value = "/notify")
+@RestController
+@RefreshScope
 public class MerchantNotifyWss {
     @Autowired
     NotifyService notifyService;
@@ -23,10 +26,15 @@ public class MerchantNotifyWss {
         return null;
     }
 
-
+    @RequestMapping(value = "/notify")
     public String doNotify(NotifyRecord notifyRecord) {
-        // todo
-        return "000000";
+        return "notify";
+    }
+
+    @RequestMapping(value = "/batchNotify")
+    public String batchNotify() {
+
+        return "batchNotify";
     }
 
     public void updateRecord(NotifyRecord notifyRecord) {
