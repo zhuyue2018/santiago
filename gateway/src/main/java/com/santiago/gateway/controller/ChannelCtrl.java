@@ -1,5 +1,6 @@
 package com.santiago.gateway.controller;
 
+import com.santiago.api.AccountApi;
 import com.santiago.commons.dto.resp.BaseResponse;
 import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.enums.ErrorCodeEnum;
@@ -18,13 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/channel/receive")
+@RequestMapping(value = "/channel")
 public class ChannelCtrl {
     private static final Logger logger = LoggerFactory.getLogger(ChannelCtrl.class);
     @Autowired
     ChannelReceiveWss channelReceiveWss;
+    @Autowired
+    AccountApi accountApi;
 
-    @RequestMapping("/weixin")
+    @RequestMapping("/receive/weixin")
     public BaseResponse receiveNotify(@Valid @RequestBody WeixinNotifyRequest request, BindingResult result) {
         logger.info("收到回调通知，request:{}", JsonUtil.create().objectToJson(request));
         if (result.hasErrors()) {
@@ -32,6 +35,7 @@ public class ChannelCtrl {
             throw new TradeBizException(ErrorCodeEnum.PARAMS_ERROR.getCode(), message);
         }
         channelReceiveWss.receive(request);
+        accountApi.account();
         SimpleResponse simpleResponse = new SimpleResponse("success", "接受回调通知成功");
         return simpleResponse;
     }

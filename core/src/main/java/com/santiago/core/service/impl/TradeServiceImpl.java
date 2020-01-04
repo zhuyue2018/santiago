@@ -1,20 +1,24 @@
 package com.santiago.core.service.impl;
 
 import com.santiago.commons.enums.ErrorCodeEnum;
-import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.SecurityRatingEnum;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.commons.enums.VersionEnum;
 import com.santiago.commons.util.DateUtil;
+import com.santiago.commons.util.EncryptUtil;
+import com.santiago.core.entity.domain.MerchantPayInfo;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
 import com.santiago.core.entity.dto.request.TradeRequest;
 import com.santiago.core.entity.dto.response.PreOrderResponse;
 import com.santiago.core.entity.exception.TradeBizException;
+import com.santiago.core.entity.exception.UserBizException;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.mapper.TradeRecordMapper;
 import com.santiago.core.service.BuildNoService;
+import com.santiago.core.service.ChannelSendService;
+import com.santiago.core.service.MerchantPayInfoService;
 import com.santiago.core.service.TradeService;
-import com.santiago.core.wss.ChannelSendWss;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,21 +33,27 @@ import java.util.Date;
 public class TradeServiceImpl implements TradeService {
     private static final Logger logger = LoggerFactory.getLogger(TradeServiceImpl.class);
     @Autowired
-    ChannelSendWss channelSendWss;
+    ChannelSendService channelSendService;
     @Autowired
     TradeOrderMapper tradeOrderMapper;
     @Autowired
     BuildNoService buildNoService;
     @Autowired
     TradeRecordMapper tradeRecordMapper;
+    @Autowired
+    MerchantPayInfoService merchantPayInfoService;
 
     @Override
     public PreOrderResponse preOrder(TradeRequest request) {
+        MerchantPayInfo merchantPayInfo = merchantPayInfoService.getByMerchantNo(request.getMerchantNo());
+        assertNotnull(merchantPayInfo);
+        validate(request, merchantPayInfo.getSecurityRating(), merchantPayInfo.getMerchantServerIp(), merchantPayInfo.getMd5Key());
+        request.setField1(merchantPayInfo.getMerchantName());
         String orderNo = request.getOrderNo();
         assertOrderNotExist(request.getMerchantNo(), orderNo);
         TradeOrder order = createTradeOrder(request);
         TradeRecord tradePaymentRecord = createTradePaymentRecord(order);
-        return channelSendWss.preOrder(tradePaymentRecord, request.getPayProductCode());
+        return channelSendService.preOrder(tradePaymentRecord, request.getPayProductCode());
     }
 
     private void assertOrderNotExist(String merchantNo, String orderNo) {
@@ -121,6 +131,57 @@ public class TradeServiceImpl implements TradeService {
         tradePaymentRecord.setRemark(order.getRemark());
         tradeRecordMapper.insert(tradePaymentRecord);
         return tradePaymentRecord;
+    }
+
+    private void validate(TradeRequest request, String securityRating, String merchantServerIp, String md5Key) {
+        if (SecurityRatingEnum.SIGN.getCode().equals(securityRating)) {
+            validateIp(request.getOrderIp(), merchantServerIp);
+            validateSign(request, md5Key);
+            return;
+        }
+        if (SecurityRatingEnum.IP.getCode().equals(securityRating)) {
+            validateIp(request.getOrderIp(), merchantServerIp);
+            return;
+        }
+        if (SecurityRatingEnum.NONE.getCode().equals(securityRating)) {
+            return;
+        } else {
+            throw UserBizException.SECURITY_RATING_ERROR;
+        }
+    }
+
+    private void assertNotnull(MerchantPayInfo merchantPayInfo) {
+        if (merchantPayInfo == null) {
+            throw UserBizException.USER_PAY_CONFIG_ERROR;
+        }
+    }
+
+    private void validateIp(String orderIp, String merchantServerIp) {
+        if (merchantServerIp.indexOf(orderIp) < 0) {
+            throw TradeBizException.IP_ERROR;
+        }
+    }
+
+    private void validateSign(TradeRequest request, String md5Key) {
+        String sign = "";
+        try {
+            sign = sign(md5Key, request.getMerchantNo(), request.getProductName(), request.getOrderNo());
+        } catch (Exception e) {
+            logger.warn("orderNo:{},系统构造签名异常", request.getOrderNo());
+            throw TradeBizException.SYSTEM_ERROR;
+        }
+        if (!sign.equals(request.getSign())) {
+            throw TradeBizException.SIGN_ERROR;
+        }
+    }
+
+    private String sign(String md5Key, String... params) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < params.length; i++) {
+            sb.append(params[i]);
+        }
+        sb.append(md5Key);
+        return EncryptUtil.encodeMD5String(sb.toString());
     }
 
 }

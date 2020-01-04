@@ -18,6 +18,7 @@ package com.santiago.core.service.impl;
 import com.santiago.commons.util.DateUtil;
 import com.santiago.core.entity.domain.SeqTable;
 import com.santiago.core.service.BuildNoService;
+import com.santiago.core.service.SeqTableService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

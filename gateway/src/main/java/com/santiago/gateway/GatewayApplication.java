@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan(basePackages = {"com.santiago.core.mapper", "com.santiago.notify.mapper", ""})
 @NacosPropertySource(dataId = "gateway", autoRefreshed = true)
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients("com.santiago.api")
 public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);

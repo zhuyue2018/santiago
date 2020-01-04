@@ -1,7 +1,7 @@
 //package com.santiago.settlement.service.impl;
 //
-//import com.santiago.core.entity.domain.MerchantSettleConfig;
-//import com.santiago.core.mapper.MerchantSettleConfigMapper;
+//import com.santiago.rcs.entity.domain.MerchantSettleConfig;
+//import com.santiago.rcs.mapper.MerchantSettleConfigMapper;
 //import com.santiago.settlement.service.MerchantSettleConfigService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;

@@ -10,7 +10,6 @@ import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.core.entity.dto.MerchantInsertDTO;
 import com.santiago.portal.entity.dto.request.MerchantInsertReq;
 import com.santiago.portal.entity.dto.request.MerchantQueryReq;
-import com.santiago.core.entity.vo.MerchantInfoVO;
 import com.santiago.portal.service.OperatorMerchantService;
 import com.santiago.portal.service.OperatorRoleService;
 import com.santiago.portal.service.OperatorService;

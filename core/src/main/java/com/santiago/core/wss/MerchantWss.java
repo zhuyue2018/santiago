@@ -1,24 +1,15 @@
 package com.santiago.core.wss;
 
-import com.santiago.commons.enums.PublicStatusEnum;
-import com.santiago.commons.enums.StatusEnum;
-import com.santiago.commons.enums.VersionEnum;
+import com.santiago.api.AccountApi;
+import com.santiago.api.RcsApi;
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.*;
 import com.santiago.core.entity.dto.MerchantInsertDTO;
-import com.santiago.core.mapper.AccountMapper;
-import com.santiago.core.mapper.MerchantInfoMapper;
-import com.santiago.core.mapper.MerchantPayConfigMapper;
-import com.santiago.core.mapper.MerchantPayInfoMapper;
 import com.santiago.core.service.*;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Controller
 public class MerchantWss {
@@ -29,14 +20,13 @@ public class MerchantWss {
     @Autowired
     MerchantPayInfoService merchantPayInfoService;
     @Autowired
-    MerchantPayConfigService merchantPayConfigService;
+    RcsApi merchantPayConfigApi;
     @Autowired
-    MerchantSettleConfigService merchantSettleConfigService;
-    @Autowired
-    AccountService accountService;
+    AccountApi accountApi;
     @Autowired
     MerchantPayProductService merchantPayProductService;
-
+    @Autowired
+    RcsApi rcsApi;
 
     public Long register(MerchantInsertDTO dto) {
         String merchantNo = buildNoService.buildUserNo();
@@ -51,9 +41,9 @@ public class MerchantWss {
         merchantInfo.setPayPwd(EncryptUtil.encodeMD5String(dto.getPayPassword()));
         merchantInfoService.createDefault(merchantInfo);
         // 生成账户信息
-        accountService.createDaefaultAccount(accountNo, merchantNo);
+        accountApi.create(accountNo, merchantNo);
         // 生成支付配置
-        merchantPayConfigService.createDefault(merchantNo, dto.getSecurityRate(), dto.getMerchantServerIp());
+        rcsApi.createMerchantPayConfig(merchantNo, dto.getSecurityRate(), dto.getMerchantServerIp());
         // 生成支付信息
         merchantPayInfoService.createDefault(merchantNo, dto.getMerchantName(), "123456");
         // 生成支付产品
@@ -61,16 +51,7 @@ public class MerchantWss {
         BigDecimal feeRate = new BigDecimal("0");
         merchantPayProductService.create(merchantNo, payProductCode, feeRate);
         //生成对账配置信息
-        MerchantSettleConfig settleConfig = new MerchantSettleConfig();
-        settleConfig.setGmtCreate(DateTime.now().toDate());
-        settleConfig.setGmtModified(DateTime.now().toDate());
-        settleConfig.setVersion(VersionEnum.INIT.getCode());
-        settleConfig.setCreater("core");
-        settleConfig.setMerchantNo(merchantNo);
-        settleConfig.setSettleType("1");
-        settleConfig.setSettlePeriod(1);
-        settleConfig.setIsAutoSettle("0");
-        merchantSettleConfigService.insert(settleConfig);
+        rcsApi.createMerchantSettleConfig(merchantNo);
         return merchantInfo.getId();
     }
 

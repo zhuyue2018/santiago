@@ -1,7 +1,6 @@
 package com.santiago.core.service.impl;
 
 import com.santiago.commons.enums.PublicStatusEnum;
-import com.santiago.core.entity.domain.MerchantPayConfig;
 import com.santiago.core.entity.domain.MerchantPayInfo;
 import com.santiago.core.mapper.MerchantPayInfoMapper;
 import com.santiago.core.service.MerchantPayInfoService;

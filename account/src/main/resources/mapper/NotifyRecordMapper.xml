@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.notify.mapper.NotifyRecordMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.notify.entity.domain.NotifyRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="notify_times" jdbcType="INTEGER" property="notifyTimes" />
+    <result column="limit_notify_times" jdbcType="INTEGER" property="limitNotifyTimes" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="notify_type" jdbcType="CHAR" property="notifyType" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="merchant_order_no" jdbcType="VARCHAR" property="merchantOrderNo" />
+    <result column="order_status" jdbcType="CHAR" property="orderStatus" />
+  </resultMap>
+</mapper>

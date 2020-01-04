@@ -14,6 +14,7 @@
         <module>settlement</module>
         <module>job</module>
         <module>api</module>
+        <module>account</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
