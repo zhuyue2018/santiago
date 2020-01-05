@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 public class JsonUtil {
 
+
     private ObjectMapper mapper = new ObjectMapper();
 
     JsonUtil() {

@@ -37,6 +37,8 @@ import java.util.Map;
  * @author
  */
 public class HttpUtils {
+    public HttpUtils() {
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
     private static CloseableHttpClient client;

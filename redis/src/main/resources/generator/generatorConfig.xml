@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+        <property name="begingingDelimiter" value=""></property>
+        <property name="endingDelimiter" value=""></property>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.santiago.commons.util.MyMapper"></property>
+        </plugin>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.username}" password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!-- 生成Pojo包名和位置 -->
+        <javaModelGenerator targetPackage="com.santiago.core.entity.domain"
+                            targetProject="src/main/java">
+        </javaModelGenerator>
+
+        <!-- 生成Mapper映射XML文件位置 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <!-- 生成Mapper接口文件位置 -->
+        <javaClientGenerator targetPackage="com.santiago.core.mapper"
+                             targetProject="src/main/java" type="XMLMAPPER">
+        </javaClientGenerator>
+
+        <!-- 要生成哪些表(更改tableName和domainObjectName就可以) -->
+        <!-- tableName:要生成的表名 domainObjectName:生成后的实例名 enableCountByExample:Count语句中加入where条件查询，默认为true开启
+            enableUpdateByExample:Update语句中加入where条件查询，默认为true开启 enableDeleteByExample:Delete语句中加入where条件查询，默认为true开启
+            enableSelectByExample:Select多条语句中加入where条件查询，默认为true开启 selectByExampleQueryId:Select单个对象语句中加入where条件查询，默认为true开启 -->
+        <!--<table tableName="tb_user">-->
+        <table schema="" tableName="merchant_pay_product">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"></generatedKey>
+        </table>
+    </context>
+</generatorConfiguration>

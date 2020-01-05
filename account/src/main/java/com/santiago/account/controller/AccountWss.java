@@ -22,4 +22,18 @@ public class AccountWss {
     public void create(String accountNo, String merchantNo) {
         accountService.createDefaultAccount(accountNo, merchantNo);
     }
+
+//    @PostMapping(value = "/asyncAccount")
+//    public void asyncAccount(TransactionDTO transactionDTO) {
+//        accountService.insertTransaction();
+//        accountService.send2Kafka();
+//    }
+//
+//    @PostMapping(value = "/account")
+//    public void account() {
+//        accountService.insertTransaction();
+//        accountService.account();
+//    }
+
+
 }

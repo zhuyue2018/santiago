@@ -18,6 +18,8 @@ import java.util.Date;
  * @author zenghao
  */
 public class DateUtil extends DateUtils {
+	public DateUtil() {
+	}
 
 	public static final String TIME_WITH_MINUTE_PATTERN = "HH:mm";
 

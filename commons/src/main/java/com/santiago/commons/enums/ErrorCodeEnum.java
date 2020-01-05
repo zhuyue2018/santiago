@@ -1,5 +1,7 @@
 package com.santiago.commons.enums;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum ErrorCodeEnum {
     SUCCESS("000000", "请求成功"),
     DUPLICATED_BIZ_NO("100001", "业务主键重复"),
@@ -11,6 +13,7 @@ public enum ErrorCodeEnum {
     SECURITY_RATING_ERROR("100007", "用户安全级别配置有误"),
     TRADE_STATUS_ERROR("100008", "交易状态异常"),
     SYSTEM_ERROR("999999", "系统内部错误");
+
     private String code;
     private String msg;
 
@@ -25,5 +28,18 @@ public enum ErrorCodeEnum {
 
     public String getMsg() {
         return msg;
+    }
+
+    public static String getMsgByCode(String code) {
+        if (StringUtils.isEmpty(code)) {
+            return null;
+        }
+        ErrorCodeEnum[] values = ErrorCodeEnum.values();
+        for (ErrorCodeEnum obj : values){
+            if (code.equals(obj.getCode())) {
+                return obj.getMsg();
+            }
+        }
+        return null;
     }
 }

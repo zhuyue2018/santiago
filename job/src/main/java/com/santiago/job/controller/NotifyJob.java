@@ -1,6 +1,7 @@
 package com.santiago.job.controller;
 
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.santiago.api.NotifyApi;
 import com.santiago.job.service.JobRecordService;
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ public class NotifyJob {
     JobRecordService jobRecordService;
     @Autowired
     NotifyApi notifyApi;
+
     /**
      * 每30s执行一次。
      * 查询60分钟内状态为init，通知次数小于等于10的记录，并执行通知。
