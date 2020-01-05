@@ -7,8 +7,8 @@ import com.santiago.core.entity.dto.request.WeixinNotifyRequest;
 import com.santiago.core.entity.exception.ChannelReceiveBizException;
 import com.santiago.core.mapper.TradeOrderMapper;
 import com.santiago.core.mapper.TradeRecordMapper;
-import com.santiago.notify.entity.domain.NotifyRecord;
-import com.santiago.notify.wss.MerchantNotifyWss;
+//import com.santiago.notify.entity.domain.NotifyRecord;
+//import com.santiago.notify.wss.MerchantNotifyWss;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class ChannelReceiveWss {
     TradeRecordMapper recordMapper;
     @Autowired
     TradeOrderMapper orderMapper;
-    @Autowired
-    MerchantNotifyWss notifyWss;
+//    @Autowired
+//    MerchantNotifyWss notifyWss;
 
     public void receive(WeixinNotifyRequest request) {
         TradeRecord tradePaymentRecordTemp = new TradeRecord();
@@ -49,33 +49,33 @@ public class ChannelReceiveWss {
             tradePaymentRecord.setStatus(status);
             tradePaymentRecord.setGmtModified(new Date());
             recordMapper.updateByPrimaryKey(tradePaymentRecord);
-            NotifyRecord notifyRecord = createNotifyRecord(tradePaymentOrder, status);
-            String result = notifyWss.doNotify(notifyRecord);
-            if ("000000".equals(result)) {
-                notifyRecord.setGmtModified(new Date());
-                notifyRecord.setNotifyTimes(1);
-                notifyRecord.setStatus(StatusEnum.SUCCESS.getCode());
-                notifyWss.updateRecord(notifyRecord);
-            }
+//            NotifyRecord notifyRecord = createNotifyRecord(tradePaymentOrder, status);
+//            String result = notifyWss.doNotify(notifyRecord);
+//            if ("000000".equals(result)) {
+//                notifyRecord.setGmtModified(new Date());
+//                notifyRecord.setNotifyTimes(1);
+//                notifyRecord.setStatus(StatusEnum.SUCCESS.getCode());
+//                notifyWss.updateRecord(notifyRecord);
+//            }
         } else {
             logger.info("bankOrderNo:{},order或record状态不为0，不能更新", tradePaymentRecord.getBankOrderNo());
             throw ChannelReceiveBizException.TRADE_STATUS_ERROR;
         }
     }
 
-    private NotifyRecord createNotifyRecord(TradeOrder tradePaymentOrder, String orderStatus) {
-        NotifyRecord notifyRecord = new NotifyRecord();
-        notifyRecord.setVersion("1.0.0");
-        notifyRecord.setGmtCreate(new Date());
-        notifyRecord.setGmtModified(new Date());
-        notifyRecord.setNotifyTimes(0);
-        notifyRecord.setLimitNotifyTimes(20);
-        notifyRecord.setStatus("0");
-        notifyRecord.setUrl(tradePaymentOrder.getNotifyUrl());
-        notifyRecord.setMerchantNo(tradePaymentOrder.getMerchantNo());
-        notifyRecord.setMerchantOrderNo(tradePaymentOrder.getMerchantOrderNo());
-        notifyRecord.setOrderStatus(orderStatus);
-        notifyWss.insertNotifyRecord(notifyRecord);
-        return notifyRecord;
-    }
+//    private NotifyRecord createNotifyRecord(TradeOrder tradePaymentOrder, String orderStatus) {
+//        NotifyRecord notifyRecord = new NotifyRecord();
+//        notifyRecord.setVersion("1.0.0");
+//        notifyRecord.setGmtCreate(new Date());
+//        notifyRecord.setGmtModified(new Date());
+//        notifyRecord.setNotifyTimes(0);
+//        notifyRecord.setLimitNotifyTimes(20);
+//        notifyRecord.setStatus("0");
+//        notifyRecord.setUrl(tradePaymentOrder.getNotifyUrl());
+//        notifyRecord.setMerchantNo(tradePaymentOrder.getMerchantNo());
+//        notifyRecord.setMerchantOrderNo(tradePaymentOrder.getMerchantOrderNo());
+//        notifyRecord.setOrderStatus(orderStatus);
+//        notifyWss.insertNotifyRecord(notifyRecord);
+//        return notifyRecord;
+//    }
 }

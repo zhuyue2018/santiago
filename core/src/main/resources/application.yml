@@ -1,22 +1,14 @@
 server:
   tomcat:
     uri-encoding: UTF-8
-  port: 8090
+  port: 8088
 
 spring:
   application:
-    name: gateway
-  main:
-    allow-bean-definition-overriding: true
-  cloud:
-    nacos:
-      discovery:
-        # 服务注册中心
-        server-addr: 127.0.0.1:8848
+    name: core
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-#    url: jdbc:mysql://106.54.105.3:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: debian-sys-maint
     password: CvvMaaj7HcjUCo6u
   jackson:
@@ -26,19 +18,28 @@ spring:
     database: 0 #索引
     host: 127.0.0.1
     port: 6379
-#    password: foobared
+    #    password: 940806
     lettuce:
       pool:
         max-active: 8 #最大连接数
         max-idle: 8 #最大空闲连接
         min-idle: 0 #最小空闲连接
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册中心
+        server-addr: 127.0.0.1:8848
 
 nacos:
   config:
     server-addr: 127.0.0.1:8848
-feign:
-  hystrix:
-    enabled: true #是否开启断路器
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
@@ -48,3 +49,4 @@ pagehelper:
   params: count=countSql
   reasonable: true
   support-methods-arguments: true
+

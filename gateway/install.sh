@@ -1,5 +1,5 @@
 # ls -lrt /etc/alternatives/java
-
+export PROJECT_NAME=gateway
 export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_11
 export PATH=$JAVA_HOME/bin:$PATH
 export JRE_HOME=${JAVA_HOME}/jre
@@ -12,4 +12,12 @@ export PATH=$PATH:$M2_HOME/bin
 source /etc/profile
 mvn -version
 mvn clean install -Dmaven.test.skip=true -Dmaven.compile.fork=true -T 1C
-# sudo cp ../../../target/gateway-1.0.0-SNAPSHOT.jar /usr/local/docker/scan/gateway/
+rm -rf /usr/local/docker/scan/${PROJECT_NAME}*
+mkdir /usr/local/docker/scan/${PROJECT_NAME}
+cp ./target/${PROJECT_NAME}-1.0.0-SNAPSHOT.jar /usr/local/docker/scan/${PROJECT_NAME}/
+cd /usr/local/docker/scan/${PROJECT_NAME}
+cp ../docker-compose.yml ./
+sed -i 's/8080/8090/g' docker-compose.yml
+sed -i 's/projectname/gateway/g' docker-compose.yml
+docker-compose down
+docker-compose up -d

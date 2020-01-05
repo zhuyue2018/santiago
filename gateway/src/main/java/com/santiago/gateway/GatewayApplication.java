@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication(scanBasePackages = {"com.santiago.gateway", "com.santiago.core", "com.santiago.notify", "com.santiago.commons", "com.santiago.api"})
-@MapperScan(basePackages = {"com.santiago.core.mapper", "com.santiago.notify.mapper", ""})
+@MapperScan(basePackages = {"com.santiago.core.mapper", "com.santiago.notify.mapper"})
 @NacosPropertySource(dataId = "gateway", autoRefreshed = true)
 @EnableDiscoveryClient
 @EnableFeignClients("com.santiago.api")
