@@ -12,4 +12,5 @@ public interface AccountService {
     List<Account> list(Account account);
 
     List<Account> listAll();
+
 }
