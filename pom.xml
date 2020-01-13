@@ -8,6 +8,7 @@
         <module>cg</module>
         <module>core</module>
         <module>commons</module>
+        <module>gateway-netty</module>
         <module>gateway-tomcat</module>
         <module>notify</module>
         <module>portal</module>
@@ -16,7 +17,8 @@
         <module>api</module>
         <module>account</module>
         <module>redis</module>
-        <module>gateway-netty</module>
+        <module>message</module>
+
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

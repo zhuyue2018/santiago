@@ -1,4 +1,4 @@
-package com.santiago.gateway.netty.security.impl;
+package com.santiago.commons.security.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.security.Key;
@@ -17,8 +17,8 @@ import java.util.Map;
 import javax.crypto.Cipher;
 
 import com.santiago.commons.util.EasiBase64Util;
-import com.santiago.gateway.netty.domain.ZipAlgorithmFactory;
-import com.santiago.gateway.netty.security.RsaDataSecurity;
+import com.santiago.commons.domain.ZipAlgorithmFactory;
+import com.santiago.commons.security.RsaDataSecurity;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

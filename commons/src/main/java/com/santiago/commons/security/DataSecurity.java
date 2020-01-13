@@ -1,4 +1,4 @@
-package com.santiago.gateway.netty.security;
+package com.santiago.commons.security;
 
 public interface DataSecurity {
     String encrypt(String var1, String var2, boolean var3, String var4) throws Exception;

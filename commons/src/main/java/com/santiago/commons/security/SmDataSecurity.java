@@ -1,4 +1,4 @@
-package com.santiago.gateway.netty.security;
+package com.santiago.commons.security;
 
 import java.util.Map;
 

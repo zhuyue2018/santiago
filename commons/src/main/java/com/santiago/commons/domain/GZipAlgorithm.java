@@ -1,13 +1,13 @@
-package com.santiago.gateway.netty.domain;
+package com.santiago.commons.domain;
 
 import java.io.IOException;
 
 import com.santiago.commons.util.ZipUtil;
 
-public class GzipAlgorithm implements ZipAlgorithm {
+public class GZipAlgorithm implements ZipAlgorithm {
     public static final String ALGORITHM_NAME = "GZIP";
 
-    public GzipAlgorithm() {
+    public GZipAlgorithm() {
     }
     @Override
     public String zip(String date, boolean isBase64) throws IOException {

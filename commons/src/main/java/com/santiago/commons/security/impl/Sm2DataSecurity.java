@@ -1,14 +1,14 @@
-package com.santiago.gateway.netty.security.impl;
+package com.santiago.commons.security.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.santiago.commons.domain.RsaKeyPair;
 import com.santiago.commons.util.SM2Utils;
-import com.santiago.gateway.netty.domain.GzipAlgorithm;
-import com.santiago.gateway.netty.domain.ZipAlgorithm;
-import com.santiago.gateway.netty.domain.ZipAlgorithmFactory;
-import com.santiago.gateway.netty.security.SmDataSecurity;
+import com.santiago.commons.domain.GZipAlgorithm;
+import com.santiago.commons.domain.ZipAlgorithm;
+import com.santiago.commons.domain.ZipAlgorithmFactory;
+import com.santiago.commons.security.SmDataSecurity;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class Sm2DataSecurity implements SmDataSecurity {
 
     public static void main(String[] args) throws Exception {
         Map<String, ZipAlgorithm> map = new HashMap();
-        map.put("GZIP", new GzipAlgorithm());
+        map.put("GZIP", new GZipAlgorithm());
         ZipAlgorithmFactory factory = new ZipAlgorithmFactory(map);
         Sm2DataSecurity sm2DataSecurity = new Sm2DataSecurity(factory);
         Map<String, String> test123Sm2 = sm2DataSecurity.createRsaKey("Easipay-DF");
@@ -78,7 +78,7 @@ public class Sm2DataSecurity implements SmDataSecurity {
         Assert.isTrue(StringUtils.isNotBlank(privateKey), "签名私钥不能为空");
         return SM2Utils.sign(privateKey, data);
     }
-
+    @Override
     public boolean verifySign(String data, String sign, String publicKey) throws Exception {
         Assert.isTrue(StringUtils.isNotBlank(data), "验签数据不能为空");
         Assert.isTrue(StringUtils.isNotBlank(sign), "签名值不能为空");
