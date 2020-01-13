@@ -20,15 +20,13 @@ public class UnionEventPushServiceImpl implements UnionEventPushService {
 
     private static final Logger logger = LoggerFactory.getLogger(UnionEventPushServiceImpl.class);
 
-
     @Autowired
     KafkaEventPushManager kafkaEventPushManager;
-
 
     @Override
     public <T> void pushEvents(String topic, String msgCode, KafkaPushEventDto eventDto) {
         logger.debug("push kafka topic:{} msgCode:{}  msg:{}", topic,
-            msgCode, JsonUtil.obj2JsonStrExcludeNull(eventDto));
+                msgCode, JsonUtil.obj2JsonStrExcludeNull(eventDto));
         KafkaEventPushRequest kafkaEventPushRequest = new KafkaEventPushRequest();
         kafkaEventPushRequest.setPushEventDto(eventDto);
         kafkaEventPushManager.send(topic, msgCode, kafkaEventPushRequest);
@@ -37,10 +35,10 @@ public class UnionEventPushServiceImpl implements UnionEventPushService {
     @Override
     public void pushEvents(String topic, String msgCode, String msg) {
         logger.debug("push kafka topic:{} msgCode:{}  msg:{}", topic,
-            msgCode, msg);
+                msgCode, msg);
         kafkaEventPushManager.send(topic, msgCode, JsonUtil.parseJson(msg, KafkaEventPushRequest.class));
     }
-
+//
 //    @Override
 //    public <T> void sendCloseRequest(KafkaPushEventDto eventDto) {
 //        pushEvents(UnionRelayKafkaDefine.UNION_WEB_ORDER_CLOSE.getTopic(), UnionRelayKafkaDefine.UNION_WEB_ORDER_CLOSE.getMsgCode(), eventDto);
