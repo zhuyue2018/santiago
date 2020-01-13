@@ -145,7 +145,7 @@ public class HttpUtils {
             HttpPost post = getDefHttpPost(url, cookies, connectTimeout, socketTimeout);
             addHeaders(post, headers, cookies, ContentType.APPLICATION_JSON.getMimeType());
             if (params != null) {
-                StringEntity entity = new StringEntity(JsonUtil.create().objectToJson(params));
+                StringEntity entity = new StringEntity(JsonUtil.obj2JsonStrExcludeNull(params));
                 post.setEntity(entity);
             }
             return post;

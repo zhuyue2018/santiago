@@ -16,6 +16,7 @@
         <module>api</module>
         <module>account</module>
         <module>redis</module>
+        <module>gateway-netty</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -52,11 +53,28 @@
         <springcloud.nacos.version>2.1.1.RELEASE</springcloud.nacos.version>
         <uid.generator.version>1.0.0-SNAPSHOT</uid.generator.version>
         <feign.version>2.1.1.RELEASE</feign.version>
+        <commons.io.version>2.6</commons.io.version>
+        <commons.net.version>3.6</commons.net.version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.9</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons.net.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.santiago</groupId>
                 <artifactId>api</artifactId>

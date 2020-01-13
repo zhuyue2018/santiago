@@ -1,7 +1,6 @@
 package com.santiago.core.wss;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
 import com.santiago.core.service.TradeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;

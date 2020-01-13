@@ -1,20 +1,15 @@
 package com.santiago.portal;
 
-import com.santiago.commons.util.JsonUtil;
-import com.santiago.core.entity.dto.query.TradeOrderQuery;
 import com.santiago.portal.controller.MerchantCtrl;
 import com.santiago.portal.entity.dto.request.MerchantInsertReq;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

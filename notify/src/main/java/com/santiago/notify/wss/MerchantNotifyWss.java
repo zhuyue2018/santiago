@@ -1,6 +1,5 @@
 package com.santiago.notify.wss;
 
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.notify.entity.domain.NotifyRecord;
 import com.santiago.notify.mapper.NotifyRecordMapper;
 import com.santiago.notify.service.NotifyService;

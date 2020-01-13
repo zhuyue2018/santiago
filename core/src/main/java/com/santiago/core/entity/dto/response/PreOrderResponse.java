@@ -1,10 +1,5 @@
 package com.santiago.core.entity.dto.response;
 
-import com.santiago.commons.dto.resp.SimpleResponse;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 public class PreOrderResponse extends SimpleResponse {
     private String merchantOrderNo;
     private String trxNo;

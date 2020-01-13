@@ -1,6 +1,5 @@
 package com.santiago.rcs.controller;
 
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.rcs.entity.domain.MerchantPayConfig;
 import com.santiago.rcs.service.MerchantPayConfigService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;

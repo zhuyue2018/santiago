@@ -1,7 +1,6 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.portal.entity.domain.PmsRoleMenu;

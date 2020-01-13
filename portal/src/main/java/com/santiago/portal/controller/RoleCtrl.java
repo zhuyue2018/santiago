@@ -1,14 +1,12 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.enums.ErrorCodeEnum;
 import com.santiago.portal.entity.domain.*;
 import com.santiago.portal.entity.dto.query.RoleQuery;
 import com.santiago.portal.entity.dto.request.RelateMenuReq;
 import com.santiago.portal.entity.dto.vo.RelateMenu;
 import com.santiago.portal.entity.dto.vo.RoleVO;
-import com.santiago.portal.entity.enums.MenuLevelEnum;
 import com.santiago.portal.mapper.PmsMenuMapper;
 import com.santiago.portal.mapper.PmsOperatorRoleMapper;
 import com.santiago.portal.mapper.PmsRoleMenuMapper;

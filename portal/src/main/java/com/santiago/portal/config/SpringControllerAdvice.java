@@ -1,7 +1,5 @@
 package com.santiago.portal.config;
 
-import com.santiago.commons.dto.resp.BaseResponse;
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.exception.PmsBizException;

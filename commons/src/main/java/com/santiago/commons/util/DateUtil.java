@@ -10,13 +10,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-//import org.apache.log4j.Logger;
-
-/**
- * 日期工具类
- * @company：广州领课网络科技有限公司（龙果学院 www.roncoo.com）.
- * @author zenghao
- */
 public class DateUtil extends DateUtils {
 	public DateUtil() {
 	}
