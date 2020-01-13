@@ -8,7 +8,7 @@
         <module>cg</module>
         <module>core</module>
         <module>commons</module>
-        <module>gateway</module>
+        <module>gateway-tomcat</module>
         <module>notify</module>
         <module>portal</module>
         <module>settlement</module>
@@ -60,6 +60,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>

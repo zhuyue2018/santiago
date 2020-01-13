@@ -22,12 +22,12 @@
 package com.santiago.gateway.netty.netty.iohandler;
 
 
-import com.santiago.gateway.netty.dto.Response;
+import com.santiago.commons.dto.resp.Response;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.exception.IllegalMethodNotAllowedException;
 import com.santiago.gateway.netty.netty.exception.IllegalPathDuplicatedException;
 import com.santiago.gateway.netty.netty.exception.IllegalPathNotFoundException;
-import com.santiago.gateway.netty.netty.handler.IFunctionHandler;
+import com.santiago.gateway.netty.netty.ctl.IFunctionHandler;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 import com.santiago.gateway.netty.netty.http.NettyHttpResponse;
 import com.santiago.gateway.netty.netty.path.Path;
