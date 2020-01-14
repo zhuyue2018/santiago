@@ -22,19 +22,33 @@
 package com.santiago.gateway.netty.netty.ctl;
 import com.santiago.commons.dto.req.UnionReq;
 import com.santiago.commons.dto.resp.Response;
-import com.santiago.commons.security.DataSecurity;
 import com.santiago.commons.util.JsonUtil;
-import com.santiago.commons.domain.GZipAlgorithm;
-import com.santiago.commons.domain.ZipAlgorithm;
-import com.santiago.commons.domain.ZipAlgorithmFactory;
+import com.santiago.gateway.netty.domain.SttDetBookDTO;
+import com.santiago.gateway.netty.domain.ValidateResult;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
-import com.santiago.commons.security.impl.Sm2DataSecurity;
+import com.santiago.gateway.netty.netty.service.ValidateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 
+@NettyHttpHandler(path = "/request/body",method = "POST")
+public class RequestBodySecurityHandler implements IFunctionHandler<String> {
+    private static final Logger logger = LoggerFactory.getLogger(RequestBodySecurityHandler.class);
+    @Autowired
+    ValidateService validateService;
+
+    @Override
+    public Response<String> execute(NettyHttpRequest request) {
+        String reqStr = request.contentText();
+        UnionReq req = JsonUtil.parseJson(reqStr, UnionReq.class);
+        ValidateResult validateResult = validateService.validate(req, SttDetBookDTO.class);
+        if (validateResult.getCorrect()) {
+            return Response.ok("请求成功");
+        } else {
+            return Response.fail("请求异常");
+        }
+    }
+}
