@@ -1,4 +1,4 @@
-package com.santiago.message.manaer;
+package com.santiago.message.manager;
 
 import java.util.concurrent.ExecutionException;
 

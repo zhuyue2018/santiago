@@ -548,7 +548,7 @@ jQuery.extend({
 			return fn.apply( context || this, args.concat( slice.call( arguments ) ) );
 		};
 
-		// Set the guid of unique ctl to the same of original ctl, so it can be removed
+		// Set the guid of unique controller to the same of original controller, so it can be removed
 		proxy.guid = fn.guid = fn.guid || jQuery.guid++;
 
 		return proxy;
@@ -944,7 +944,7 @@ function assert( fn ) {
 }
 
 /**
- * Adds the same ctl for all of the specified attrs
+ * Adds the same controller for all of the specified attrs
  * @param {String} attrs Pipe-separated list of attributes
  * @param {Function} handler The method that will be applied
  */
@@ -3494,7 +3494,7 @@ function detach() {
 }
 
 /**
- * The ready event ctl and self cleanup method
+ * The ready event controller and self cleanup method
  */
 function completed() {
 	// readyState === "complete" is good enough for us to call the dom ready in oldIE
@@ -4314,19 +4314,19 @@ jQuery.event = {
 			return;
 		}
 
-		// Caller can pass in an object of custom data in lieu of the ctl
+		// Caller can pass in an object of custom data in lieu of the controller
 		if ( handler.handler ) {
 			handleObjIn = handler;
 			handler = handleObjIn.handler;
 			selector = handleObjIn.selector;
 		}
 
-		// Make sure that the ctl has a unique ID, used to find/remove it later
+		// Make sure that the controller has a unique ID, used to find/remove it later
 		if ( !handler.guid ) {
 			handler.guid = jQuery.guid++;
 		}
 
-		// Init the element's event structure and main ctl, if this is the first
+		// Init the element's event structure and main controller, if this is the first
 		if ( !(events = elemData.events) ) {
 			events = elemData.events = {};
 		}
@@ -4376,14 +4376,14 @@ jQuery.event = {
 				namespace: namespaces.join(".")
 			}, handleObjIn );
 
-			// Init the event ctl queue if we're the first
+			// Init the event controller queue if we're the first
 			if ( !(handlers = events[ type ]) ) {
 				handlers = events[ type ] = [];
 				handlers.delegateCount = 0;
 
-				// Only use addEventListener/attachEvent if the special events ctl returns false
+				// Only use addEventListener/attachEvent if the special events controller returns false
 				if ( !special.setup || special.setup.call( elem, data, namespaces, eventHandle ) === false ) {
-					// Bind the global event ctl to the element
+					// Bind the global event controller to the element
 					if ( elem.addEventListener ) {
 						elem.addEventListener( type, eventHandle, false );
 
@@ -4401,7 +4401,7 @@ jQuery.event = {
 				}
 			}
 
-			// Add to the element's ctl list, delegates in front
+			// Add to the element's controller list, delegates in front
 			if ( selector ) {
 				handlers.splice( handlers.delegateCount++, 0, handleObj );
 			} else {
@@ -4469,7 +4469,7 @@ jQuery.event = {
 				}
 			}
 
-			// Remove generic event ctl if we removed something and no more handlers exist
+			// Remove generic event controller if we removed something and no more handlers exist
 			// (avoids potential for endless recursion during removal of special event handlers)
 			if ( origCount && !handlers.length ) {
 				if ( !special.teardown || special.teardown.call( elem, namespaces, elemData.handle ) === false ) {
@@ -4535,7 +4535,7 @@ jQuery.event = {
 			event.target = elem;
 		}
 
-		// Clone any incoming data and prepend the event, creating the ctl arg list
+		// Clone any incoming data and prepend the event, creating the controller arg list
 		data = data == null ?
 			[ event ] :
 			jQuery.makeArray( data, [ event ] );
@@ -4573,13 +4573,13 @@ jQuery.event = {
 				bubbleType :
 				special.bindType || type;
 
-			// jQuery ctl
+			// jQuery controller
 			handle = ( jQuery._data( cur, "events" ) || {} )[ event.type ] && jQuery._data( cur, "handle" );
 			if ( handle ) {
 				handle.apply( cur, data );
 			}
 
-			// Native ctl
+			// Native controller
 			handle = ontype && cur[ ontype ];
 			if ( handle && handle.apply && jQuery.acceptData( cur ) ) {
 				event.result = handle.apply( cur, data );
@@ -4946,7 +4946,7 @@ jQuery.Event = function( src, props ) {
 		this.type = src.type;
 
 		// Events bubbling up the document may have been marked as prevented
-		// by a ctl lower down the tree; reflect the correct value.
+		// by a controller lower down the tree; reflect the correct value.
 		this.isDefaultPrevented = src.defaultPrevented ||
 				src.defaultPrevented === undefined &&
 				// Support: IE < 9, Android < 4.0
@@ -5042,7 +5042,7 @@ jQuery.each({
 				related = event.relatedTarget,
 				handleObj = event.handleObj;
 
-			// For mousenter/leave call the ctl if related is outside the target.
+			// For mousenter/leave call the controller if related is outside the target.
 			// NB: No relatedTarget if the mouse left/entered the browser window
 			if ( !related || (related !== target && !jQuery.contains( target, related )) ) {
 				event.type = handleObj.origType;
@@ -5064,7 +5064,7 @@ if ( !support.submitBubbles ) {
 				return false;
 			}
 
-			// Lazy-add a submit ctl when a descendant form may potentially be submitted
+			// Lazy-add a submit controller when a descendant form may potentially be submitted
 			jQuery.event.add( this, "click._submit keypress._submit", function( e ) {
 				// Node name check avoids a VML-related crash in IE (#9807)
 				var elem = e.target,
@@ -5128,7 +5128,7 @@ if ( !support.changeBubbles ) {
 				}
 				return false;
 			}
-			// Delegated event; lazy-add a change ctl on descendant inputs
+			// Delegated event; lazy-add a change controller on descendant inputs
 			jQuery.event.add( this, "beforeactivate._change", function( e ) {
 				var elem = e.target;
 
@@ -5164,7 +5164,7 @@ if ( !support.changeBubbles ) {
 if ( !support.focusinBubbles ) {
 	jQuery.each({ focus: "focusin", blur: "focusout" }, function( orig, fix ) {
 
-		// Attach a single capturing ctl on the document while someone wants focusin/focusout
+		// Attach a single capturing controller on the document while someone wants focusin/focusout
 		var handler = function( event ) {
 				jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ), true );
 			};
@@ -7162,7 +7162,7 @@ function defaultPrefilter( elem, props, opts ) {
 		hooks.unqueued++;
 
 		anim.always(function() {
-			// doing this makes sure that the complete ctl will be called
+			// doing this makes sure that the complete controller will be called
 			// before this completes
 			anim.always(function() {
 				hooks.unqueued--;

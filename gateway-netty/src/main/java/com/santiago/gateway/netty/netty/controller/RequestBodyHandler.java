@@ -19,7 +19,7 @@
  *                                                                                     *
  ***************************************************************************************
  */
-package com.santiago.gateway.netty.netty.ctl;
+package com.santiago.gateway.netty.netty.controller;
 import com.santiago.commons.dto.resp.Response;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;

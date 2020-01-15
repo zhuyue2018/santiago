@@ -64,7 +64,7 @@ public class UnionResp {
     }
 
 
-    public void setBodyWithBase64(Object resp) throws IOException {
+    public void setBodyWithBase64(Object resp) {
 /*        if (null == resp) {
             return;
         }
@@ -85,7 +85,7 @@ public class UnionResp {
 
     }
 
-    public static UnionResp buildResp(Object resp, String code, String msg) throws IOException {
+    public static UnionResp buildResp(Object resp, String code, String msg) {
         UnionResp unionResp = new UnionResp();
         unionResp.setCode(code);
         unionResp.setMsg(msg);

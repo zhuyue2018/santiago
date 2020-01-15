@@ -1,11 +1,11 @@
-package com.santiago.message.manaer.impl;
+package com.santiago.message.manager.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.santiago.message.domain.KafkaHeaders;
-import com.santiago.message.manaer.KafkaEventPushManager;
+import com.santiago.message.manager.KafkaEventPushManager;
 import com.santiago.message.service.KafkaTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.GenericMessage;

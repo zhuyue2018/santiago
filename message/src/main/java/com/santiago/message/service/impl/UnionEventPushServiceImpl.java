@@ -3,7 +3,7 @@ package com.santiago.message.service.impl;
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.message.domain.KafkaEventPushRequest;
 import com.santiago.message.domain.KafkaPushEventDto;
-import com.santiago.message.manaer.KafkaEventPushManager;
+import com.santiago.message.manager.KafkaEventPushManager;
 import com.santiago.message.service.UnionEventPushService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

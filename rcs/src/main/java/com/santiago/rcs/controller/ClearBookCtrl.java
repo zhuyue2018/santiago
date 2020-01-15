@@ -1,6 +1,6 @@
 package com.santiago.rcs.controller;
 
-public class ClearDetailCtrl {
+public class ClearBookCtrl {
     public void insert() {
 
     }

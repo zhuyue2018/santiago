@@ -19,9 +19,10 @@
  *                                                                                     *
  ***************************************************************************************
  */
-package com.santiago.gateway.netty.netty.ctl;
+package com.santiago.gateway.netty.netty.controller;
 import com.santiago.commons.dto.req.UnionReq;
 import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.gateway.netty.domain.SttDetBookDTO;
 import com.santiago.gateway.netty.domain.ValidateResult;
@@ -35,18 +36,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @NettyHttpHandler(path = "/request/body",method = "POST")
-public class RequestBodySecurityHandler implements IFunctionHandler<String> {
+public class RequestBodySecurityHandler implements IFunctionHandler<UnionResp> {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodySecurityHandler.class);
     @Autowired
     ValidateService validateService;
 
     @Override
-    public Response<String> execute(NettyHttpRequest request) {
+    public Response<UnionResp> execute(NettyHttpRequest request) {
         String reqStr = request.contentText();
         UnionReq req = JsonUtil.parseJson(reqStr, UnionReq.class);
         ValidateResult validateResult = validateService.validate(req, SttDetBookDTO.class);
         if (validateResult.getCorrect()) {
-            return Response.ok("请求成功");
+            return Response.ok(UnionResp.buildResp("请求成功", "000000", "请求成功"));
         } else {
             return Response.fail("请求异常");
         }

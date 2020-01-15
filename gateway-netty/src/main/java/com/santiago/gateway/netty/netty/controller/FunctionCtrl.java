@@ -19,18 +19,13 @@
  *                                                                                     *
  ***************************************************************************************
  */
-package com.santiago.gateway.netty.netty.ctl;
+package com.santiago.gateway.netty.netty.controller;
 
 
 import com.santiago.commons.dto.resp.Response;
-import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 
-@NettyHttpHandler(path = "/hello/world")
-public class HelloWorldHandler implements IFunctionHandler<String> {
-
-    @Override
-    public Response<String> execute(NettyHttpRequest request) {
-         return Response.ok("Hello World");
-    }
+public interface FunctionCtrl {
+    UnionResp execute(NettyHttpRequest request);
 }
