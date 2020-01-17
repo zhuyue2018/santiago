@@ -1,5 +1,6 @@
 package com.santiago.gateway.controller;
 
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.core.wss.TradeOrderWss;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,8 @@ public class OrderQueryCtrl {
     TradeOrderWss orderWss;
 
     @GetMapping(value = "/{merchantNo}/{orderNo}")
-    public SimpleResponse query(@PathVariable(value = "merchantNo") String merchantNo,
-                                @PathVariable(value = "orderNo") String orderNo) {
+    public UnionResp query(@PathVariable(value = "merchantNo") String merchantNo,
+                           @PathVariable(value = "orderNo") String orderNo) {
         return orderWss.query(merchantNo, orderNo);
     }
 }

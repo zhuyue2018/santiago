@@ -11,12 +11,20 @@ public class ReentrantZKLockMgr {
         zooKeeper = new ZooKeeper(connectString, sessionTimeout, new SessionWatcher());
     }
 
+    /**
+     * 获取锁对象，没有则创建并返回
+     * @param categoryPath
+     * @return
+     * @throws KeeperException
+     * @throws InterruptedException
+     */
     public ReentrantZKLock makeLock(String categoryPath) throws KeeperException, InterruptedException {
         if (null == zooKeeper.exists(categoryPath, false)) {
             zooKeeper.create(categoryPath, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         }
         return new ReentrantZKLock(zooKeeper, categoryPath);
     }
+
 
     public ReentrantZKLock getLock(String categoryPath) throws KeeperException, InterruptedException {
         return null == zooKeeper.exists(categoryPath, false) ? null : new ReentrantZKLock(zooKeeper, categoryPath);

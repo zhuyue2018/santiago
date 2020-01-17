@@ -50,7 +50,7 @@ public class ReentrantZKLock {
             System.out.println("nodeId=" + nodeId);
 
             // 如果最前的节点为当前阶段，认为获取锁成功
-            if (firstNodeId == nodeId) {
+            if (firstNodeId.equals(nodeId)) {
                 return true;
             }
 
@@ -58,6 +58,7 @@ public class ReentrantZKLock {
             if (preNodeId != null) {
                 System.out.println("nodeId=" + nodeId + ", preNodeId=" + preNodeId);
                 String preNodePath = categoryPath + "/" + preNodeId;
+                // 监听preNode的delete事件，删除或超时才会往后执行
                 if (null != zooKeeper.exists(preNodePath, new ReentrantZKLockWatcher(latch))) {
                     if (latch.await(watchTimeout, TimeUnit.MILLISECONDS)) {
                         return true;

@@ -22,7 +22,7 @@ public class TestZookeeper implements Watcher{
 
     /**
      * 使用第一个构造器创建会话,刚创建完立刻打印会话状态为 CONNECTING
-     * 线程阻塞5秒,这5秒期间收到了服务端的Watcher通知 SyncConnected
+     * 线程阻塞2秒,这2秒期间收到了服务端的Watcher通知 SyncConnected
      * 之后会话状态为 CONNECTED
      */
     ZooKeeper zookeeper1 = new ZooKeeper("127.0.0.1:2181", 5000, new TestZookeeper());

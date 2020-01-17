@@ -8,16 +8,13 @@ import java.io.*;
 import java.net.MalformedURLException;
 
 public class FtpUtils {
-    //ftp服务器地址
-    public String hostname = "192.168.1.249";
-    //ftp服务器端口号默认为21
-    public Integer port = 21;
-    //ftp登录账号
-    public String username = "root";
-    //ftp登录密码
-    public String password = "123";
+    private FtpUtils() {}
+    private String hostname = "127.0.0.1";
+    private Integer port = 21;
+    private String username = "root";
+    private String password = "123";
 
-    public FTPClient ftpClient = null;
+    private FTPClient ftpClient = null;
 
     /**
      * 初始化ftp服务器
@@ -44,27 +41,21 @@ public class FtpUtils {
 
     /**
      * 上传文件
-     *
      * @param pathname       ftp服务保存地址
-     * @param fileName       上传到ftp的文件名
-     * @param originfilename 待上传文件的名称（绝对地址） *
+     * @param targetFileName   上传到ftp的文件名
+     * @param resourceFileUri 待上传文件的名称（绝对地址） *
      * @return
      */
-    public boolean uploadFile(String pathname, String fileName, String originfilename) {
-        boolean flag = false;
-        InputStream inputStream = null;
-        try {
+    public boolean uploadFile(String pathname, String targetFileName, String resourceFileUri) {
+        try (InputStream inputStream = new FileInputStream(new File(resourceFileUri));) {
             System.out.println("开始上传文件");
-            inputStream = new FileInputStream(new File(originfilename));
             initFtpClient();
-            ftpClient.setFileType(ftpClient.BINARY_FILE_TYPE);
-            CreateDirecroty(pathname);
-            ftpClient.makeDirectory(pathname);
-            ftpClient.changeWorkingDirectory(pathname);
-            ftpClient.storeFile(fileName, inputStream);
-            inputStream.close();
+            ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+            createDirecrotyAndCWD(pathname);
+//            ftpClient.makeDirectory(pathname);
+//            ftpClient.changeWorkingDirectory(pathname);
+            ftpClient.storeFile(targetFileName, inputStream);
             ftpClient.logout();
-            flag = true;
             System.out.println("上传文件成功");
         } catch (Exception e) {
             System.out.println("上传文件失败");
@@ -73,13 +64,6 @@ public class FtpUtils {
             if (ftpClient.isConnected()) {
                 try {
                     ftpClient.disconnect();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (null != inputStream) {
-                try {
-                    inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -97,18 +81,16 @@ public class FtpUtils {
      * @return
      */
     public boolean uploadFile(String pathname, String fileName, InputStream inputStream) {
-        boolean flag = false;
         try {
             System.out.println("开始上传文件");
             initFtpClient();
-            ftpClient.setFileType(ftpClient.BINARY_FILE_TYPE);
-            CreateDirecroty(pathname);
+            ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+            createDirecrotyAndCWD(pathname);
             ftpClient.makeDirectory(pathname);
             ftpClient.changeWorkingDirectory(pathname);
             ftpClient.storeFile(fileName, inputStream);
             inputStream.close();
             ftpClient.logout();
-            flag = true;
             System.out.println("上传文件成功");
         } catch (Exception e) {
             System.out.println("上传文件失败");
@@ -139,7 +121,6 @@ public class FtpUtils {
             flag = ftpClient.changeWorkingDirectory(directory);
             if (flag) {
                 System.out.println("进入文件夹" + directory + " 成功！");
-
             } else {
                 System.out.println("进入文件夹" + directory + " 失败！开始创建文件夹");
             }
@@ -150,7 +131,7 @@ public class FtpUtils {
     }
 
     //创建多层目录文件，如果有ftp服务器已存在该文件，则不创建，如果无，则创建
-    public boolean CreateDirecroty(String remote) throws IOException {
+    public boolean createDirecrotyAndCWD(String remote) throws IOException {
         boolean success = true;
         String directory = remote + "/";
         // 如果远程目录不存在，则递归创建远程服务器目录

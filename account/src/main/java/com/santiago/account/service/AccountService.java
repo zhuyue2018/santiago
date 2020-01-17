@@ -1,6 +1,6 @@
 package com.santiago.account.service;
 
-import com.santiago.account.entity.domain.Account;
+import com.santiago.account.domain.entity.Account;
 
 import java.util.List;
 

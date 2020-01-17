@@ -14,6 +14,10 @@ import java.io.IOException;
  * @create: 2019-11-21 10:16
  **/
 public class UnionResp {
+    public UnionResp(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(UnionResp.class);
     private String code;
@@ -86,9 +90,7 @@ public class UnionResp {
     }
 
     public static UnionResp buildResp(Object resp, String code, String msg) {
-        UnionResp unionResp = new UnionResp();
-        unionResp.setCode(code);
-        unionResp.setMsg(msg);
+        UnionResp unionResp = new UnionResp(code, msg);
         unionResp.setBodyWithBase64(resp);
 //        unionResp.setBody(JsonUtil.obj2JsonStr(resp));
         /*logger.info("返回应答报文:{}", JsonUtil.obj2JsonStr(unionResp));*/

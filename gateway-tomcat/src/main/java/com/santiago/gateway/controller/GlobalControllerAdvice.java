@@ -1,6 +1,7 @@
 package com.santiago.gateway.controller;
 
 import com.santiago.commons.dto.exception.BizException;
+import com.santiago.commons.dto.resp.UnionResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.datetime.DateFormatter;
@@ -25,9 +26,9 @@ public class GlobalControllerAdvice {
 
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler({BizException.class})
-    public BaseResponse handleException(BizException e) {
+    public UnionResp handleException(BizException e) {
         logger.error("[handleException] ", e);
-        return new SimpleResponse(e.getErrCode(), e.getErrMsg());
+        return new UnionResp(e.getErrCode(), e.getErrMsg());
     }
 
     @ControllerAdvice(basePackages = "mvc")

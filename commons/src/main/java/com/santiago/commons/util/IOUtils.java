@@ -44,23 +44,23 @@ public class IOUtils {
     private static char[] SKIP_CHAR_BUFFER;
     private static byte[] SKIP_BYTE_BUFFER;
 
-    public IOUtils() {
+    private IOUtils() {
     }
 
     public static void closeQuietly(Reader input) {
-        closeQuietly((Closeable)input);
+        closeQuietly((Closeable) input);
     }
 
     public static void closeQuietly(Writer output) {
-        closeQuietly((Closeable)output);
+        closeQuietly((Closeable) output);
     }
 
     public static void closeQuietly(InputStream input) {
-        closeQuietly((Closeable)input);
+        closeQuietly((Closeable) input);
     }
 
     public static void closeQuietly(OutputStream output) {
-        closeQuietly((Closeable)output);
+        closeQuietly((Closeable) output);
     }
 
     public static void closeQuietly(Closeable closeable) {
@@ -73,10 +73,10 @@ public class IOUtils {
 
     }
 
-    public static void closeQuietly(Socket sock) {
-        if (sock != null) {
+    public static void closeQuietly(Socket socket) {
+        if (socket != null) {
             try {
-                sock.close();
+                socket.close();
             } catch (IOException var2) {
             }
         }
@@ -108,20 +108,22 @@ public class IOUtils {
     }
 
     public static BufferedReader toBufferedReader(Reader reader) {
-        return reader instanceof BufferedReader ? (BufferedReader)reader : new BufferedReader(reader);
+        return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader);
     }
 
     public static byte[] toByteArray(InputStream input) throws IOException {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        copy((InputStream)input, (OutputStream)output);
-        return output.toByteArray();
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ) {
+            copy(input, output);
+            return output.toByteArray();
+        }
     }
 
     public static byte[] toByteArray(InputStream input, long size) throws IOException {
         if (size > 2147483647L) {
-            throw new IllegalArgumentException("Size cannot be greater than Integer max value: " + size);
+            throw new IllegalArgumentException("Size should not be greater than Integer max value: " + size);
         } else {
-            return toByteArray(input, (int)size);
+            return toByteArray(input, (int) size);
         }
     }
 
@@ -132,12 +134,10 @@ public class IOUtils {
             return new byte[0];
         } else {
             byte[] data = new byte[size];
-
             int offset;
             int readed;
-            for(offset = 0; offset < size && (readed = input.read(data, offset, size - offset)) != -1; offset += readed) {
+            for (offset = 0; offset < size && (readed = input.read(data, offset, size - offset)) != -1; offset += readed) {
             }
-
             if (offset != size) {
                 throw new IOException("Unexpected readed size. current: " + offset + ", excepted: " + size);
             } else {
@@ -152,7 +152,7 @@ public class IOUtils {
 
     public static byte[] toByteArray(Reader input, Charset encoding) throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        copy((Reader)input, (OutputStream)output, (Charset)encoding);
+        copy((Reader) input, (OutputStream) output, (Charset) encoding);
         return output.toByteArray();
     }
 
@@ -160,7 +160,9 @@ public class IOUtils {
         return toByteArray(input, Charsets.toCharset(encoding));
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     public static byte[] toByteArray(String input) throws IOException {
         return input.getBytes();
@@ -172,7 +174,7 @@ public class IOUtils {
 
     public static char[] toCharArray(InputStream is, Charset encoding) throws IOException {
         CharArrayWriter output = new CharArrayWriter();
-        copy((InputStream)is, (Writer)output, (Charset)encoding);
+        copy((InputStream) is, (Writer) output, (Charset) encoding);
         return output.toCharArray();
     }
 
@@ -182,7 +184,7 @@ public class IOUtils {
 
     public static char[] toCharArray(Reader input) throws IOException {
         CharArrayWriter sw = new CharArrayWriter();
-        copy((Reader)input, (Writer)sw);
+        copy((Reader) input, (Writer) sw);
         return sw.toCharArray();
     }
 
@@ -192,7 +194,7 @@ public class IOUtils {
 
     public static String toString(InputStream input, Charset encoding) throws IOException {
         StringBuilderWriter sw = new StringBuilderWriter();
-        copy((InputStream)input, (Writer)sw, (Charset)encoding);
+        copy((InputStream) input, (Writer) sw, (Charset) encoding);
         return sw.toString();
     }
 
@@ -202,7 +204,7 @@ public class IOUtils {
 
     public static String toString(Reader input) throws IOException {
         StringBuilderWriter sw = new StringBuilderWriter();
-        copy((Reader)input, (Writer)sw);
+        copy((Reader) input, (Writer) sw);
         return sw.toString();
     }
 
@@ -239,7 +241,9 @@ public class IOUtils {
         return toString(url, Charsets.toCharset(encoding));
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     public static String toString(byte[] input) throws IOException {
         return new String(input);
@@ -255,7 +259,7 @@ public class IOUtils {
 
     public static List<String> readLines(InputStream input, Charset encoding) throws IOException {
         InputStreamReader reader = new InputStreamReader(input, Charsets.toCharset(encoding));
-        return readLines((Reader)reader);
+        return readLines((Reader) reader);
     }
 
     public static List<String> readLines(InputStream input, String encoding) throws IOException {
@@ -266,7 +270,7 @@ public class IOUtils {
         BufferedReader reader = toBufferedReader(input);
         List<String> list = new ArrayList();
 
-        for(String line = reader.readLine(); line != null; line = reader.readLine()) {
+        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
             list.add(line);
         }
 
@@ -398,7 +402,9 @@ public class IOUtils {
         write(data, output, Charsets.toCharset(encoding));
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     public static void write(StringBuffer data, Writer output) throws IOException {
         if (data != null) {
@@ -407,13 +413,17 @@ public class IOUtils {
 
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     public static void write(StringBuffer data, OutputStream output) throws IOException {
-        write(data, output, (String)null);
+        write(data, output, (String) null);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     public static void write(StringBuffer data, OutputStream output, String encoding) throws IOException {
         if (data != null) {
@@ -434,7 +444,7 @@ public class IOUtils {
 
             Charset cs = Charsets.toCharset(encoding);
 
-            for(Iterator i$ = lines.iterator(); i$.hasNext(); output.write(lineEnding.getBytes(cs))) {
+            for (Iterator i$ = lines.iterator(); i$.hasNext(); output.write(lineEnding.getBytes(cs))) {
                 Object line = i$.next();
                 if (line != null) {
                     output.write(line.toString().getBytes(cs));
@@ -454,7 +464,7 @@ public class IOUtils {
                 lineEnding = LINE_SEPARATOR;
             }
 
-            for(Iterator i$ = lines.iterator(); i$.hasNext(); writer.write(lineEnding)) {
+            for (Iterator i$ = lines.iterator(); i$.hasNext(); writer.write(lineEnding)) {
                 Object line = i$.next();
                 if (line != null) {
                     writer.write(line.toString());
@@ -466,7 +476,7 @@ public class IOUtils {
 
     public static int copy(InputStream input, OutputStream output) throws IOException {
         long count = copyLarge(input, output);
-        return count > 2147483647L ? -1 : (int)count;
+        return count > 2147483647L ? -1 : (int) count;
     }
 
     public static long copyLarge(InputStream input, OutputStream output) throws IOException {
@@ -477,7 +487,7 @@ public class IOUtils {
         long count = 0L;
 
         int n;
-        for(boolean var5 = false; -1 != (n = input.read(buffer)); count += (long)n) {
+        for (boolean var5 = false; -1 != (n = input.read(buffer)); count += (long) n) {
             output.write(buffer, 0, n);
         }
 
@@ -498,18 +508,18 @@ public class IOUtils {
         } else {
             int bufferLength = buffer.length;
             int bytesToRead = bufferLength;
-            if (length > 0L && length < (long)bufferLength) {
-                bytesToRead = (int)length;
+            if (length > 0L && length < (long) bufferLength) {
+                bytesToRead = (int) length;
             }
 
             long totalRead = 0L;
 
             int read;
-            while(bytesToRead > 0 && -1 != (read = input.read(buffer, 0, bytesToRead))) {
+            while (bytesToRead > 0 && -1 != (read = input.read(buffer, 0, bytesToRead))) {
                 output.write(buffer, 0, read);
-                totalRead += (long)read;
+                totalRead += (long) read;
                 if (length > 0L) {
-                    bytesToRead = (int)Math.min(length - totalRead, (long)bufferLength);
+                    bytesToRead = (int) Math.min(length - totalRead, (long) bufferLength);
                 }
             }
 
@@ -523,7 +533,7 @@ public class IOUtils {
 
     public static void copy(InputStream input, Writer output, Charset encoding) throws IOException {
         InputStreamReader in = new InputStreamReader(input, Charsets.toCharset(encoding));
-        copy((Reader)in, (Writer)output);
+        copy((Reader) in, (Writer) output);
     }
 
     public static void copy(InputStream input, Writer output, String encoding) throws IOException {
@@ -532,7 +542,7 @@ public class IOUtils {
 
     public static int copy(Reader input, Writer output) throws IOException {
         long count = copyLarge(input, output);
-        return count > 2147483647L ? -1 : (int)count;
+        return count > 2147483647L ? -1 : (int) count;
     }
 
     public static long copyLarge(Reader input, Writer output) throws IOException {
@@ -543,7 +553,7 @@ public class IOUtils {
         long count = 0L;
 
         int n;
-        for(boolean var5 = false; -1 != (n = input.read(buffer)); count += (long)n) {
+        for (boolean var5 = false; -1 != (n = input.read(buffer)); count += (long) n) {
             output.write(buffer, 0, n);
         }
 
@@ -563,18 +573,18 @@ public class IOUtils {
             return 0L;
         } else {
             int bytesToRead = buffer.length;
-            if (length > 0L && length < (long)buffer.length) {
-                bytesToRead = (int)length;
+            if (length > 0L && length < (long) buffer.length) {
+                bytesToRead = (int) length;
             }
 
             long totalRead = 0L;
 
             int read;
-            while(bytesToRead > 0 && -1 != (read = input.read(buffer, 0, bytesToRead))) {
+            while (bytesToRead > 0 && -1 != (read = input.read(buffer, 0, bytesToRead))) {
                 output.write(buffer, 0, read);
-                totalRead += (long)read;
+                totalRead += (long) read;
                 if (length > 0L) {
-                    bytesToRead = (int)Math.min(length - totalRead, (long)buffer.length);
+                    bytesToRead = (int) Math.min(length - totalRead, (long) buffer.length);
                 }
             }
 
@@ -588,7 +598,7 @@ public class IOUtils {
 
     public static void copy(Reader input, OutputStream output, Charset encoding) throws IOException {
         OutputStreamWriter out = new OutputStreamWriter(output, Charsets.toCharset(encoding));
-        copy((Reader)input, (Writer)out);
+        copy((Reader) input, (Writer) out);
         out.flush();
     }
 
@@ -598,22 +608,22 @@ public class IOUtils {
 
     public static boolean contentEquals(InputStream input1, InputStream input2) throws IOException {
         if (!(input1 instanceof BufferedInputStream)) {
-            input1 = new BufferedInputStream((InputStream)input1);
+            input1 = new BufferedInputStream((InputStream) input1);
         }
 
         if (!(input2 instanceof BufferedInputStream)) {
-            input2 = new BufferedInputStream((InputStream)input2);
+            input2 = new BufferedInputStream((InputStream) input2);
         }
 
         int ch2;
-        for(int ch = ((InputStream)input1).read(); -1 != ch; ch = ((InputStream)input1).read()) {
-            ch2 = ((InputStream)input2).read();
+        for (int ch = ((InputStream) input1).read(); -1 != ch; ch = ((InputStream) input1).read()) {
+            ch2 = ((InputStream) input2).read();
             if (ch != ch2) {
                 return false;
             }
         }
 
-        ch2 = ((InputStream)input2).read();
+        ch2 = ((InputStream) input2).read();
         return ch2 == -1;
     }
 
@@ -622,7 +632,7 @@ public class IOUtils {
         Reader input2 = toBufferedReader(input22);
 
         int ch2;
-        for(int ch = input1.read(); -1 != ch; ch = input1.read()) {
+        for (int ch = input1.read(); -1 != ch; ch = input1.read()) {
             ch2 = input2.read();
             if (ch != ch2) {
                 return false;
@@ -639,7 +649,7 @@ public class IOUtils {
         String line1 = br1.readLine();
 
         String line2;
-        for(line2 = br2.readLine(); line1 != null && line2 != null && line1.equals(line2); line2 = br2.readLine()) {
+        for (line2 = br2.readLine(); line1 != null && line2 != null && line1.equals(line2); line2 = br2.readLine()) {
             line1 = br1.readLine();
         }
 
@@ -656,8 +666,8 @@ public class IOUtils {
 
             long remain;
             long n;
-            for(remain = toSkip; remain > 0L; remain -= n) {
-                n = (long)input.read(SKIP_BYTE_BUFFER, 0, (int)Math.min(remain, 2048L));
+            for (remain = toSkip; remain > 0L; remain -= n) {
+                n = (long) input.read(SKIP_BYTE_BUFFER, 0, (int) Math.min(remain, 2048L));
                 if (n < 0L) {
                     break;
                 }
@@ -677,8 +687,8 @@ public class IOUtils {
 
             long remain;
             long n;
-            for(remain = toSkip; remain > 0L; remain -= n) {
-                n = (long)input.read(SKIP_CHAR_BUFFER, 0, (int)Math.min(remain, 2048L));
+            for (remain = toSkip; remain > 0L; remain -= n) {
+                n = (long) input.read(SKIP_CHAR_BUFFER, 0, (int) Math.min(remain, 2048L));
                 if (n < 0L) {
                     break;
                 }
@@ -712,7 +722,7 @@ public class IOUtils {
         } else {
             int remaining;
             int count;
-            for(remaining = length; remaining > 0; remaining -= count) {
+            for (remaining = length; remaining > 0; remaining -= count) {
                 int location = length - remaining;
                 count = input.read(buffer, offset + location, remaining);
                 if (-1 == count) {
@@ -725,7 +735,7 @@ public class IOUtils {
     }
 
     public static int read(Reader input, char[] buffer) throws IOException {
-        return read((Reader)input, (char[])buffer, 0, buffer.length);
+        return read((Reader) input, (char[]) buffer, 0, buffer.length);
     }
 
     public static int read(InputStream input, byte[] buffer, int offset, int length) throws IOException {
@@ -734,7 +744,7 @@ public class IOUtils {
         } else {
             int remaining;
             int count;
-            for(remaining = length; remaining > 0; remaining -= count) {
+            for (remaining = length; remaining > 0; remaining -= count) {
                 int location = length - remaining;
                 count = input.read(buffer, offset + location, remaining);
                 if (-1 == count) {
@@ -747,7 +757,7 @@ public class IOUtils {
     }
 
     public static int read(InputStream input, byte[] buffer) throws IOException {
-        return read((InputStream)input, (byte[])buffer, 0, buffer.length);
+        return read((InputStream) input, (byte[]) buffer, 0, buffer.length);
     }
 
     public static void readFully(Reader input, char[] buffer, int offset, int length) throws IOException {
@@ -758,7 +768,7 @@ public class IOUtils {
     }
 
     public static void readFully(Reader input, char[] buffer) throws IOException {
-        readFully((Reader)input, (char[])buffer, 0, buffer.length);
+        readFully((Reader) input, (char[]) buffer, 0, buffer.length);
     }
 
     public static void readFully(InputStream input, byte[] buffer, int offset, int length) throws IOException {
@@ -769,7 +779,7 @@ public class IOUtils {
     }
 
     public static void readFully(InputStream input, byte[] buffer) throws IOException {
-        readFully((InputStream)input, (byte[])buffer, 0, buffer.length);
+        readFully((InputStream) input, (byte[]) buffer, 0, buffer.length);
     }
 
     static {

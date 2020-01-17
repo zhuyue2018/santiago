@@ -8,23 +8,23 @@ import org.springframework.beans.factory.InitializingBean;
 
 public class DistributedLockUtil implements InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(DistributedLockUtil.class);
-    public DistributedLockUtil() {
+    private String address = "127.0.0.1:2181";
+    private int sessionTimeout = 5000;
+    private DistributedLockUtil() {
     }
 
     private static ReentrantZKLockMgr lockmgr;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        String address = "127.0.0.1:2181";
-        int sessionTimeout = 5000;
         try {
-            DistributedLockUtil.lockmgr = new ReentrantZKLockMgr(address, sessionTimeout);
+            DistributedLockUtil.lockmgr = new ReentrantZKLockMgr(this.address, this.sessionTimeout);
         } catch (Exception e) {
             logger.warn("分布式锁初始化异常", e);
         }
     }
 
-    public static boolean lock(String categoryPath) throws Exception {
+    public static synchronized boolean lock(String categoryPath) throws Exception {
         if (null == lockmgr) {
             logger.warn("分布式锁未初始化");
             return false;
@@ -33,7 +33,7 @@ public class DistributedLockUtil implements InitializingBean {
         return lock.lock();
     }
 
-    public static boolean unLock(String categoryPath) throws KeeperException, InterruptedException {
+    public static synchronized boolean unLock(String categoryPath) throws KeeperException, InterruptedException {
         ReentrantZKLock lock = lockmgr.getLock(categoryPath);
         if (null == lock) {
             logger.info("锁不存在");
