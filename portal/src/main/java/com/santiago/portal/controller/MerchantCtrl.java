@@ -1,7 +1,6 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.dto.resp.SimpleResponse;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.core.service.MerchantInfoService;
 import com.santiago.core.wss.MerchantWss;

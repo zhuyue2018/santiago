@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 @Target({ElementType.PARAMETER, ElementType.METHOD})  
 @Retention(RetentionPolicy.RUNTIME)  
-@Documented  
+@Documented
 public @interface LogParams {
 
 }

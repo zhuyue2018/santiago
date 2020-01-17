@@ -1,8 +1,6 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.dto.resp.SimpleResponse;
-import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsOperatorRole;
 import com.santiago.portal.entity.domain.PmsRole;
@@ -13,7 +11,6 @@ import com.santiago.portal.service.MenuService;
 import com.santiago.portal.service.OperatorService;
 import com.santiago.portal.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

@@ -285,7 +285,7 @@
     }());
 
     /**
-    * Creates event handler delegate that sends the instance as last argument.
+    * Creates event controller delegate that sends the instance as last argument.
     * 
     * @return {Function}    a function wrapper which sends the instance as last argument.
     */
@@ -957,7 +957,7 @@
         }
 
         /**
-         * Dialogs commands event handler, attached to the dialog commands element.
+         * Dialogs commands event controller, attached to the dialog commands element.
          *
          * @param {Event} event	DOM event object.
          * @param {Object} instance	The dilog instance.
@@ -1246,7 +1246,7 @@
         }
 
         /**
-         * Clicks event handler, attached to the dialog footer.
+         * Clicks event controller, attached to the dialog footer.
          *
          * @param {Event}		DOM event object.
          * @param {Object}		The dilog instance.
@@ -1262,7 +1262,7 @@
         }
 
         /**
-         * Keyup event handler, attached to the document.body
+         * Keyup event controller, attached to the document.body
          *
          * @param {Event}		DOM event object.
          * @param {Object}		The dilog instance.
@@ -1289,7 +1289,7 @@
             }
         }
         /**
-        * Keydown event handler, attached to the document.body
+        * Keydown event controller, attached to the document.body
         *
         * @param {Event}		DOM event object.
         * @param {Object}		The dilog instance.
@@ -1380,7 +1380,7 @@
         }
 
         /**
-         * Focus event handler, attached to document.body and dialogs own reset links.
+         * Focus event controller, attached to document.body and dialogs own reset links.
          * handles the focus for modal dialogs only.
          *
          * @param {Event} event DOM focus event object.
@@ -1436,7 +1436,7 @@
             }
         }
         /**
-         * Transition in transitionend event handler. 
+         * Transition in transitionend event controller. 
          *
          * @param {Event}		TransitionEnd event object.
          * @param {Object}		The dilog instance.
@@ -1466,7 +1466,7 @@
         }
 
         /**
-         * Transition out transitionend event handler. 
+         * Transition out transitionend event controller. 
          *
          * @param {Event}		TransitionEnd event object.
          * @param {Object}		The dilog instance.
@@ -1638,7 +1638,7 @@
         }
 
         /**
-         * The actual move handler,  attached to document.body mousemove event.
+         * The actual move controller,  attached to document.body mousemove event.
          *
          * @param {Event} event	DOM event object.
          * 
@@ -1835,7 +1835,7 @@
         }
 
         /**
-         * The actual resize handler,  attached to document.body mousemove event.
+         * The actual resize controller,  attached to document.body mousemove event.
          *
          * @param {Event} event	DOM event object.
          * 
@@ -1972,7 +1972,7 @@
 
             //prevent handling key up when dialog is being opened by a key stroke.
             cancelKeyup = true;
-            // hook in transition handler
+            // hook in transition controller
             on(instance.elements.dialog, transition.type, instance.__internal.transitionInHandler);
 
             // modelss only events
@@ -2020,7 +2020,7 @@
             off(instance.elements.reset[0], 'focus', instance.__internal.resetHandler);
             off(instance.elements.reset[1], 'focus', instance.__internal.resetHandler);
 
-            // hook out transition handler
+            // hook out transition controller
             on(instance.elements.dialog, transition.type, instance.__internal.transitionOutHandler);
 
             // modelss only events

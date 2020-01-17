@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "rcs")
 public interface RcsApi {
-    @RequestMapping("/merchantPayConfig/create")
+    @RequestMapping("/merchantPayConfig")
     void createMerchantPayConfig(@RequestParam String merchantNo, @RequestParam String securityRate, @RequestParam String merchantServerIp);
 
-    @RequestMapping("/merchantSettleConfig/create")
+    @RequestMapping("/merchantSettleConfig")
     void createMerchantSettleConfig(String merchantNo);
 }

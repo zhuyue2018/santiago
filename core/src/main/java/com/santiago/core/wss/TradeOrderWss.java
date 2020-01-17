@@ -1,7 +1,7 @@
 package com.santiago.core.wss;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.dto.resp.SimpleResponse;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
 import com.santiago.core.service.TradeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class TradeOrderWss {
     @Autowired
     TradeOrderService tradeOrderService;
 
-    public SimpleResponse query(String merchantNo, String orderNo) {
+    public UnionResp query(String merchantNo, String orderNo) {
         return null;
     }
 

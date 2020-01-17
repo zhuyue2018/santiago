@@ -8,7 +8,8 @@
         <module>cg</module>
         <module>core</module>
         <module>commons</module>
-        <module>gateway</module>
+        <module>gateway-netty</module>
+        <module>gateway-tomcat</module>
         <module>notify</module>
         <module>portal</module>
         <module>settlement</module>
@@ -16,6 +17,8 @@
         <module>api</module>
         <module>account</module>
         <module>redis</module>
+        <module>message</module>
+
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -52,11 +55,35 @@
         <springcloud.nacos.version>2.1.1.RELEASE</springcloud.nacos.version>
         <uid.generator.version>1.0.0-SNAPSHOT</uid.generator.version>
         <feign.version>2.1.1.RELEASE</feign.version>
+        <commons.io.version>2.6</commons.io.version>
+        <commons.net.version>3.6</commons.net.version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.9</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons.net.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.santiago</groupId>
                 <artifactId>api</artifactId>
