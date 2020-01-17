@@ -1,7 +1,7 @@
 package com.santiago.gateway.controller;
 
 import com.santiago.api.AccountApi;
-import com.santiago.commons.enums.ErrorCodeEnum;
+import com.santiago.commons.enums.RespCodeEnum;
 import com.santiago.core.entity.dto.request.WeixinNotifyRequest;
 import com.santiago.core.entity.exception.TradeBizException;
 import com.santiago.core.wss.ChannelReceiveWss;
@@ -29,7 +29,7 @@ public class ChannelCtrl {
         logger.info("收到回调通知，request:{}", JsonUtil.create().objectToJson(request));
         if (result.hasErrors()) {
             String message = result.getFieldError().getDefaultMessage();
-            throw new TradeBizException(ErrorCodeEnum.PARAMS_ERROR.getCode(), message);
+            throw new TradeBizException(RespCodeEnum.PARAMS_ERROR.getCode(), message);
         }
         channelReceiveWss.receive(request);
         accountApi.account();

@@ -1,6 +1,6 @@
 package com.santiago.core.service.impl;
 
-import com.santiago.commons.enums.ErrorCodeEnum;
+import com.santiago.commons.enums.RespCodeEnum;
 import com.santiago.commons.enums.SecurityRatingEnum;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.commons.enums.VersionEnum;
@@ -87,7 +87,7 @@ public class TradeServiceImpl implements TradeService {
             TradeOrder.setExpireTime(expireTime);// 订单过期时间
         } catch (ParseException e) {
             logger.error("orderNo:{}, orderTimeStr{}, parse error", request.getOrderNo(), request.getOrderTimeStr());
-            throw new TradeBizException(ErrorCodeEnum.PARAMS_ERROR.getCode(), "orderTimeStr parse error");
+            throw new TradeBizException(RespCodeEnum.PARAMS_ERROR.getCode(), "orderTimeStr parse error");
         }
         TradeOrder.setOrderIp(request.getOrderIp());// 下单IP
         TradeOrder.setOrderRefererUrl("");// 下单前页面

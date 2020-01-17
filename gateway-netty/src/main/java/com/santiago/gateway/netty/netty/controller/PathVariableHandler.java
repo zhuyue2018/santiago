@@ -21,7 +21,7 @@
  */
 package com.santiago.gateway.netty.netty.controller;
 
-import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 
@@ -33,7 +33,7 @@ import java.util.List;
 @NettyHttpHandler(path = "/moment/list/",equal = false)
 public class PathVariableHandler implements IFunctionHandler<List<HashMap<String,String>>> {
     @Override
-    public Response<List<HashMap<String,String>>> execute(NettyHttpRequest request) {
+    public UnionResult<List<HashMap<String,String>>> execute(NettyHttpRequest request) {
 
         /**
          * 通过请求uri获取到path参数
@@ -47,6 +47,6 @@ public class PathVariableHandler implements IFunctionHandler<List<HashMap<String
         data.put("text","hello sea!");
         data.put("time","2018-08-08 08:08:08");
         list.add(data);
-        return Response.ok(list);
+        return UnionResult.ok(list);
     }
 }

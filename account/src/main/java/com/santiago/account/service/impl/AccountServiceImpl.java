@@ -3,7 +3,7 @@ package com.santiago.account.service.impl;
 import com.santiago.account.domain.entity.Account;
 import com.santiago.account.mapper.AccountMapper;
 import com.santiago.account.service.AccountService;
-import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.AccountStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
         account.setBalance(BigDecimal.ZERO);
         account.setFreezeBalance(BigDecimal.ZERO);
         account.setSecurityMoney(BigDecimal.ZERO);
-        account.setStatus(PublicStatusEnum.ACTIVE.getCode());
+        account.setStatus(AccountStatusEnum.ACTIVE.getCode());
         account.setTotalExpend(BigDecimal.ZERO);
         account.setTotalIncome(BigDecimal.ZERO);
         account.setTodayIncome(BigDecimal.ZERO);

@@ -22,7 +22,7 @@
 package com.santiago.gateway.netty.netty.controller;
 
 
-import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 
@@ -30,7 +30,7 @@ import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 public class HelloWorldHandler implements IFunctionHandler<String> {
 
     @Override
-    public Response<String> execute(NettyHttpRequest request) {
-         return Response.ok("Hello World");
+    public UnionResult<String> execute(NettyHttpRequest request) {
+         return UnionResult.ok("Hello World");
     }
 }

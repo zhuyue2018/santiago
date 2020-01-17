@@ -1,6 +1,5 @@
 package com.santiago.commons.util;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.zip.GZIPInputStream;
@@ -70,6 +69,6 @@ public class EasiBase64Util {
     }
 
     public static byte[] decode(byte[] encoded) throws Exception {
-        return Base64.decode(encoded);
+        return Base64.decode(encoded.toString());
     }
 }

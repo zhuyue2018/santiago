@@ -2,7 +2,7 @@ package com.santiago.core.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.AccountStatusEnum;
 import com.santiago.core.entity.domain.MerchantInfo;
 import com.santiago.core.entity.vo.MerchantInfoVO;
 import com.santiago.core.mapper.MerchantInfoMapper;
@@ -22,7 +22,7 @@ public class MerchantInfoServiceImpl implements MerchantInfoService {
     public void createDefault(MerchantInfo merchantInfo) {
         merchantInfo.setGmtCreate(new Date());
         merchantInfo.setGmtModified(new Date());
-        merchantInfo.setStatus(PublicStatusEnum.ACTIVE.getCode());
+        merchantInfo.setStatus(AccountStatusEnum.ACTIVE.getCode());
         merchantInfoMapper.insert(merchantInfo);
     }
 

@@ -1,6 +1,6 @@
 package com.santiago.notify.service.impl;
 
-import com.santiago.commons.enums.ErrorCodeEnum;
+import com.santiago.commons.enums.RespCodeEnum;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.notify.entity.domain.NotifyRecord;
 import com.santiago.notify.mapper.NotifyRecordMapper;
@@ -31,7 +31,7 @@ public class NotifyServiceImpl implements NotifyService {
         // 通知商户
         String respCode = notifyMerchant(record);
         // 成功则更新status为1 失败则增加通知次数
-        if (ErrorCodeEnum.SUCCESS.getCode().equals(respCode)) {
+        if (RespCodeEnum.SUCCESS.getCode().equals(respCode)) {
             record.setStatus(StatusEnum.SUCCESS.getCode());
         }
         record.setNotifyTimes(record.getNotifyTimes() + 1);

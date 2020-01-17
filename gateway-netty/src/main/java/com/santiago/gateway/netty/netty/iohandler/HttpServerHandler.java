@@ -22,7 +22,7 @@
 package com.santiago.gateway.netty.netty.iohandler;
 
 
-import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.exception.IllegalMethodNotAllowedException;
 import com.santiago.gateway.netty.netty.exception.IllegalPathDuplicatedException;
@@ -92,7 +92,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 
         try {
             functionHandler = matchFunctionHandler(request);
-            Response response =  functionHandler.execute(request);
+            UnionResult response =  functionHandler.execute(request);
             return NettyHttpResponse.ok(response.toJSONString());
         }
         catch (IllegalMethodNotAllowedException error){

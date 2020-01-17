@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.santiago.zookeeper.mapper.SettRecordMapper">
-  <resultMap id="BaseResultMap" type="com.santiago.zookeeper.entity.domain.SettRecord">
+<mapper namespace="com.santiago.settlement.mapper.SettRecordMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.settlement.entity.domain.SettRecord">
     <!--
       WARNING - @mbg.generated
     -->

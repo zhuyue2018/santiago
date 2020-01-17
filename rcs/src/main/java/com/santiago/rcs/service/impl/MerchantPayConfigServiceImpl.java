@@ -1,6 +1,6 @@
 package com.santiago.rcs.service.impl;
 
-import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.AccountStatusEnum;
 import com.santiago.rcs.entity.domain.MerchantPayConfig;
 import com.santiago.rcs.mapper.MerchantPayConfigMapper;
 import com.santiago.rcs.service.MerchantPayConfigService;
@@ -40,7 +40,7 @@ public class MerchantPayConfigServiceImpl implements MerchantPayConfigService {
         payConfig.setGmtCreate(new Date());
         payConfig.setGmtModified(new Date());
         payConfig.setVersion("1.0.0");
-        payConfig.setStatus(PublicStatusEnum.ACTIVE.getCode());
+        payConfig.setStatus(AccountStatusEnum.ACTIVE.getCode());
         payConfig.setMerchantNo(merchantNo);
         payConfig.setSecurityRating(securityRate);
         payConfig.setMerchantServerIp(merchantServerIp);

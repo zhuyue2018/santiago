@@ -1,6 +1,6 @@
 package com.santiago.portal.service.impl;
 
-import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.AccountStatusEnum;
 import com.santiago.portal.entity.domain.PmsOperatorRole;
 import com.santiago.portal.mapper.PmsOperatorRoleMapper;
 import com.santiago.portal.service.OperatorRoleService;
@@ -26,7 +26,7 @@ public class OperatorRoleServiceImpl implements OperatorRoleService {
         operatorRole.setCreater("portal");
         operatorRole.setGmtCreate(new Date());
         operatorRole.setGmtModified(new Date());
-        operatorRole.setStatus(PublicStatusEnum.ACTIVE.getCode());
+        operatorRole.setStatus(AccountStatusEnum.ACTIVE.getCode());
         operatorRole.setOperatorId(operatorId);
         operatorRole.setRoleId(roleId);
         operatorRoleMapper.insert(operatorRole);
