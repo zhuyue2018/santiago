@@ -1,6 +1,6 @@
 package com.santiago.core.service.impl;
 
-import com.santiago.commons.enums.PublicStatusEnum;
+import com.santiago.commons.enums.AccountStatusEnum;
 import com.santiago.core.entity.domain.MerchantPayInfo;
 import com.santiago.core.mapper.MerchantPayInfoMapper;
 import com.santiago.core.service.MerchantPayInfoService;
@@ -26,7 +26,7 @@ public class MerchantPayInfoServiceImpl implements MerchantPayInfoService {
         payInfo.setGmtCreate(new Date());
         payInfo.setGmtModified(new Date());
         payInfo.setVersion("1.0.0");
-        payInfo.setStatus(PublicStatusEnum.ACTIVE.getCode());
+        payInfo.setStatus(AccountStatusEnum.ACTIVE.getCode());
         payInfo.setMerchantNo(merchantNo);
         payInfo.setMerchantName(merchantName);
         payInfo.setMd5Key(md5Key);

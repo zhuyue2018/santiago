@@ -1,7 +1,7 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.commons.enums.ErrorCodeEnum;
+import com.santiago.commons.enums.RespCodeEnum;
 import com.santiago.portal.entity.domain.*;
 import com.santiago.portal.entity.dto.query.RoleQuery;
 import com.santiago.portal.entity.dto.request.RelateMenuReq;
@@ -137,7 +137,7 @@ public class RoleCtrl {
         if (relateMenuReq.isChecked()) {
             roleMenuMapper.insertList(list);
         }
-        return new SimpleResponse(ErrorCodeEnum.SUCCESS.getCode(), "");
+        return new SimpleResponse(RespCodeEnum.SUCCESS.getCode(), "");
     }
 
     private PmsRoleMenu createRoleMenu(Long roleId, Long MenuId) {

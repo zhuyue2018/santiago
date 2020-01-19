@@ -22,10 +22,8 @@
 package com.santiago.gateway.netty.netty.controller;
 
 
-import com.santiago.commons.dto.resp.Response;
 import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
-import io.netty.handler.codec.http.FullHttpRequest;
 
 public interface FunctionCtrl {
     UnionResp execute(NettyHttpRequest request);

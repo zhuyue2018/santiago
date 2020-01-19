@@ -22,9 +22,9 @@
 package com.santiago.gateway.netty.netty.controller;
 
 
-import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 
 public interface IFunctionHandler<T> {
-    Response<T> execute(NettyHttpRequest request);
+    UnionResult<T> execute(NettyHttpRequest request);
 }

@@ -1,6 +1,8 @@
 package com.santiago.core.entity.dto.response;
 
-public class PreOrderResponse extends SimpleResponse {
+import com.santiago.commons.dto.resp.UnionResp;
+
+public class PreOrderResponse extends UnionResp {
     private String merchantOrderNo;
     private String trxNo;
     private String returnMsg;

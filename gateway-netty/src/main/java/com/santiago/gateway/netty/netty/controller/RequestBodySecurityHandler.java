@@ -21,7 +21,7 @@
  */
 package com.santiago.gateway.netty.netty.controller;
 import com.santiago.commons.dto.req.UnionReq;
-import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.gateway.netty.domain.SttDetBookDTO;
@@ -42,14 +42,14 @@ public class RequestBodySecurityHandler implements IFunctionHandler<UnionResp> {
     ValidateService validateService;
 
     @Override
-    public Response<UnionResp> execute(NettyHttpRequest request) {
+    public UnionResult<UnionResp> execute(NettyHttpRequest request) {
         String reqStr = request.contentText();
         UnionReq req = JsonUtil.parseJson(reqStr, UnionReq.class);
         ValidateResult validateResult = validateService.validate(req, SttDetBookDTO.class);
         if (validateResult.getCorrect()) {
-            return Response.ok(UnionResp.buildResp("请求成功", "000000", "请求成功"));
+            return UnionResult.ok(UnionResp.buildResp("请求成功", "000000", "请求成功"));
         } else {
-            return Response.fail("请求异常");
+            return UnionResult.fail("请求异常");
         }
     }
 }

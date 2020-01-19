@@ -1,5 +1,7 @@
 package com.santiago.notify.wss;
 
+import com.santiago.commons.dto.resp.UnionResp;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.notify.entity.domain.NotifyRecord;
 import com.santiago.notify.mapper.NotifyRecordMapper;
 import com.santiago.notify.service.NotifyService;
@@ -16,12 +18,12 @@ public class MerchantNotifyWss {
     @Autowired
     NotifyRecordMapper notifyRecordMapper;
 
-    public SimpleResponse insertNotifyRecord(NotifyRecord notifyRecord) {
+    public UnionResult insertNotifyRecord(NotifyRecord notifyRecord) {
         notifyRecordMapper.insert(notifyRecord);
-        return new SimpleResponse("000000", "notify recode insert success!");
+        return new UnionResult(200, "notify recode insert success!");
     }
 
-    public SimpleResponse pageNotifyRecord(){
+    public UnionResult pageNotifyRecord(){
         return null;
     }
 

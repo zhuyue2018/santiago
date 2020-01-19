@@ -20,7 +20,7 @@
  ***************************************************************************************
  */
 package com.santiago.gateway.netty.netty.controller;
-import com.santiago.commons.dto.resp.Response;
+import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 
@@ -28,11 +28,11 @@ import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 @NettyHttpHandler(path = "/request/body",method = "POST")
 public class RequestBodyHandler implements IFunctionHandler<String> {
     @Override
-    public Response<String> execute(NettyHttpRequest request) {
+    public UnionResult<String> execute(NettyHttpRequest request) {
         /**
          * 可以在此拿到json转成业务需要的对象
          */
         String json = request.contentText();
-        return Response.ok(json);
+        return UnionResult.ok(json);
     }
 }
