@@ -1,6 +1,5 @@
 package com.santiago.portal.controller;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

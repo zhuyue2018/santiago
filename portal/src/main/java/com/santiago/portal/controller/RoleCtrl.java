@@ -1,6 +1,7 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.commons.enums.RespCodeEnum;
 import com.santiago.portal.entity.domain.*;
 import com.santiago.portal.entity.dto.query.RoleQuery;
@@ -58,14 +59,14 @@ public class RoleCtrl {
     @PostMapping(value = "/insert")
     @Transactional
     @ResponseBody
-    public SimpleResponse insert(HttpServletRequest request) {
+    public UnionResp insert(HttpServletRequest request) {
         String roleCode = request.getParameter("roleCode");
         String roleName = request.getParameter("roleName");
         PmsRole role = new PmsRole();
         role.setRoleCode(roleCode);
         role.setRoleName(roleName);
         roleService.insert(role);
-        return new SimpleResponse("000000", "cg");
+        return new UnionResp("000000", "cg");
     }
 
     @RequestMapping(value = "/relateMenuInit/{id}")
@@ -101,9 +102,9 @@ public class RoleCtrl {
 
     @ResponseBody
     @RequestMapping(value = "/relateMenu")
-    public SimpleResponse relateMenu(@Valid  @RequestBody RelateMenuReq relateMenuReq, BindingResult result) {
+    public UnionResp relateMenu(@Valid  @RequestBody RelateMenuReq relateMenuReq, BindingResult result) {
         if (result.hasErrors()) {
-            return new SimpleResponse("999999", "请求参数不完整");
+            return new UnionResp("999999", "请求参数不完整");
         }
         List<PmsRoleMenu> list = new ArrayList();
         if (new Integer(0).equals(relateMenuReq.getLevel())) {
@@ -137,7 +138,7 @@ public class RoleCtrl {
         if (relateMenuReq.isChecked()) {
             roleMenuMapper.insertList(list);
         }
-        return new SimpleResponse(RespCodeEnum.SUCCESS.getCode(), "");
+        return new UnionResp(RespCodeEnum.SUCCESS.getCode(), "");
     }
 
     private PmsRoleMenu createRoleMenu(Long roleId, Long MenuId) {
@@ -153,7 +154,7 @@ public class RoleCtrl {
     @PostMapping(value = "/delete/{id}")
     @Transactional
     @ResponseBody
-    public SimpleResponse delete(@PathVariable(value = "id") Long id) {
+    public UnionResp delete(@PathVariable(value = "id") Long id) {
         roleService.deleteByPrimaryKey(id);
         PmsOperatorRole operatorRole = new PmsOperatorRole();
         operatorRole.setRoleId(id);
@@ -161,7 +162,7 @@ public class RoleCtrl {
         PmsRoleMenu roleMenu = new PmsRoleMenu();
         roleMenu.setRoleId(id);
         roleMenuMapper.delete(roleMenu);
-        return new SimpleResponse("000000", "cg");
+        return new UnionResp("000000", "cg");
     }
 
     @PostMapping(value = "/page")

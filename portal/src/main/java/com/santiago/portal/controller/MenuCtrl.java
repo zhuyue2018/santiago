@@ -1,6 +1,7 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsRole;
 import com.santiago.portal.entity.domain.PmsRoleMenu;
@@ -43,7 +44,7 @@ public class MenuCtrl {
     @PostMapping(value = "/insert")
     @Transactional
     @ResponseBody
-    public SimpleResponse insert(@RequestBody MenuInsertRequest request) {
+    public UnionResp insert(@RequestBody MenuInsertRequest request) {
         PmsMenu menu = new PmsMenu();
         menu.setName(request.getInsertMenuName());
         menu.setLevel(request.getInsertMenuLevel());
@@ -59,18 +60,18 @@ public class MenuCtrl {
         roleMenu.setRoleId(admin.getId());
         roleMenu.setMenuId(menu.getId());
         roleMenuMapper.insert(roleMenu);
-        return new SimpleResponse("000000", "cg");
+        return new UnionResp("000000", "cg");
     }
 
     @PostMapping(value = "/delete/{id}")
     @Transactional
     @ResponseBody
-    public SimpleResponse delete(@PathVariable(value = "id") Long id) {
+    public UnionResp delete(@PathVariable(value = "id") Long id) {
         menuService.deleteByPrimaryKey(id);
         PmsRoleMenu roleMenu = new PmsRoleMenu();
         roleMenu.setMenuId(id);
         roleMenuMapper.delete(roleMenu);
-        return new SimpleResponse("000000", "cg");
+        return new UnionResp("000000", "cg");
     }
 
     @RequestMapping(value = "/query")

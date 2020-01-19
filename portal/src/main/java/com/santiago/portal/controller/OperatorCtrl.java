@@ -1,6 +1,7 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsOperatorRole;
 import com.santiago.portal.entity.domain.PmsRole;
@@ -50,7 +51,7 @@ public class OperatorCtrl {
     @PostMapping(value = "/insert")
     @Transactional
     @ResponseBody
-    public SimpleResponse insert(HttpServletRequest request) {
+    public UnionResp insert(HttpServletRequest request) {
         String username = request.getParameter("insertUsername");
         String password = request.getParameter("insertPassword");
         PmsOperator operator = new PmsOperator();
@@ -69,18 +70,18 @@ public class OperatorCtrl {
                 operatorRoleMapper.insert(operatorRole);
             }
         });
-        return new SimpleResponse("000000", "cg");
+        return new UnionResp("000000", "cg");
     }
 
     @PostMapping(value = "/delete/{id}")
     @Transactional
     @ResponseBody
-    public SimpleResponse delete(@PathVariable(value = "id") Long id) {
+    public UnionResp delete(@PathVariable(value = "id") Long id) {
         operatorService.deleteByPrimaryKey(id);
         PmsOperatorRole operatorRole = new PmsOperatorRole();
         operatorRole.setOperatorId(id);
         operatorRoleMapper.delete(operatorRole);
-        return new SimpleResponse("000000", "cg");
+        return new UnionResp("000000", "cg");
     }
 
 

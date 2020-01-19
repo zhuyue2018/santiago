@@ -1,5 +1,7 @@
 package com.santiago.settlement.job;
 
+import com.santiago.api.AccountApi;
+import com.santiago.api.dto.Account;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.commons.enums.VersionEnum;
 import com.santiago.core.entity.domain.TradeOrder;
@@ -53,6 +55,8 @@ public class AutoRecJob {
     RedisService redisService;
     @Autowired
     MerchantInfoWss merchantInfoWss;
+    @Autowired
+    AccountApi accountApi;
 
 
     @Scheduled(cron = "0 0 0 * * ?")
@@ -68,7 +72,7 @@ public class AutoRecJob {
         accountCheckBatch.setStatus("2");
         accountCheckBatch.setBatchNo(buildNoService.buildReconciliationNo());
         accountCheckBatchService.insert(accountCheckBatch);
-        List<Account> accountList = accountWss.listAll();
+        List<Account> accountList = accountApi.listAll();
         for (Account acc : accountList) {
             rec(acc);
             AccountHistory accountHistory = new AccountHistory();

@@ -1,6 +1,6 @@
-package com.santiago.redis.service.impl;
+package com.santiago.portal.service.impl;
 
-import com.santiago.redis.service.RedisService;
+import com.santiago.portal.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

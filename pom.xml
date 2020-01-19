@@ -3,21 +3,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>zookeeper</module>
-        <module>rcs</module>
-        <module>cg</module>
-        <module>core</module>
-        <module>commons</module>
-        <module>gateway-netty</module>
-        <module>gateway-tomcat</module>
-        <module>notify</module>
-        <module>portal</module>
-        <module>settlement</module>
-        <module>job</module>
-        <module>api</module>
-        <module>account</module>
-        <module>redis</module>
-        <module>message</module>
+<!--        <module>zookeeper</module>-->
+<!--        <module>rcs</module>-->
+<!--        <module>cg</module>-->
+<!--        <module>core</module>-->
+<!--        <module>commons</module>-->
+<!--        <module>gateway-netty</module>-->
+<!--        <module>gateway-tomcat</module>-->
+<!--        <module>notify</module>-->
+<!--        <module>portal</module>-->
+<!--        <module>settlement</module>-->
+<!--        <module>job</module>-->
+<!--        <module>api</module>-->
+<!--        <module>account</module>-->
+<!--        <module>redis</module>-->
+<!--        <module>message</module>-->
+<!--        <module>remit</module>-->
 
     </modules>
     <parent>

@@ -1,8 +1,8 @@
 package com.santiago.settlement.job;
 
+import com.santiago.api.RcsApi;
+import com.santiago.api.dto.MerchantSettleConfig;
 import com.santiago.commons.enums.StatusEnum;
-import com.santiago.core.entity.domain.MerchantSettleConfig;
-import com.santiago.core.service.MerchantSettleConfigService;
 import com.santiago.settlement.entity.domain.AccountHistory;
 import com.santiago.settlement.entity.domain.SettDailyCollect;
 import com.santiago.settlement.mapper.SettDailyCollectMapper;
@@ -30,7 +30,7 @@ import java.util.List;
 public class AutoSettleJob {
     private static final Logger logger = LoggerFactory.getLogger(AutoSettleJob.class);
     @Autowired
-    MerchantSettleConfigService merchantSettleConfigService;
+    RcsApi rcsApi;
     @Autowired
     AccountHistoryService accountHistoryService;
     @Autowired
@@ -41,7 +41,9 @@ public class AutoSettleJob {
     @Scheduled(cron = "0 0 1 * * ?")
     public void autoSettle() {
         SettDailyCollect settDailyCollect = new SettDailyCollect();
-        List<MerchantSettleConfig> list = merchantSettleConfigService.listAutoSettle();
+        MerchantSettleConfig merchantSettleConfig = new MerchantSettleConfig();
+        merchantSettleConfig.setIsAutoSettle("0");
+        List<MerchantSettleConfig> list = rcsApi.listMerchantSettleConfig(merchantSettleConfig);
         for (MerchantSettleConfig settleConfig : list ) {
             Integer settlePeriod = settleConfig.getSettlePeriod();
             String date = DateTime.now().minusDays(settlePeriod).toString("yyyyMMdd");

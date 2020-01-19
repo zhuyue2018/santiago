@@ -1,5 +1,6 @@
 package com.santiago.portal;
 
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.portal.entity.dto.request.MenuInsertRequest;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -27,8 +28,7 @@ public class MenuCtrlTest extends BaseJunit {
     private void mock(MenuInsertRequest request, String code) throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/pms/menu/insert")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(JsonUtil.create()
-                        .objectToJson(request))
+                .content(JsonUtil.obj2JsonStrExcludeNull(request))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print())

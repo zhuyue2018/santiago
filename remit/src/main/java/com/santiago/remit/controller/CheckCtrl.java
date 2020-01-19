@@ -18,15 +18,16 @@ public class CheckCtrl {
     @Autowired
     RedisApi redisApi;
     public boolean check(Order order, CheckConfig checkConfig) {
-        String key = createKey(order);
-        Set<String> keys = redisApi.getLike(key + "*");
-        int count = calculateCount(order.getAmount());
-        if (keys.size() > count) {
-            return false;
-        } else {
-            redisApi.put(key + currentTimeStr, checkConfig.getExpire());
-            return true;
-        }
+        return false;
+//        String key = createKey(order);
+//        Set<String> keys = redisApi.getLike(key + "*");
+//        int count = calculateCount(order.getAmount());
+//        if (keys.size() > count) {
+//            return false;
+//        } else {
+//            redisApi.put(key + currentTimeStr, checkConfig.getExpire());
+//            return true;
+//        }
     }
 
     private int calculateCount(BigDecimal amount) {

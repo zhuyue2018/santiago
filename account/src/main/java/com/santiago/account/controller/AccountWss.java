@@ -4,8 +4,8 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnel;
 import com.google.common.hash.PrimitiveSink;
-import com.santiago.account.domain.entity.Account;
 import com.santiago.account.service.AccountService;
+import com.santiago.api.dto.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

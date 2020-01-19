@@ -1,5 +1,6 @@
 package com.santiago.portal;
 
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.entity.dto.query.TradeOrderQuery;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -17,8 +18,7 @@ public class OrderCtrlTest extends BaseJunit {
     private void mock(TradeOrderQuery query, String code) throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/portal/order/list")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(JsonUtil.create()
-                        .objectToJson(query))
+                .content(JsonUtil.obj2JsonStrExcludeNull(query))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print())

@@ -1,6 +1,7 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.core.service.MerchantInfoService;
 import com.santiago.core.wss.MerchantWss;
@@ -44,7 +45,7 @@ public class MerchantCtrl {
 
 //    @ResponseBody
 //    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public SimpleResponse insert(@Valid @RequestBody MerchantInsertReq req, BindingResult result) {
+//    public UnionResp insert(@Valid @RequestBody MerchantInsertReq req, BindingResult result) {
 //        if (result.hasErrors()) {
 //            return null;
 //        }
@@ -54,17 +55,17 @@ public class MerchantCtrl {
 //        PmsRole merchantRole = roleService.getMerchant();
 //        operatorRoleService.create(operator.getId(), merchantRole.getId());
 //        operatorMerchantService.create(operator.getId(), merchantId);
-//        return SimpleResponse.success("merchant inserted!");
+//        return UnionResp.success("merchant inserted!");
 //    }
     @Transactional
-    public SimpleResponse insert2(@Valid @RequestBody MerchantInsertReq req) {
+    public UnionResp insert2(@Valid @RequestBody MerchantInsertReq req) {
         MerchantInsertDTO dto = createMerchantInsertDTO(req);
         Long merchantId = merchantWss.register(dto);
         PmsOperator operator = operatorService.create(1L, StatusEnum.SUCCESS.getCode(), "portal", req);
         PmsRole merchantRole = roleService.getMerchant();
         operatorRoleService.create(operator.getId(), merchantRole.getId());
         operatorMerchantService.create(operator.getId(), merchantId);
-        return SimpleResponse.success("merchant inserted!");
+        return new UnionResp("000000", "merchant inserted!");
     }
 
     @GetMapping(value = "/list")

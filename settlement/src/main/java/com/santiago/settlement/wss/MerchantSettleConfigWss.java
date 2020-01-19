@@ -1,8 +1,8 @@
 package com.santiago.settlement.wss;
 
+import com.santiago.api.dto.MerchantSettleConfig;
 import com.santiago.commons.dto.resp.UnionResult;
 import com.santiago.commons.enums.VersionEnum;
-import com.santiago.settlement.entity.domain.MerchantSettleConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

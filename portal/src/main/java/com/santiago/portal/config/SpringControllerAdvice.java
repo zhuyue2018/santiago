@@ -1,5 +1,6 @@
 package com.santiago.portal.config;
 
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.exception.PmsBizException;
@@ -21,12 +22,12 @@ public class SpringControllerAdvice {
     MenuService menuService;
 
     @ExceptionHandler(PmsBizException.class)
-    public BaseResponse handleBizException(PmsBizException e) {
-        return new SimpleResponse(e.getErrCode(), e.getErrMsg());
+    public UnionResp handleBizException(PmsBizException e) {
+        return new UnionResp(e.getErrCode(), e.getErrMsg());
     }
     @ExceptionHandler(Exception.class)
-    public BaseResponse handleException(Exception e) {
-        return new SimpleResponse("todo", e.getMessage());
+    public UnionResp handleException(Exception e) {
+        return new UnionResp("todo", e.getMessage());
     }
     /**
      * 应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器

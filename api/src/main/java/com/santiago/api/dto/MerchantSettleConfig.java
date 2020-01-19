@@ -1,4 +1,4 @@
-package com.santiago.settlement.entity.domain;
+package com.santiago.api.dto;
 
 import javax.persistence.*;
 import java.util.Date;

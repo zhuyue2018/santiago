@@ -2,6 +2,7 @@ package com.santiago.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.service.RedisService;
 import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsRole;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl implements MenuService {
-    private static final JsonUtil jsonUtil = JsonUtil.create();
 
     @Autowired
     PmsMenuMapper menuMapper;
@@ -74,7 +74,7 @@ public class MenuServiceImpl implements MenuService {
 //        }
         Object o = redisService.get("menuTree:operatorId:" + operatorId);
         if (null != o) {
-            List<PmsMenu> menuTree = jsonUtil.jsonToObject((String)o, List.class);
+            List<PmsMenu> menuTree = JsonUtil.parseJson((String)o, List.class);
             return menuTree;
         }
         List<PmsMenu> menuList = listByOperatorId(operatorId);
@@ -89,7 +89,7 @@ public class MenuServiceImpl implements MenuService {
             });
             level1.setSonMenus(sonMenus);
         });
-        String menuTreeStr = jsonUtil.objectToJson(menuTree);
+        String menuTreeStr = JsonUtil.obj2JsonStrExcludeNull(menuTree);
         redisService.set("menuTree:operatorId:" + operatorId, menuTreeStr, 300);
         return menuTree;
     }
@@ -114,7 +114,7 @@ public class MenuServiceImpl implements MenuService {
     public List<PmsMenu> listByRoleId(Long id) {
         Object o = redisService.get("menuList:roleId");
         if (null != o) {
-            List<PmsMenu> menuList = jsonUtil.jsonToObject((String)o, List.class);
+            List<PmsMenu> menuList = JsonUtil.parseJson((String)o, List.class);
             return menuList;
         }
 
@@ -130,7 +130,7 @@ public class MenuServiceImpl implements MenuService {
             criteria.orEqualTo("id", roleMenu.getMenuId());
         });
         List<PmsMenu> menuList = menuMapper.selectByExample(example);
-        String menuListStr = jsonUtil.objectToJson(menuList);
+        String menuListStr = JsonUtil.obj2JsonStrExcludeNull(menuList);
         redisService.set("menuList:roleId" + id, menuListStr, 300);
         return menuList;
     }

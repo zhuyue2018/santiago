@@ -1,6 +1,5 @@
 package com.santiago.account.service.impl;
 
-import com.santiago.account.domain.entity.Account;
 import com.santiago.account.mapper.AccountMapper;
 import com.santiago.account.service.AccountService;
 import com.santiago.commons.enums.AccountStatusEnum;

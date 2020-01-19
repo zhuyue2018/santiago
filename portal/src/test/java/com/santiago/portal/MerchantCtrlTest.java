@@ -1,5 +1,6 @@
 package com.santiago.portal;
 
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.portal.controller.MerchantCtrl;
 import com.santiago.portal.entity.dto.request.MerchantInsertReq;
 import org.hamcrest.Matchers;
@@ -21,8 +22,7 @@ public class MerchantCtrlTest extends BaseJunit {
     private void mock(MerchantInsertReq req, String code) throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/merchant/info/add")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(JsonUtil.create()
-                        .objectToJson(req))
+                .content(JsonUtil.obj2JsonStrExcludeNull(req))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print())

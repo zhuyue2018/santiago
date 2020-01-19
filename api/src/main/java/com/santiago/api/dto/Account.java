@@ -1,4 +1,4 @@
-package com.santiago.account.domain.entity;
+package com.santiago.api.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
