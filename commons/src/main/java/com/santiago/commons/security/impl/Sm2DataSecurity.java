@@ -23,15 +23,15 @@ public class Sm2DataSecurity implements SmDataSecurity {
         this.zipAlgorithmFactory = zipAlgorithmFactory;
     }
 
-    public static void main(String[] args) throws Exception {
-        Map<String, ZipAlgorithm> map = new HashMap();
-        map.put("GZIP", new GZipAlgorithm());
-        ZipAlgorithmFactory factory = new ZipAlgorithmFactory(map);
-        Sm2DataSecurity sm2DataSecurity = new Sm2DataSecurity(factory);
-        Map<String, String> test123Sm2 = sm2DataSecurity.createRsaKey("Easipay-DF");
-        Rsa256DataSecurity rsa256DataSecurity = new Rsa256DataSecurity(factory);
-        Map<String, String> test123Rsa = rsa256DataSecurity.createRsaKey("Easipay-DF");
-    }
+//    public static void main(String[] args) throws Exception {
+//        Map<String, ZipAlgorithm> map = new HashMap();
+//        map.put("GZIP", new GZipAlgorithm());
+//        ZipAlgorithmFactory factory = new ZipAlgorithmFactory(map);
+//        Sm2DataSecurity sm2DataSecurity = new Sm2DataSecurity(factory);
+//        Map<String, String> test123Sm2 = sm2DataSecurity.createRsaKey("Easipay-DF");
+//        Rsa256DataSecurity rsa256DataSecurity = new Rsa256DataSecurity(factory);
+//        Map<String, String> test123Rsa = rsa256DataSecurity.createRsaKey("Easipay-DF");
+//    }
 
     @Override
     public Map<String, String> createRsaKey(String keyId) {
