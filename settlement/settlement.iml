@@ -23,9 +23,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.slf4j:log4j-over-slf4j:1.7.28" level="project" />
+    <orderEntry type="library" name="Maven: com.baidu.fsg:uid-generator:1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="commons" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.64" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:3.3.0" level="project" />
@@ -180,7 +181,15 @@
     <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.8" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.netflix.hystrix:hystrix-core:1.4.26" level="project" />
-    <orderEntry type="library" name="Maven: com.baidu.fsg:uid-generator:1.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.baidu.fsg:uid-generator:1.0.0-SNAPSHOT">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../core/src/main/resources/lib/uid-generator-1.0.0-SNAPSHOT.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-starter:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.4" level="project" />

@@ -1,0 +1,9 @@
+mysql:
+  ip: 127.0.0.1
+  port: 3306
+
+jdbc:
+  driverClass: com.mysql.jdbc.Driver
+  connectionURL: jdbc:mysql://127.0.0.1:3306/pay?userUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+  username: debian-sys-maint
+  password: CvvMaaj7HcjUCo6u
