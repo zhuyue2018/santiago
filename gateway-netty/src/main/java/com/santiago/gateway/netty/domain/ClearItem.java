@@ -1,6 +1,7 @@
 package com.santiago.gateway.netty.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 

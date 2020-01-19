@@ -28,9 +28,3 @@ import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
 public interface FunctionCtrl {
     UnionResp execute(NettyHttpRequest request);
 }
-
-class Test {
-    private void test(FunctionCtrl functionCtrl) {
-        return;
-    }
-}

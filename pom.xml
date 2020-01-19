@@ -38,7 +38,7 @@
         <fastjson.version>1.2.58</fastjson.version>
         <hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
         <validation.api.version>2.0.1.Final</validation.api.version>
-        <jackson.databind.version>2.9.9.3</jackson.databind.version>
+        <jackson.version>2.9.3</jackson.version>
         <java.version>1.8</java.version>
         <joda.time.version>2.10.4</joda.time.version>
         <mapper.spring.boot.starter.version>2.0.3</mapper.spring.boot.starter.version>
@@ -143,8 +143,18 @@
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>${jackson.databind.version}</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>

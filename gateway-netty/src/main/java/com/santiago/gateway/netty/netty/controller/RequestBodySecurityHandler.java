@@ -35,7 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-@NettyHttpHandler(path = "/request/body",method = "POST")
+@NettyHttpHandler(path = "/requests/body",method = "POST")
 public class RequestBodySecurityHandler implements IFunctionHandler<UnionResp> {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodySecurityHandler.class);
     @Autowired
