@@ -22,6 +22,5 @@ public class BeanUtils {
         } else {
             beanCopier.copy(source, target, (Converter)null);
         }
-
     }
 }
