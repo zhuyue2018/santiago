@@ -16,6 +16,10 @@
     <dependencies>
         <dependency>
             <groupId>com.santiago</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.santiago</groupId>
             <artifactId>commons</artifactId>
         </dependency>
     </dependencies>

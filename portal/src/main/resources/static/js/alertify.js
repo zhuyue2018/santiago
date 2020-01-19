@@ -1224,7 +1224,7 @@
          * Helper: triggers a button callback
          *
          * @param {Object}		The dilog instance.
-         * @param {Function}	Callback to check which button triggered the event.
+         * @param {Function}	Callback to controller which button triggered the event.
          *
          * @return {undefined}
          */
