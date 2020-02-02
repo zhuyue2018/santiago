@@ -17,6 +17,7 @@ public class RedisServiceImpl implements RedisService {
     @Autowired
     private RedisTemplate redisTemplate;
     // =============================common============================
+
     /**
      * 指定缓存失效时间
      * @param key 键
@@ -525,5 +526,10 @@ public class RedisServiceImpl implements RedisService {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    @Override
+    public Set<String> getLike(String pattern) {
+        return redisTemplate.keys(pattern);
     }
 }

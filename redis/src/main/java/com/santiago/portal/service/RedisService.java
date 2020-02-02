@@ -282,5 +282,6 @@ public interface RedisService {
      */
      long lRemove(String key, long count, Object value);
 
-    
+
+    Set<String> getLike(String pattern);
 }

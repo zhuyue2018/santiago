@@ -1,6 +1,7 @@
 package com.santiago.gateway;
 
 import com.santiago.commons.util.EncryptUtil;
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.entity.dto.request.TradeRequest;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -23,8 +24,7 @@ public class TradeCtrlTest extends BaseJunit {
     private void mock(TradeRequest request, String code) throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/trade/preOrder")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(JsonUtil.create()
-                        .objectToJson(request))
+                .content(JsonUtil.obj2JsonStrExcludeNull(request))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print())

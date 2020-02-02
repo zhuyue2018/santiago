@@ -2,6 +2,7 @@ package com.santiago.account.service.impl;
 
 import com.santiago.account.mapper.AccountMapper;
 import com.santiago.account.service.AccountService;
+import com.santiago.api.dto.Account;
 import com.santiago.commons.enums.AccountStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -13,10 +13,10 @@
     <name>gateway-tomcat</name>
 
     <dependencies>
-        <dependency>
-            <groupId>com.santiago</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.santiago</groupId>-->
+<!--            <artifactId>core</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.santiago</groupId>
             <artifactId>api</artifactId>

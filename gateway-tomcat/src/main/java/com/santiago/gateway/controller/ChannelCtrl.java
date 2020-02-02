@@ -1,7 +1,9 @@
 package com.santiago.gateway.controller;
 
 import com.santiago.api.AccountApi;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.commons.enums.RespCodeEnum;
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.core.entity.dto.request.WeixinNotifyRequest;
 import com.santiago.core.entity.exception.TradeBizException;
 import com.santiago.core.wss.ChannelReceiveWss;
@@ -25,15 +27,14 @@ public class ChannelCtrl {
     AccountApi accountApi;
 
     @RequestMapping("/receive/weixin")
-    public BaseResponse receiveNotify(@Valid @RequestBody WeixinNotifyRequest request, BindingResult result) {
-        logger.info("收到回调通知，request:{}", JsonUtil.create().objectToJson(request));
+    public UnionResp receiveNotify(@Valid @RequestBody WeixinNotifyRequest request, BindingResult result) {
+        logger.info("收到回调通知，request:{}", JsonUtil.obj2JsonStrExcludeNull(request));
         if (result.hasErrors()) {
             String message = result.getFieldError().getDefaultMessage();
             throw new TradeBizException(RespCodeEnum.PARAMS_ERROR.getCode(), message);
         }
         channelReceiveWss.receive(request);
         accountApi.account();
-        SimpleResponse simpleResponse = new SimpleResponse("success", "接受回调通知成功");
-        return simpleResponse;
+        return new UnionResp("success", "接受回调通知成功");
     }
 }

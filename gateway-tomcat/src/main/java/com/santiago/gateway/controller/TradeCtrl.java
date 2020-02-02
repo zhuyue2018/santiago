@@ -1,6 +1,7 @@
 package com.santiago.gateway.controller;
 
 import com.santiago.commons.annotation.LogParams;
+import com.santiago.commons.dto.resp.UnionResp;
 import com.santiago.commons.enums.RespCodeEnum;
 import com.santiago.core.entity.dto.request.TradeRequest;
 import com.santiago.core.entity.exception.TradeBizException;
@@ -24,12 +25,12 @@ public class TradeCtrl {
 
     @LogParams
     @RequestMapping("/preOrder")
-    public SimpleResponse preOrder(@Valid @RequestBody TradeRequest request, BindingResult result) {
+    public UnionResp preOrder(@Valid @RequestBody TradeRequest request, BindingResult result) {
         if (result.hasErrors()) {
             String message = result.getFieldError().getDefaultMessage();
             throw new TradeBizException(RespCodeEnum.PARAMS_ERROR.getCode(), message);
         }
         tradeWss.preOrder(request);
-        return new SimpleResponse(RespCodeEnum.SUCCESS.getCode(), RespCodeEnum.SUCCESS.getMsg());
+        return new UnionResp(RespCodeEnum.SUCCESS.getCode(), RespCodeEnum.SUCCESS.getMsg());
     }
 }

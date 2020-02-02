@@ -6,6 +6,7 @@ import com.google.common.hash.Funnel;
 import com.google.common.hash.PrimitiveSink;
 import com.santiago.account.service.AccountService;
 import com.santiago.api.dto.Account;
+import com.santiago.commons.dto.resp.UnionResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +22,14 @@ public class AccountWss {
     }
 
     @GetMapping(value = "/api/accounts/{id}")
-    public Account get() {
-        return accountService.getByAccountNo("");
+    public Account get(@PathVariable String id) {
+        return accountService.getByAccountNo(id);
     }
 
     @PostMapping(value = "/api/accounts")
-    public void create(String accountNo, String merchantNo) {
+    public UnionResp create(String accountNo, String merchantNo) {
         accountService.createDefaultAccount(accountNo, merchantNo);
-
+        return new UnionResp("200", "账户创建成功");
     }
 
 //    @PostMapping(value = "/asyncAccount")
@@ -42,21 +43,5 @@ public class AccountWss {
 //        accountService.insertTransaction();
 //        accountService.account();
 //    }
-    public static void main(String[] args) {
-        BloomFilter<String> stringBloomFilter = BloomFilter.create(new Funnel<String>() {
-            @Override
-            public void funnel(String s, PrimitiveSink primitiveSink) {
-                primitiveSink.putString(s, Charsets.UTF_8);
-            }
-        }, 1024 * 1024 * 32, 0.0000001d);
-        System.out.println(stringBloomFilter.put("123"));
-        System.out.println(stringBloomFilter.put("123"));
-        System.out.println(stringBloomFilter.put("124"));
-        BloomFilter<String> stringBloomFilter2 = BloomFilter
-                .create((s, primitiveSink) -> {primitiveSink.putString(s, Charsets.UTF_8);},
-                1024 * 1024 * 32, 0.0000001d);
-        System.out.println(stringBloomFilter2.put("123"));
-        System.out.println(stringBloomFilter2.put("123"));
-        System.out.println(stringBloomFilter2.put("124"));
-    }
+
 }

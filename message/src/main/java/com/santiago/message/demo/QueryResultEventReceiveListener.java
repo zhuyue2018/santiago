@@ -18,7 +18,6 @@ import java.util.Optional;
 public class QueryResultEventReceiveListener {
     private static final Logger logger = LoggerFactory.getLogger(QueryResultEventReceiveListener.class);
 
-
     @KafkaListener(id = "query-result-receive", topics = {EasipayKafkaTopics.Q_REC_QUERY})
     public void listen(ConsumerRecord<?, ?> record,
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
