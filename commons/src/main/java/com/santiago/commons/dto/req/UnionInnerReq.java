@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
  * @author: zhuyue
  * @create: 2019-11-21 10:39
  **/
-public class UnionReq {
+public class UnionInnerReq {
     @NotNull(message = "msgVersion must be not null")
     @Size(max = 50, min = 1, message = "msgVersion size wrong")
     private String msgVersion;
@@ -40,14 +40,19 @@ public class UnionReq {
         return new String((new Base64()).decode(this.getMsgContent()), "UTF-8");
     }
 
-    public <T> T getContent(Class<T> protoType) throws IOException {
-        String decoded = new String((new Base64()).decode(this.getMsgContent()), "UTF-8");
+    public <T> T getContent(Class<T> protoType) {
+        String decoded = null;
+        try {
+            decoded = new String((new Base64()).decode(this.getMsgContent()), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return JsonUtil.parseJson(decoded, protoType);
     }
 
-    public <T> T validateBiz(Class<T> protoType) throws IOException {
-        T content = this.getContent(protoType);
-        return content;
+    public static UnionInnerReq create() {
+        UnionInnerReq req = new UnionInnerReq();
+        return req;
     }
 
     public String getMsgVersion() {
@@ -138,5 +143,20 @@ public class UnionReq {
         this.page = page;
     }
 
-
+    @Override
+    public String toString() {
+        return "UnionInnerReq{" +
+                "msgVersion='" + msgVersion + '\'' +
+                ", msgCode='" + msgCode + '\'' +
+                ", msgSerialNo='" + msgSerialNo + '\'' +
+                ", msgSender='" + msgSender + '\'' +
+                ", msgReceiver='" + msgReceiver + '\'' +
+                ", msgContent='" + msgContent + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", sign=" + sign +
+                ", encrypt=" + encrypt +
+                ", notify=" + notify +
+                ", page=" + page +
+                '}';
+    }
 }

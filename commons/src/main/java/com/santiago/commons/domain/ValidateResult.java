@@ -1,4 +1,4 @@
-package com.santiago.gateway.netty.domain;
+package com.santiago.commons.domain;
 
 import java.util.HashMap;
 

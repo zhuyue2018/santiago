@@ -24,10 +24,10 @@
 //import com.santiago.commons.dto.resp.UnionResp;
 //import com.santiago.commons.util.JsonUtil;
 //import com.santiago.gateway.netty.domain.SttDetBookDTO;
-//import com.santiago.gateway.netty.domain.ValidateResult;
+//import com.santiago.commons.domain.ValidateResult;
 //import com.santiago.gateway.netty.netty.annotation.NettyHttpHandler;
 //import com.santiago.gateway.netty.netty.http.NettyHttpRequest;
-//import com.santiago.gateway.netty.netty.service.ValidateService;
+//import com.santiago.commons.service.ValidateService;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;

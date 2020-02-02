@@ -1,14 +1,14 @@
-package com.santiago.gateway.netty.netty.service.impl;
+package com.santiago.commons.service.impl;
 
 import com.santiago.commons.domain.GZipAlgorithm;
+import com.santiago.commons.domain.ValidateResult;
 import com.santiago.commons.domain.ZipAlgorithm;
 import com.santiago.commons.domain.ZipAlgorithmFactory;
 import com.santiago.commons.dto.req.UnionReq;
 import com.santiago.commons.security.DataSecurity;
 import com.santiago.commons.security.impl.Sm2DataSecurity;
 import com.santiago.commons.util.JsonUtil;
-import com.santiago.gateway.netty.domain.ValidateResult;
-import com.santiago.gateway.netty.netty.service.ValidateService;
+import com.santiago.commons.service.ValidateService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program: sac-fa
@@ -22,10 +24,20 @@ public class UnionResp {
     private static final Logger logger = LoggerFactory.getLogger(UnionResp.class);
     private String code;
     private String msg;
+    private Map<Integer, String> errorMap;
     private String serialNo;
     private String sign;
     private String body;
 
+    public UnionResp(String code, String msg, Map<Integer, String> errorMap) {
+        this.code = code;
+        this.msg = msg;
+        this.errorMap = errorMap;
+    }
+
+    public static UnionResp success() {
+        return new UnionResp("200", "请求成功");
+    }
 
     public String getCode() {
         return code;
@@ -80,10 +92,9 @@ public class UnionResp {
         try {
             String respStr = ZipUtil.zipBytesToString(JsonUtil.obj2JsonStrExcludeNull(resp).getBytes("UTF-8"), true);
             logger.info("返回应答报文:{}", respStr);
-            this.body= respStr;
-        }
-        catch(Exception e) {
-            logger.info("压缩异常============="+e);
+            this.body = respStr;
+        } catch (Exception e) {
+            logger.info("压缩异常=============" + e);
         }
 
 

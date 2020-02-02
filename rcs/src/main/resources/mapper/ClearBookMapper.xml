@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.rcs.mapper.ClearBookMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.rcs.entity.domain.ClearBook">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="parent_order_no" jdbcType="VARCHAR" property="parentOrderNo" />
+    <result column="parent_amount" jdbcType="VARCHAR" property="parentAmount" />
+    <result column="primary_cus_no" jdbcType="VARCHAR" property="primaryCusNo" />
+    <result column="primary_cus_name" jdbcType="VARCHAR" property="primaryCusName" />
+    <result column="secondary_cus_no" jdbcType="VARCHAR" property="secondaryCusNo" />
+    <result column="secondary_cus_name" jdbcType="VARCHAR" property="secondaryCusName" />
+    <result column="trx_type" jdbcType="CHAR" property="trxType" />
+    <result column="pay_serial_no" jdbcType="VARCHAR" property="paySerialNo" />
+    <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime" />
+    <result column="order_succ_time" jdbcType="TIMESTAMP" property="orderSuccTime" />
+    <result column="need_separate" jdbcType="CHAR" property="needSeparate" />
+    <result column="fee_type" jdbcType="CHAR" property="feeType" />
+    <result column="account_time" jdbcType="TIMESTAMP" property="accountTime" />
+    <result column="account_serial_no" jdbcType="VARCHAR" property="accountSerialNo" />
+    <result column="clear_state" jdbcType="CHAR" property="clearState" />
+    <result column="clear_time" jdbcType="TIMESTAMP" property="clearTime" />
+    <result column="separate_info" jdbcType="VARCHAR" property="separateInfo" />
+  </resultMap>
+</mapper>

@@ -2,6 +2,7 @@ package com.santiago.commons.aop;
 
 import java.util.Arrays;
 
+import com.santiago.commons.util.JsonUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -19,6 +20,10 @@ public class LogParamAOP {
 
     @Before("@annotation(com.santiago.commons.annotation.LogParams)")
     public void process(JoinPoint point) throws Throwable {
+//        StringBuilder sb = new StringBuilder();
+//        for (Object o : point.getArgs()) {
+//            sb.append(JsonUtil.obj2JsonStrExcludeNull(o)).append(";");
+//        }
         logger.info("params:method:[{}], param:[{}], target:[{}]",
                 point.getSignature().getDeclaringTypeName() + ":" + point.getSignature().getName(),
                 Arrays.toString(point.getArgs()),

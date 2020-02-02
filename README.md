@@ -1,3 +1,37 @@
-# santiago
+系统功能：
+模块说明：
+account模块：
+记账系统，负责各类账户的维护和记账。
+api模块：
+各子模块提供feign方式调用时，暴露接口。目前限于精力，所有子模块的接口都写在这，后期改造为每个子模块都有对于的api模块。
+cg模块：
+代码生成模块，目前集成了mybatis-generator。计划实现一个从controller层到dao层的增删改查的代码生成模块。
+commons：
+基础模块，提供通用的domain和工具类。
+core：
+核心层模块，遗留模块，目前负责收单的核心业务逻辑。
+gateway-netty：
+网关模块，负责对外提供统一入口。使用netty实现，自己（试验性地）实现了ioc和mvc的核心功能。
+gateway-tomcat：
+网关模块，负责对外提供统一入口。使用tomcat作为web容器。
+job：
+定时任务模块。
+message：
+消息队列模块，提供消息队列服务，使用kafka。
+notify：
+回调通知模块。
+portal：
+门户网站。使用spring-security作为权限管理。页面使用thymeleaf模板引擎。
+rcs：
+对账，清分，结算模块。
+redis：
+提供redis缓存服务。
+remit：
+代发出款模块。
+settlement：
+对账结算模块，待集成到rsc中。
+zookeeper：
+提供zookeeper服务，目前实现了分布式锁。
 
-test commit changes in udisk
+
+技术解析：

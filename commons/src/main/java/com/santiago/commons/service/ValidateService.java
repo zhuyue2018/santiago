@@ -1,7 +1,7 @@
-package com.santiago.gateway.netty.netty.service;
+package com.santiago.commons.service;
 
+import com.santiago.commons.domain.ValidateResult;
 import com.santiago.commons.dto.req.UnionReq;
-import com.santiago.gateway.netty.domain.ValidateResult;
 
 
 public interface ValidateService {
