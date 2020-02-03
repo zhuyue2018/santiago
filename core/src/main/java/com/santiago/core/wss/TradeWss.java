@@ -20,7 +20,7 @@ public class TradeWss {
 
     @PostMapping(value = "/preOrder")
     public PreOrderResponse preOrder(@RequestBody TradeRequest request) {
-
+        // 校验
         return tradeService.preOrder(request);
     }
 

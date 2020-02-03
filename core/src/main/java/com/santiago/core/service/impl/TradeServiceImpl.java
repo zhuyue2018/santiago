@@ -7,6 +7,7 @@ import com.santiago.commons.enums.VersionEnum;
 import com.santiago.commons.util.DateUtil;
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.MerchantPayInfo;
+import com.santiago.core.entity.domain.Message;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
 import com.santiago.core.entity.dto.request.TradeRequest;
@@ -22,12 +23,15 @@ import com.santiago.core.service.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.DelayQueue;
 
 @Service
 public class TradeServiceImpl implements TradeService {
@@ -42,6 +46,8 @@ public class TradeServiceImpl implements TradeService {
     TradeRecordMapper tradeRecordMapper;
     @Autowired
     MerchantPayInfoService merchantPayInfoService;
+    @Autowired
+    TradeOrderDelayCloseManager delayCloseManager;
 
     @Override
     public PreOrderResponse preOrder(TradeRequest request) {
@@ -53,6 +59,7 @@ public class TradeServiceImpl implements TradeService {
         assertOrderNotExist(request.getMerchantNo(), orderNo);
         TradeOrder order = createTradeOrder(request);
         TradeRecord tradePaymentRecord = createTradePaymentRecord(order);
+        delayCloseManager.insert(new Message(order.getId(), order.getStatus(), order.getGmtCreate()));
         return channelSendService.preOrder(tradePaymentRecord, request.getPayProductCode());
     }
 

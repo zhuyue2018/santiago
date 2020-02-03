@@ -58,22 +58,33 @@
         <feign.version>2.1.1.RELEASE</feign.version>
         <commons.io.version>2.6</commons.io.version>
         <commons.net.version>3.6</commons.net.version>
-
+        <jaskson.mapper.asl.version>1.9.13</jaskson.mapper.asl.version>
+        <bcprov.jdk15on.version>1.64</bcprov.jdk15on.version>
+        <cglib.version>3.3.0</cglib.version>
+        <poi.ooxml.version>3.9</poi.ooxml.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${jaskson.mapper.asl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bcprov.jdk15on.version}</version>
+            </dependency>
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
-                <version>3.3.0</version>
+                <version>${cglib.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
-                <version>3.9</version>
+                <version>${poi.ooxml.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-net</groupId>

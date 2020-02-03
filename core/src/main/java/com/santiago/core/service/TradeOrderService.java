@@ -10,4 +10,6 @@ import java.util.List;
 public interface TradeOrderService {
     PageInfo pageTradeOrder(TradeOrderQuery tradeOrderQuery);
     List<TradeOrder> listRecData(String code, DateTime billDate);
+
+    List<TradeOrder> listByStatus(String status);
 }
