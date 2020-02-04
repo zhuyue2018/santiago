@@ -17,13 +17,15 @@ import java.util.concurrent.DelayQueue;
 public class TradeOrderDelayCloseManager {
     private static final Logger logger = LoggerFactory.getLogger(TradeOrderDelayCloseManager.class);
     private final DelayQueue<Message> closeQueue;
-    public TradeOrderDelayCloseManager() throws InterruptedException {
+    private final ThreadPoolTaskExecutor executor;
+    private final TradeOrderService tradeOrderService;
+
+    @Autowired
+    public TradeOrderDelayCloseManager(ThreadPoolTaskExecutor executor, TradeOrderService tradeOrderService) throws InterruptedException {
         this.closeQueue = new DelayQueue<>();
+        this.executor = executor;
+        this.tradeOrderService = tradeOrderService;
     }
-    @Autowired
-    ThreadPoolTaskExecutor executor;
-    @Autowired
-    TradeOrderService tradeOrderService;
 
     @PostConstruct
     public void init() throws InterruptedException {
