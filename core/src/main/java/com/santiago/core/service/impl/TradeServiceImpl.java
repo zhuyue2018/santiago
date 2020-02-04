@@ -51,6 +51,7 @@ public class TradeServiceImpl implements TradeService {
 
     @Override
     public PreOrderResponse preOrder(TradeRequest request) {
+
         MerchantPayInfo merchantPayInfo = merchantPayInfoService.getByMerchantNo(request.getMerchantNo());
         assertNotnull(merchantPayInfo);
         validate(request, merchantPayInfo.getSecurityRating(), merchantPayInfo.getMerchantServerIp(), merchantPayInfo.getMd5Key());

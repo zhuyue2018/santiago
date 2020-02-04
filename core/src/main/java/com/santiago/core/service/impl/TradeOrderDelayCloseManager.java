@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.concurrent.DelayQueue;
 
@@ -16,13 +17,16 @@ import java.util.concurrent.DelayQueue;
 public class TradeOrderDelayCloseManager {
     private static final Logger logger = LoggerFactory.getLogger(TradeOrderDelayCloseManager.class);
     private final DelayQueue<Message> closeQueue;
+    public TradeOrderDelayCloseManager() throws InterruptedException {
+        this.closeQueue = new DelayQueue<>();
+    }
     @Autowired
     ThreadPoolTaskExecutor executor;
     @Autowired
     TradeOrderService tradeOrderService;
 
-    public TradeOrderDelayCloseManager() throws InterruptedException {
-        this.closeQueue = new DelayQueue<>();
+    @PostConstruct
+    public void init() throws InterruptedException {
         List<TradeOrder> unPayTradeOrderList = tradeOrderService.listByStatus("1");
         unPayTradeOrderList.forEach(tradeOrder -> {
             this.insert(new Message(tradeOrder.getId(), tradeOrder.getStatus(), tradeOrder.getGmtCreate()));

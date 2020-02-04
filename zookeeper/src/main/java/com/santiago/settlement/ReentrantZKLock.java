@@ -36,23 +36,16 @@ public class ReentrantZKLock {
             String rawNodePath = categoryPath + "/" + lockNode;
             // 创建临时顺序节点
             nodePath = zooKeeper.create(rawNodePath, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-            System.out.println("nodePath=" + nodePath);
             // 获取所有节点
             List<String> nodeIdList = zooKeeper.getChildren(categoryPath, true);
-            System.out.println("nodeIdList=" + nodeIdList);
             // 获取最前的节点
             TreeSet<String> nodeIdSet = new TreeSet<String>(nodeIdList);
             String firstNodeId = nodeIdSet.first();
-            System.out.println("firstNodeId=" + firstNodeId);
-
             String nodeId = nodePath.substring((categoryPath + "/").length());
-            System.out.println("nodeId=" + nodeId);
-
             // 如果最前的节点为当前阶段，认为获取锁成功
             if (firstNodeId.equals(nodeId)) {
                 return true;
             }
-
             String preNodeId = nodeIdSet.lower(nodeId);
             if (preNodeId != null) {
                 System.out.println("nodeId=" + nodeId + ", preNodeId=" + preNodeId);

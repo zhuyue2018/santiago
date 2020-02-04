@@ -8,6 +8,4 @@ import org.springframework.scheduling.annotation.Async;
 public interface TradeService {
     PreOrderResponse preOrder(TradeRequest request);
 
-    @Async
-    void delayClose(Message msg);
 }
