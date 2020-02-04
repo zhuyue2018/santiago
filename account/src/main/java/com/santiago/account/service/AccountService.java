@@ -1,5 +1,6 @@
 package com.santiago.account.service;
 
+import com.santiago.account.domain.entity.TransactionDTO;
 import com.santiago.api.dto.Account;
 
 import java.util.List;
@@ -12,5 +13,11 @@ public interface AccountService {
     List<Account> list(Account account);
 
     List<Account> listAll();
+
+    void insertTransaction();
+
+    void accounting(TransactionDTO transactionDTO);
+
+    void asyncAccounting();
 
 }

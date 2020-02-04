@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 账户处理接口
+ */
 @RestController
 public class AccountWss {
     @Autowired
@@ -31,17 +34,5 @@ public class AccountWss {
         accountService.createDefaultAccount(accountNo, merchantNo);
         return new UnionResp("200", "账户创建成功");
     }
-
-//    @PostMapping(value = "/asyncAccount")
-//    public void asyncAccount(TransactionDTO transactionDTO) {
-//        accountService.insertTransaction();
-//        accountService.send2Kafka();
-//    }
-//
-//    @PostMapping(value = "/account")
-//    public void account() {
-//        accountService.insertTransaction();
-//        accountService.account();
-//    }
 
 }

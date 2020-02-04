@@ -1,5 +1,7 @@
 package com.santiago.account.service.impl;
 
+import com.santiago.account.domain.entity.AccountingStrategy;
+import com.santiago.account.domain.entity.TransactionDTO;
 import com.santiago.account.mapper.AccountMapper;
 import com.santiago.account.service.AccountService;
 import com.santiago.api.dto.Account;
@@ -63,6 +65,33 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> listAll() {
         Account account = new Account();
         return list(account);
+    }
+
+    @Override
+    public void insertTransaction() {
+
+    }
+
+    @Override
+    public void accounting(TransactionDTO transactionDTO) {
+        transactionDTO.getTrxType();
+        AccountingStrategy strategy = getAccStrategy(transactionDTO.getRescAccountNo(), transactionDTO.getDestAccountNo());
+        strategy.getDirections().entrySet().forEach(stringStringEntry -> {
+            transfer(stringStringEntry.getKey(), stringStringEntry.getValue(), transactionDTO.getAmount());
+        });
+    }
+
+    private void transfer(String resc, String dest, BigDecimal amount) {
+
+    }
+
+    private AccountingStrategy getAccStrategy(String rescAccountNo, String destAccountNo) {
+        return null;
+    }
+
+    @Override
+    public void asyncAccounting() {
+
     }
 
 }
