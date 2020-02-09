@@ -70,6 +70,11 @@ public class TradeOrderServiceImpl implements TradeOrderService {
         return orderMapper.selectByExample(criteria);
     }
 
+    @Override
+    public List<TradeOrder> listByStatus(String status) {
+        return null;
+    }
+
 
     private List<TradeOrderVO> transfer2VOList(List<TradeOrder> orderList) {
         ArrayList<TradeOrderVO> voList = new ArrayList<TradeOrderVO>();

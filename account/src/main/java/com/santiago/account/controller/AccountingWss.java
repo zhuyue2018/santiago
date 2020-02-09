@@ -27,7 +27,7 @@ public class AccountingWss {
             logger.error("预扣交易只能使用同步记账");
             return;
         }
-        accountService.insertTransaction();
+        accountService.insertTransaction(transactionDTO);
         accountService.asyncAccounting();
     }
 

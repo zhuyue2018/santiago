@@ -11,10 +11,10 @@ import java.util.List;
 
 @FeignClient(name = "account")
 public interface AccountApi {
-    @PostMapping("/account")
-    public void account();
-    @PostMapping("/account/create")
+    @PostMapping("/api/accounting")
+    public void accounting();
+    @PostMapping("/api/accounts")
     public void create(@RequestParam String accountNo, @RequestParam String merchantNo);
-    @GetMapping("/accounts")
+    @GetMapping("/api/accounts")
     List<Account> listAll();
 }

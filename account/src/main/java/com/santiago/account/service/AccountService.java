@@ -14,7 +14,7 @@ public interface AccountService {
 
     List<Account> listAll();
 
-    void insertTransaction();
+    void insertTransaction(TransactionDTO transactionDTO);
 
     void accounting(TransactionDTO transactionDTO);
 
