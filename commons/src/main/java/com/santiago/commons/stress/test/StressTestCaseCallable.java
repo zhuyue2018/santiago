@@ -1,4 +1,4 @@
-package com.santiago.commons.press;
+package com.santiago.commons.stress.test;
 
 import java.util.concurrent.Callable;
 

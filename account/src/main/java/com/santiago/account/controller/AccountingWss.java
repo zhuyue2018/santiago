@@ -1,11 +1,13 @@
 package com.santiago.account.controller;
 
-import com.santiago.account.domain.entity.TransactionDTO;
+import com.santiago.account.entity.domain.Account;
+import com.santiago.account.entity.domain.TransactionDTO;
 import com.santiago.account.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,9 +40,20 @@ public class AccountingWss {
      * 同步记账接口，用于预扣交易
      */
     @PostMapping(value = "/accounting")
-    public void accounting(TransactionDTO transactionDTO) {
-//        accountService.insertTransaction(transactionDTO);
+    public void syncAccounting(TransactionDTO transactionDTO) {
+        accountService.insertTransaction(transactionDTO);
         accountService.accounting(transactionDTO);
-        System.out.println("accounting");
+    }
+
+    /**
+     * 统一记账接口，用于预扣交易
+     */
+    @PostMapping(value = "/accounting/union")
+    public void unionAccounting(@RequestBody TransactionDTO transactionDTO) {
+        if ("0001".equals(transactionDTO.getTrxType())) { // 预扣交易
+            syncAccounting(transactionDTO);
+        } else {
+            asyncAccounting(transactionDTO);
+        }
     }
 }

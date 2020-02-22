@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.account.mapper.AccountingDetailMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.account.entity.domain.AccountingDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="trx_serial_no" jdbcType="VARCHAR" property="trxSerialNo" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="direction" jdbcType="CHAR" property="direction" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

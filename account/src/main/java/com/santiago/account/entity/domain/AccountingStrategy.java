@@ -1,4 +1,4 @@
-package com.santiago.account.domain.entity;
+package com.santiago.account.entity.domain;
 
 import java.util.Map;
 

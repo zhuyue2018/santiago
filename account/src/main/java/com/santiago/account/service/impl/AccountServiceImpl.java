@@ -1,15 +1,17 @@
 package com.santiago.account.service.impl;
 
-import com.santiago.account.domain.entity.AccountingStrategy;
-import com.santiago.account.domain.entity.TransactionDTO;
-import com.santiago.account.entity.domain.Account;
+import com.santiago.account.entity.domain.*;
 import com.santiago.account.mapper.AccountMapper;
+import com.santiago.account.mapper.AccountingDetailMapper;
+import com.santiago.account.mapper.TrxDetailMapper;
 import com.santiago.account.service.AccountService;
 import com.santiago.commons.enums.AccountStatusEnum;
+import org.bouncycastle.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +19,13 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountMapper accountMapper;
+    @Autowired
+    TrxDetailMapper trxDetailMapper;
+    @Autowired
+    AccountingDetailMapper accountingDetailMapper;
 
     @Override
-    public void createDefaultAccount(String accountNo, String merchantNo) {
+    public Account createDefaultAccount(String accountNo, String merchantNo) {
         Account account = new Account();
         account.setGmtCreate(new Date());
         account.setGmtModified(new Date());
@@ -38,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
         account.setUnsettBalance(BigDecimal.ZERO);
         account.setMerchantNo(merchantNo);
         account.setDelete("0");
-        accountMapper.insert(account);
+        return account;
     }
     @Override
     public Account getByAccountNo(String accountNo) {
@@ -70,24 +76,56 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void insertTransaction(TransactionDTO transactionDTO) {
-        System.out.println("insert");
+        TrxDetail trxDetail = buildTrxDetail(transactionDTO);
+        trxDetailMapper.insert(trxDetail);
+    }
+
+    private TrxDetail buildTrxDetail(TransactionDTO transactionDTO) {
+        TrxDetail trxDetail = new TrxDetail();
+        trxDetail.setTrxSerialNo(transactionDTO.getTrxSerialNo());
+        trxDetail.setTrxType(transactionDTO.getTrxType());
+        trxDetail.setAmount(transactionDTO.getAmount());
+        trxDetail.setRescAccountNo(transactionDTO.getRescAccountNo());
+        trxDetail.setDestAccountNo(transactionDTO.getDestAccountNo());
+        trxDetail.setAccountingState("0");
+        trxDetail.setCreateTime(new Date());
+        return trxDetail;
     }
 
     @Override
     public void accounting(TransactionDTO transactionDTO) {
-        transactionDTO.getTrxType();
-        AccountingStrategy strategy = getAccStrategy(transactionDTO.getRescAccountNo(), transactionDTO.getDestAccountNo());
-        strategy.getDirections().entrySet().forEach(stringStringEntry -> {
-            transfer(stringStringEntry.getKey(), stringStringEntry.getValue(), transactionDTO.getAmount());
-        });
+        String[] accountingStrategy = getAccountingStrategy(transactionDTO.getTrxType());
+        BigDecimal amount = transactionDTO.getAmount();
+        StringBuffer rescAccountNo = new StringBuffer(transactionDTO.getRescAccountNo());
+        StringBuffer destAccountNo = new StringBuffer(transactionDTO.getDestAccountNo());
+        for (int i = 0 ; i < 6 ; i++) {
+            if (i < 3) {
+                changeBalance(rescAccountNo.append(accountingStrategy[i]).toString(), amount.negate());
+                insertAccountingDetail(transactionDTO.getTrxSerialNo(), rescAccountNo.toString(), "1", amount);
+            } else {
+                changeBalance(destAccountNo.append(accountingStrategy[i]).toString(), amount);
+                insertAccountingDetail(transactionDTO.getTrxSerialNo(), rescAccountNo.toString(), "0", amount);
+            }
+        }
     }
 
-    private void transfer(String resc, String dest, BigDecimal amount) {
+    private void insertAccountingDetail(String trxSerialNo, String accountNo, String direction, BigDecimal amount) {
+        AccountingDetail accountingDetail = new AccountingDetail();
+        accountingDetail.setTrxSerialNo(trxSerialNo);
+        accountingDetail.setAccountNo(accountNo);
+        accountingDetail.setDirection(direction);
+        accountingDetail.setAmount(amount);
+        accountingDetail.setCreateTime(new Date());
+        accountingDetailMapper.insert(accountingDetail);
+    }
+
+    private void changeBalance(String accountNo, BigDecimal amount) {
 
     }
 
-    private AccountingStrategy getAccStrategy(String rescAccountNo, String destAccountNo) {
-        return null;
+    private String[] getAccountingStrategy(String trxType) {
+        String[] accountingStrategy = {"00", "00", "00", "00", "00", "00"};
+        return accountingStrategy;
     }
 
     @Override

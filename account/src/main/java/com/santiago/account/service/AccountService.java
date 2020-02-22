@@ -1,12 +1,12 @@
 package com.santiago.account.service;
 
-import com.santiago.account.domain.entity.TransactionDTO;
 import com.santiago.account.entity.domain.Account;
+import com.santiago.account.entity.domain.TransactionDTO;
 
 import java.util.List;
 
 public interface AccountService {
-    void createDefaultAccount(String accountNo, String merchantNo);
+    Account createDefaultAccount(String accountNo, String merchantNo);
     Account getByAccountNo(String accountNo);
     void update(Account account);
     Account get(Account account);

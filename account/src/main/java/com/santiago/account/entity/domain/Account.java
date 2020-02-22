@@ -2,6 +2,7 @@ package com.santiago.account.entity.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 import javax.persistence.*;
 
 public class Account {
@@ -425,4 +426,5 @@ public class Account {
     public void setDelete(String delete) {
         this.delete = delete;
     }
+
 }

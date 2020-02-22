@@ -1,4 +1,4 @@
-package com.santiago.commons.press;
+package com.santiago.commons.stress.test;
 
 class StressTestCaseResult {
     private long threadCount = 0L;
