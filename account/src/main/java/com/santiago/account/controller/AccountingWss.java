@@ -1,8 +1,8 @@
 package com.santiago.account.controller;
 
-import com.santiago.account.entity.domain.Account;
 import com.santiago.account.entity.domain.TransactionDTO;
 import com.santiago.account.service.AccountService;
+import com.santiago.commons.util.KryoSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class AccountingWss {
      */
     @PostMapping(value = "/asyncAccounting")
     public void asyncAccounting(TransactionDTO transactionDTO) {
-        if (transactionDTO.getTrxType().equals("预扣")) {
+        if (transactionDTO.getTrxType().equals("0001")) {
             logger.error("预扣交易只能使用同步记账");
             return;
         }
         accountService.insertTransaction(transactionDTO);
-        accountService.asyncAccounting();
+        accountService.asyncAccounting(transactionDTO);
     }
 
     /**
@@ -56,4 +56,6 @@ public class AccountingWss {
             asyncAccounting(transactionDTO);
         }
     }
+
 }
+

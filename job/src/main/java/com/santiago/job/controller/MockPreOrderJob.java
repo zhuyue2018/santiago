@@ -4,6 +4,7 @@ package com.santiago.job.controller;
 import com.santiago.api.CoreApi;
 import com.santiago.commons.util.DateUtil;
 import com.santiago.commons.util.HttpUtils;
+import com.santiago.commons.util.JsonUtil;
 import com.santiago.job.entity.domain.TradeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,6 @@ public class MockPreOrderJob {
         tradeRequest.setNotifyUrl("nothing");
         tradeRequest.setRemark("remark");
         tradeRequest.setSign("sign");
-        logger.info(HttpUtils.sendSimpleJsonPost("http://127.0.0.1:8080/trade/preorder", JsonUtil.create().objectToJson(tradeRequest)));
+        logger.info(HttpUtils.sendSimpleJsonPost("http://127.0.0.1:8080/trade/preorder", JsonUtil.obj2JsonStrExcludeNull(tradeRequest)));
     }
 }

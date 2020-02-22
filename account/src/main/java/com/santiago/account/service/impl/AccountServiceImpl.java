@@ -6,12 +6,12 @@ import com.santiago.account.mapper.AccountingDetailMapper;
 import com.santiago.account.mapper.TrxDetailMapper;
 import com.santiago.account.service.AccountService;
 import com.santiago.commons.enums.AccountStatusEnum;
-import org.bouncycastle.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +23,8 @@ public class AccountServiceImpl implements AccountService {
     TrxDetailMapper trxDetailMapper;
     @Autowired
     AccountingDetailMapper accountingDetailMapper;
+    @Autowired
+    private KafkaTemplate<String,Object> kafkaTemplate;
 
     @Override
     public Account createDefaultAccount(String accountNo, String merchantNo) {
@@ -129,8 +131,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void asyncAccounting() {
-
+    public void asyncAccounting(TransactionDTO transactionDTO) {
+        kafkaTemplate.send("testTopic", transactionDTO);
     }
 
+    @KafkaListener(topics = "testTopic")
+    public void onMessage(TransactionDTO transactionDTO){
+        String[] accountingStrategy = getAccountingStrategy(transactionDTO.getTrxType());
+        BigDecimal amount = transactionDTO.getAmount();
+        StringBuffer rescAccountNo = new StringBuffer(transactionDTO.getRescAccountNo());
+        StringBuffer destAccountNo = new StringBuffer(transactionDTO.getDestAccountNo());
+        for (int i = 0 ; i < 6 ; i++) {
+            if (i < 3) {
+                changeBalance(rescAccountNo.append(accountingStrategy[i]).toString(), amount.negate());
+                insertAccountingDetail(transactionDTO.getTrxSerialNo(), rescAccountNo.toString(), "1", amount);
+            } else {
+                changeBalance(destAccountNo.append(accountingStrategy[i]).toString(), amount);
+                insertAccountingDetail(transactionDTO.getTrxSerialNo(), rescAccountNo.toString(), "0", amount);
+            }
+        }
+    }
 }

@@ -2,7 +2,6 @@ package com.santiago.account;
 
 import com.santiago.account.controller.AccountingWss;
 import com.santiago.account.entity.domain.TransactionDTO;
-import com.santiago.account.service.AccountService;
 import com.santiago.commons.stress.test.IStressTest;
 import com.santiago.commons.stress.test.StressTestCaseMain;
 import com.santiago.commons.util.JsonUtil;
@@ -22,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -32,8 +32,8 @@ public class AccountingWssTests extends AccountApplicationTests {
     private MockMvc mockMvc;
     @Autowired
     AccountingWss accountingWss;
-    @MockBean
-    AccountService accountService;
+//    @MockBean
+//    AccountService accountService;
 
     @Autowired
     private WebApplicationContext wac;
@@ -49,28 +49,27 @@ public class AccountingWssTests extends AccountApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.obj2JsonStrExcludeNull(build())))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"code\":\"000000\",\"msg\":\"接收待清分交易明细成功\"}"))
+                .andExpect(content().string(""))
                 .andDo(print())
                 .andReturn().getResponse().getContentAsString();
         accountingWss.unionAccounting(build());
     }
 
 //    @Test
-    public void test2() {
-        TransactionDTO build = build();
-        Mockito.doAnswer(invocationOnMock -> { // 没返回值这么写，有返回值是直接when就可以了
-            throw new RuntimeException("123");
-        }).when(accountService).insertTransaction(build);
-        accountingWss.unionAccounting(build);
-    }
-
+//    public void test2() {
+//        TransactionDTO build = build();
+//        Mockito.doAnswer(invocationOnMock -> { // 没返回值这么写，有返回值是直接when就可以了
+//            throw new RuntimeException("123");
+//        }).when(accountService).insertTransaction(build);
+//        accountingWss.unionAccounting(build);
+//    }
 
 
 
     private TransactionDTO build() {
         TransactionDTO transactionDTO = new TransactionDTO();
         transactionDTO.setTrxSerialNo(SequenceCreatorUtil.generateTrxSerialNo());
-        transactionDTO.setTrxType("0001");
+        transactionDTO.setTrxType("0002");
         transactionDTO.setAmount(BigDecimal.ONE);
         transactionDTO.setRescAccountNo("00000001");
         transactionDTO.setDestAccountNo("00000002");
@@ -96,6 +95,4 @@ public class AccountingWssTests extends AccountApplicationTests {
                     .andReturn().getResponse().getContentAsString();
         }
     }
-
-
 }
