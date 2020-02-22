@@ -1,6 +1,5 @@
 package com.santiago.core.wss;
 
-import com.santiago.api.AccountApi;
 import com.santiago.api.RcsApi;
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.core.entity.domain.*;
@@ -21,8 +20,8 @@ public class MerchantWss {
     MerchantPayInfoService merchantPayInfoService;
     @Autowired
     RcsApi merchantPayConfigApi;
-    @Autowired
-    AccountApi accountApi;
+//    @Autowired
+//    AccountApi accountApi;
     @Autowired
     MerchantPayProductService merchantPayProductService;
     @Autowired
@@ -41,7 +40,7 @@ public class MerchantWss {
         merchantInfo.setPayPwd(EncryptUtil.encodeMD5String(dto.getPayPassword()));
         merchantInfoService.createDefault(merchantInfo);
         // 生成账户信息
-        accountApi.create(accountNo, merchantNo);
+//        accountApi.create(accountNo, merchantNo);
         // 生成支付配置
         rcsApi.createMerchantPayConfig(merchantNo, dto.getSecurityRate(), dto.getMerchantServerIp());
         // 生成支付信息

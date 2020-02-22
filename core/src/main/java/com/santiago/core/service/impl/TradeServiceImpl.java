@@ -10,7 +10,6 @@ import com.santiago.core.entity.domain.MerchantPayInfo;
 import com.santiago.core.entity.domain.Message;
 import com.santiago.core.entity.domain.TradeOrder;
 import com.santiago.core.entity.domain.TradeRecord;
-import com.santiago.core.entity.dto.request.TradeRequest;
 import com.santiago.core.entity.dto.response.PreOrderResponse;
 import com.santiago.core.entity.exception.TradeBizException;
 import com.santiago.core.entity.exception.UserBizException;
@@ -23,15 +22,12 @@ import com.santiago.core.service.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.DelayQueue;
 
 @Service
 public class TradeServiceImpl implements TradeService {

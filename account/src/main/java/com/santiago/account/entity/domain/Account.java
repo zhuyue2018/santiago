@@ -1,4 +1,4 @@
-package com.santiago.api.dto;
+package com.santiago.account.entity.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -104,8 +104,7 @@ public class Account {
     /**
      * 逻辑删除：0为未删除，1为删除
      */
-    @Column(name = "delete_flag")
-    private String deleteFlag;
+    private String delete;
 
     /**
      * @return id
@@ -412,18 +411,18 @@ public class Account {
     /**
      * 获取逻辑删除：0为未删除，1为删除
      *
-     * @return delete_flag - 逻辑删除：0为未删除，1为删除
+     * @return delete - 逻辑删除：0为未删除，1为删除
      */
-    public String getDeleteFlag() {
-        return deleteFlag;
+    public String getDelete() {
+        return delete;
     }
 
     /**
      * 设置逻辑删除：0为未删除，1为删除
      *
-     * @param deleteFlag 逻辑删除：0为未删除，1为删除
+     * @param delete 逻辑删除：0为未删除，1为删除
      */
-    public void setDeleteFlag(String deleteFlag) {
-        this.deleteFlag = deleteFlag;
+    public void setDelete(String delete) {
+        this.delete = delete;
     }
 }

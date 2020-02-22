@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AccountingWss {
     private static final Logger logger = LoggerFactory.getLogger(AccountingWss.class);
+    final AccountService accountService;
     @Autowired
-    AccountService accountService;
+    public AccountingWss(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     /**
      * 异步记账接口
@@ -36,8 +39,8 @@ public class AccountingWss {
      */
     @PostMapping(value = "/accounting")
     public void accounting(TransactionDTO transactionDTO) {
-        accountService.insertTransaction(transactionDTO);
+//        accountService.insertTransaction(transactionDTO);
         accountService.accounting(transactionDTO);
+        System.out.println("accounting");
     }
-
 }

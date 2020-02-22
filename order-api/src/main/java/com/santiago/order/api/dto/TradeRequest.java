@@ -1,42 +1,42 @@
-package com.santiago.core.entity.dto.request;
+package com.santiago.order.api.dto;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.Size;
 
 public class TradeRequest {
-    @NotNull(message = "merchantNo should not be null")
+//    @NotNull(message = "merchantNo should not be null")
     private String merchantNo;
-    @Size(max = 20, min = 1, message = "productName should be between 1 and 20")
+//    @Size(max = 20, min = 1, message = "productName should be between 1 and 20")
     private String productName;
-    @Size(max = 20, min = 1, message = "orderNo should be between 1 and 20")
+//    @Size(max = 20, min = 1, message = "orderNo should be between 1 and 20")
     private String orderNo;
-    @NotNull(message = "orderPriceStr should not be null")
+//    @NotNull(message = "orderPriceStr should not be null")
     private String orderPriceStr;
-    @NotNull(message = "orderIp should not be null")
+//    @NotNull(message = "orderIp should not be null")
     private String orderIp;
-    @NotNull(message = "payProductCode should not be null")
+//    @NotNull(message = "payProductCode should not be null")
     private String payProductCode;
-    @NotNull(message = "orderTimeStr should not be null")
+//    @NotNull(message = "orderTimeStr should not be null")
     private String orderTimeStr;
-    @NotNull(message = "orderPeriodStr should not be null")
+//    @NotNull(message = "orderPeriodStr should not be null")
     private String orderPeriodStr;
-    @NotNull(message = "returnUrl should not be null")
+//    @NotNull(message = "returnUrl should not be null")
     private String returnUrl;
-    @NotNull(message = "notifyUrl should not be null")
+//    @NotNull(message = "notifyUrl should not be null")
     private String notifyUrl;
-    @NotNull(message = "remark should not be null")
+//    @NotNull(message = "remark should not be null")
     private String remark;
-    @NotNull(message = "sign should not be null")
+//    @NotNull(message = "sign should not be null")
     private String sign; // 签名
-    @Size(max = 50, message = "field1 should not be longer than 50")
+//    @Size(max = 50, message = "field1 should not be longer than 50")
     private String field1;
-    @Size(max = 50, message = "field2 should not be longer than 50")
+//    @Size(max = 50, message = "field2 should not be longer than 50")
     private String field2;
-    @Size(max = 50, message = "field3 should not be longer than 50")
+//    @Size(max = 50, message = "field3 should not be longer than 50")
     private String field3;
-    @Size(max = 50, message = "field5 should not be longer than 50")
+//    @Size(max = 50, message = "field4 should not be longer than 50")
     private String field4;
-    @Size(max = 50, message = "field5 should not be longer than 50")
+//    @Size(max = 50, message = "field5 should not be longer than 50")
     private String field5;
 
     public String getMerchantNo() {

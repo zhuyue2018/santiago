@@ -1,10 +1,8 @@
-package com.santiago.api;
+package com.santiago.account.api;
 
-import com.santiago.api.dto.Account;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -16,5 +14,5 @@ public interface AccountApi {
     @PostMapping("/api/accounts")
     public void create(@RequestParam String accountNo, @RequestParam String merchantNo);
     @GetMapping("/api/accounts")
-    List<Account> listAll();
+    List<AccountDTO> listAll();
 }

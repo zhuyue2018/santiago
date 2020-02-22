@@ -1,6 +1,5 @@
 package com.santiago.core.wss;
 
-import com.santiago.core.entity.dto.request.TradeRequest;
 import com.santiago.core.entity.dto.response.PreOrderResponse;
 import com.santiago.core.service.TradeService;
 import org.slf4j.Logger;

@@ -20,5 +20,6 @@ public class ClearJob {
 
     public void clear() {
         List<ClearMessage> clearMessageList = clearMessageService.listForClear();
+        
     }
 }

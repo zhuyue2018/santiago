@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.santiago.account.mapper.AccountMapper">
-  <resultMap id="BaseResultMap" type="com.santiago.account.domain.entity.Account">
+  <resultMap id="BaseResultMap" type="com.santiago.account.entity.domain.Account">
     <!--
       WARNING - @mbg.generated
     -->
@@ -22,6 +22,6 @@
     <result column="account_type" jdbcType="CHAR" property="accountType" />
     <result column="unsett_balance" jdbcType="DECIMAL" property="unsettBalance" />
     <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
-    <result column="delete_flag" jdbcType="CHAR" property="deleteFlag" />
+    <result column="delete" jdbcType="CHAR" property="delete" />
   </resultMap>
 </mapper>

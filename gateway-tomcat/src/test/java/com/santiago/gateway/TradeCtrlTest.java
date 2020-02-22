@@ -2,7 +2,7 @@ package com.santiago.gateway;
 
 import com.santiago.commons.util.EncryptUtil;
 import com.santiago.commons.util.JsonUtil;
-import com.santiago.core.entity.dto.request.TradeRequest;
+import com.santiago.order.api.dto.TradeRequest;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -21,14 +21,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class TradeCtrlTest extends BaseJunit {
 
-    private void mock(TradeRequest request, String code) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/trade/preOrder")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(JsonUtil.obj2JsonStrExcludeNull(request))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(content().string(Matchers.containsString(code)));
+    @Test
+    @Transactional
+    @Rollback
+    public void successCase() throws Exception {
+        TradeRequest request = createRequest("test" + System.currentTimeMillis());
+        mock(request, "000000");
     }
 
     @Test
@@ -46,7 +44,6 @@ public class TradeCtrlTest extends BaseJunit {
         countDownLatch.await();
         long timeLong = new Date().getTime() - start;
         System.out.println(timeLong);
-
     }
 
     class Call implements Runnable {
@@ -91,14 +88,6 @@ public class TradeCtrlTest extends BaseJunit {
         return request;
     }
 
-    @Test
-//    @Transactional
-//    @Rollback
-    public void successCase() throws Exception {
-        TradeRequest request = createRequest("test" + System.currentTimeMillis());
-        mock(request, "000000");
-    }
-
     private String sign(String md5Key, String... params) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < params.length; i++) {
@@ -106,5 +95,15 @@ public class TradeCtrlTest extends BaseJunit {
         }
         sb.append(md5Key);
         return EncryptUtil.encodeMD5String(sb.toString());
+    }
+
+    private void mock(TradeRequest request, String code) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/trade/preOrder")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(JsonUtil.obj2JsonStrExcludeNull(request))
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(content().string(Matchers.containsString(code)));
     }
 }

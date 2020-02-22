@@ -2,9 +2,9 @@ package com.santiago.account.service.impl;
 
 import com.santiago.account.domain.entity.AccountingStrategy;
 import com.santiago.account.domain.entity.TransactionDTO;
+import com.santiago.account.entity.domain.Account;
 import com.santiago.account.mapper.AccountMapper;
 import com.santiago.account.service.AccountService;
-import com.santiago.api.dto.Account;
 import com.santiago.commons.enums.AccountStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountMapper accountMapper;
+
     @Override
     public void createDefaultAccount(String accountNo, String merchantNo) {
         Account account = new Account();
@@ -36,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
         account.setAccountType("0");
         account.setUnsettBalance(BigDecimal.ZERO);
         account.setMerchantNo(merchantNo);
-        account.setDeleteFlag("0");
+        account.setDelete("0");
         accountMapper.insert(account);
     }
     @Override
@@ -69,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void insertTransaction(TransactionDTO transactionDTO) {
-
+        System.out.println("insert");
     }
 
     @Override

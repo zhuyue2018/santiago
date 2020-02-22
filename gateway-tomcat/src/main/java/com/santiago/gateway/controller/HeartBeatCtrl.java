@@ -1,8 +1,6 @@
 package com.santiago.gateway.controller;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
-import com.santiago.api.CoreApi;
-import com.santiago.api.NotifyApi;
 import com.santiago.commons.util.DateUtil;
 import com.santiago.commons.util.NewDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +25,20 @@ public class HeartBeatCtrl {
 //    NotifyApi notifyApi;
 //    @Autowired
 //    CoreApi coreApi;
-    @Resource(name="taskExecutor")
-    ThreadPoolTaskExecutor threadPoolTaskExecutor;
+//    @Resource(name="taskExecutor")
+//    ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-    @RequestMapping(value = "/ping")
-    public String ping() throws ExecutionException, InterruptedException {
-//        System.out.println(notifyApi.batchNotify());
-//        System.out.println("uid" + coreApi.getUid());
-        ArrayList<Future<String>> futures = new ArrayList<>();
-        Future submit = threadPoolTaskExecutor.submit(new Foo());
-        System.out.println(submit.get());
-        futures.add(submit);
-        return "pong,currentTime:" + submit.get();
-//        return heartBeatResp + ":" + defaultUidGenerator.parseUID(defaultUidGenerator.getUID());
-    }
+//    @RequestMapping(value = "/ping")
+//    public String ping() throws ExecutionException, InterruptedException {
+////        System.out.println(notifyApi.batchNotify());
+////        System.out.println("uid" + coreApi.getUid());
+//        ArrayList<Future<String>> futures = new ArrayList<>();
+//        Future submit = threadPoolTaskExecutor.submit(new Foo());
+//        System.out.println(submit.get());
+//        futures.add(submit);
+//        return "pong,currentTime:" + submit.get();
+////        return heartBeatResp + ":" + defaultUidGenerator.parseUID(defaultUidGenerator.getUID());
+//    }
 
     class Foo implements Callable {
 

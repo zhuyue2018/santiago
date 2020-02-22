@@ -13,14 +13,6 @@
     <name>gateway-tomcat</name>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.santiago</groupId>-->
-<!--            <artifactId>core</artifactId>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>com.santiago</groupId>
-            <artifactId>api</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -46,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>com.santiago</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>order-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.santiago</groupId>
@@ -56,6 +48,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,11 +1,8 @@
 package com.santiago.account.controller;
 
-import com.google.common.base.Charsets;
-import com.google.common.hash.BloomFilter;
-import com.google.common.hash.Funnel;
-import com.google.common.hash.PrimitiveSink;
+import com.santiago.account.api.AccountDTO;
+import com.santiago.account.entity.domain.Account;
 import com.santiago.account.service.AccountService;
-import com.santiago.api.dto.Account;
 import com.santiago.commons.dto.resp.UnionResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +17,22 @@ public class AccountWss {
     @Autowired
     AccountService accountService;
     @GetMapping(value = "/api/accounts")
-    public List<Account> list() {
-        return accountService.listAll();
+    public List<AccountDTO> list() {
+        List<Account> accounts = accountService.listAll();
+        return convert(accounts);
+    }
+
+    private List<AccountDTO> convert(List<Account> accounts) {
+        return null;
     }
 
     @GetMapping(value = "/api/accounts/{id}")
-    public Account get(@PathVariable String id) {
-        return accountService.getByAccountNo(id);
+    public AccountDTO get(@PathVariable String id) {
+        return convert(accountService.getByAccountNo(id));
+    }
+
+    private AccountDTO convert(Account account) {
+        return null;
     }
 
     @PostMapping(value = "/api/accounts")

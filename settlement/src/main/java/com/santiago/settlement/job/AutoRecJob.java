@@ -1,7 +1,5 @@
 package com.santiago.settlement.job;
 
-import com.santiago.api.AccountApi;
-import com.santiago.api.dto.Account;
 import com.santiago.commons.enums.StatusEnum;
 import com.santiago.commons.enums.VersionEnum;
 import com.santiago.core.entity.domain.TradeOrder;

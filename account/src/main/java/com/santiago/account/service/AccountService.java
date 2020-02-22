@@ -1,7 +1,7 @@
 package com.santiago.account.service;
 
 import com.santiago.account.domain.entity.TransactionDTO;
-import com.santiago.api.dto.Account;
+import com.santiago.account.entity.domain.Account;
 
 import java.util.List;
 
