@@ -2,13 +2,18 @@ package com.santiago.account;
 
 import com.santiago.account.controller.AccountingWss;
 import com.santiago.account.entity.domain.TransactionDTO;
+import com.santiago.account.service.AccountService;
 import com.santiago.commons.stress.test.IStressTest;
 import com.santiago.commons.stress.test.StressTestCaseMain;
 import com.santiago.commons.util.JsonUtil;
 import com.santiago.commons.util.SequenceCreatorUtil;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,6 +32,8 @@ public class AccountingWssTests extends AccountApplicationTests {
     private MockMvc mockMvc;
     @Autowired
     AccountingWss accountingWss;
+    @MockBean
+    AccountService accountService;
 
     @Autowired
     private WebApplicationContext wac;
@@ -47,6 +54,17 @@ public class AccountingWssTests extends AccountApplicationTests {
                 .andReturn().getResponse().getContentAsString();
         accountingWss.unionAccounting(build());
     }
+
+//    @Test
+    public void test2() {
+        TransactionDTO build = build();
+        Mockito.doAnswer(invocationOnMock -> { // 没返回值这么写，有返回值是直接when就可以了
+            throw new RuntimeException("123");
+        }).when(accountService).insertTransaction(build);
+        accountingWss.unionAccounting(build);
+    }
+
+
 
 
     private TransactionDTO build() {
