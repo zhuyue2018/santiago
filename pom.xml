@@ -62,10 +62,16 @@
         <bcprov.jdk15on.version>1.64</bcprov.jdk15on.version>
         <cglib.version>3.3.0</cglib.version>
         <poi.ooxml.version>3.9</poi.ooxml.version>
+        <jcrypt.version>0.4</jcrypt.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.mindrot</groupId>
+                <artifactId>jbcrypt</artifactId>
+                <version>${jcrypt.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>

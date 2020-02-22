@@ -1,9 +1,8 @@
 package com.santiago.commons.util;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import sun.misc.BASE64Decoder;
-//import sun.misc.BASE64Encoder;
 
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -39,6 +38,21 @@ public class EncryptUtil {
 	 */
 	public static String encodeMD5String(String str) {
 		return encode(str, "MD5");
+	}
+
+	/**
+	 * 用BCrypt算法进行加密
+	 *
+	 * @param str
+	 *            需要加密的字符串
+	 * @return MD5加密后的结果
+	 */
+	public static String encodeBCryptString(String str) {
+		return BCrypt.hashpw(str, BCrypt.gensalt(12));
+	}
+
+	public static void main(String[] args) {
+		System.out.println(EncryptUtil.encodeBCryptString("123"));
 	}
 
 	/**
