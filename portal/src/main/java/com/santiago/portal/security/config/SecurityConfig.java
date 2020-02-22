@@ -58,14 +58,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()//所有请求都需要认证
-//                .antMatchers("/static/**").permitAll()
+                .antMatchers("/static/**").permitAll()
             .and()
                 .formLogin() //登录表单
                 .loginPage("/login")//登录页面url
                 .loginProcessingUrl("/login")//登录验证url
                 .defaultSuccessUrl("/index")//成功登录跳转
-                .successHandler(loginSuccessHandler)//成功登录处理器
-                .failureHandler(loginFailureHandler)//失败登录处理器
+//                .successHandler(loginSuccessHandler)//成功登录处理器
+                .failureUrl("/login")
+//                .failureHandler(loginFailureHandler)//失败登录处理器
+//                .and().logout()
                 .permitAll()//登录成功后有权限访问所有页面
             .and()
                 .rememberMe()//记住我功能

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>登录页</title>
@@ -22,6 +22,7 @@
             <div class="modal-header">
                 <h4 class="modal-title text-center" id="myModalLabel">登录</h4>
             </div>
+            <div th:text = "${errorMsg}"></div>
             <div class="modal-body" id = "model-body">
                 <div class="form-group">
                     <input type="text" class="form-control" id="username" name="username" placeholder="用户名" autocomplete="off">

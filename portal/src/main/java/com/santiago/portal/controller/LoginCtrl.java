@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -27,9 +29,14 @@ public class LoginCtrl {
     ThymeleafViewResolver thymeleafViewResolver;
 
     @RequestMapping(value = {"/login", ""})
-    public String login() {
+    public String login(HttpServletRequest request, Model model) {
+        Object exception = request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
+        if (null != exception) {
+            model.addAttribute("errorMsg", ((AuthenticationException)exception).getMessage());
+        }
         return "login";
     }
+
 
     @RequestMapping(value = "/index")
     public String index(Model model) {

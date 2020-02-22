@@ -5,6 +5,8 @@ import com.santiago.portal.entity.domain.PmsMenu;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.exception.PmsBizException;
 import com.santiago.portal.service.MenuService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @RestControllerAdvice(basePackages = "com.santiago.portal.controller")
 public class SpringControllerAdvice {
+    private static final Logger logger = LoggerFactory.getLogger(SpringControllerAdvice.class);
     @Autowired
     MenuService menuService;
 
@@ -27,6 +30,7 @@ public class SpringControllerAdvice {
     }
     @ExceptionHandler(Exception.class)
     public UnionResp handleException(Exception e) {
+        logger.info("", e);
         return new UnionResp("todo", e.getMessage());
     }
     /**
