@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: dev
 ---
 server:
   tomcat:
@@ -8,11 +8,16 @@ server:
   port: 9000
 spring:
   profiles: dev
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册中心
+        server-addr: 127.0.0.1:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: debian-sys-maint
-    password: CvvMaaj7HcjUCo6u
+    username: root
+    password: root
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     timeZone: GMT+8

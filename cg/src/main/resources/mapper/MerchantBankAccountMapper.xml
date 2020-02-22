@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.MerchantBankAccountMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.MerchantBankAccount">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_code" jdbcType="VARCHAR" property="bankCode" />
+    <result column="bank_account_name" jdbcType="VARCHAR" property="bankAccountName" />
+    <result column="bank_account_no" jdbcType="VARCHAR" property="bankAccountNo" />
+    <result column="card_type" jdbcType="VARCHAR" property="cardType" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="mobile_no" jdbcType="VARCHAR" property="mobileNo" />
+    <result column="is_default" jdbcType="VARCHAR" property="isDefault" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="areas" jdbcType="VARCHAR" property="areas" />
+    <result column="street" jdbcType="VARCHAR" property="street" />
+    <result column="bank_account_type" jdbcType="VARCHAR" property="bankAccountType" />
+  </resultMap>
+</mapper>

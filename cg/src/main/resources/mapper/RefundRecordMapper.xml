@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.RefundRecordMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.RefundRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="org_merchant_order_no" jdbcType="VARCHAR" property="orgMerchantOrderNo" />
+    <result column="org_trx_no" jdbcType="VARCHAR" property="orgTrxNo" />
+    <result column="org_bank_order_no" jdbcType="VARCHAR" property="orgBankOrderNo" />
+    <result column="org_bank_trx_no" jdbcType="VARCHAR" property="orgBankTrxNo" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="org_product_name" jdbcType="VARCHAR" property="orgProductName" />
+    <result column="org_biz_type" jdbcType="VARCHAR" property="orgBizType" />
+    <result column="org_payment_type" jdbcType="VARCHAR" property="orgPaymentType" />
+    <result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
+    <result column="refund_trx_no" jdbcType="VARCHAR" property="refundTrxNo" />
+    <result column="refund_order_no" jdbcType="VARCHAR" property="refundOrderNo" />
+    <result column="bank_refund_order_no" jdbcType="VARCHAR" property="bankRefundOrderNo" />
+    <result column="bank_refund_trx_no" jdbcType="VARCHAR" property="bankRefundTrxNo" />
+    <result column="result_notify_url" jdbcType="VARCHAR" property="resultNotifyUrl" />
+    <result column="refund_status" jdbcType="VARCHAR" property="refundStatus" />
+    <result column="refund_from" jdbcType="VARCHAR" property="refundFrom" />
+    <result column="refund_way" jdbcType="VARCHAR" property="refundWay" />
+    <result column="refund_request_time" jdbcType="TIMESTAMP" property="refundRequestTime" />
+    <result column="refund_success_time" jdbcType="TIMESTAMP" property="refundSuccessTime" />
+    <result column="refund_complete_time" jdbcType="TIMESTAMP" property="refundCompleteTime" />
+    <result column="request_apply_user_id" jdbcType="VARCHAR" property="requestApplyUserId" />
+    <result column="request_apply_user_name" jdbcType="VARCHAR" property="requestApplyUserName" />
+    <result column="refund_reason" jdbcType="VARCHAR" property="refundReason" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+</mapper>

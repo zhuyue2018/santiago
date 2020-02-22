@@ -2,6 +2,7 @@ package com.santiago.core.wss;
 
 import com.santiago.core.entity.dto.response.PreOrderResponse;
 import com.santiago.core.service.TradeService;
+import com.santiago.order.api.dto.TradeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

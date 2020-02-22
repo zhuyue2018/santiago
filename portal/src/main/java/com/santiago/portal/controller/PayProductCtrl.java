@@ -1,6 +1,6 @@
 package com.santiago.portal.controller;
 
-import com.santiago.core.entity.domain.PayProduct;
+import com.santiago.portal.entity.domain.PayProduct;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

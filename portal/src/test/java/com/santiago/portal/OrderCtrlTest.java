@@ -1,7 +1,7 @@
 package com.santiago.portal;
 
 import com.santiago.commons.util.JsonUtil;
-import com.santiago.core.entity.dto.query.TradeOrderQuery;
+import com.santiago.order.api.dto.TradeOrderQuery;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.http.MediaType;

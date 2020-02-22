@@ -35,27 +35,6 @@ import java.util.*;
 @EnableScheduling
 public class AutoRecJob {
     private static final Logger logger = LoggerFactory.getLogger(AutoRecJob.class);
-//    @Autowired
-//    MerchantSettleConfigService merchantSettleConfigService;
-    @Autowired
-    AccountHistoryService accountHistoryService;
-    @Autowired
-    SettleService settleService;
-    @Autowired
-    SettDailyCollectMapper settDailyCollectMapper;
-    @Autowired
-    TradeOrderService orderService;
-    @Autowired
-    AccountCheckBatchService accountCheckBatchService;
-    @Autowired
-    BuildNoService buildNoService;
-    @Autowired
-    RedisService redisService;
-    @Autowired
-    MerchantInfoWss merchantInfoWss;
-    @Autowired
-    AccountApi accountApi;
-
 
     @Scheduled(cron = "0 0 0 * * ?")
     public void autoRec() {

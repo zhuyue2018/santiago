@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.AccountCheckMistakeMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.AccountCheckMistake">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="account_check_batch_no" jdbcType="VARCHAR" property="accountCheckBatchNo" />
+    <result column="bill_date" jdbcType="DATE" property="billDate" />
+    <result column="bank_type" jdbcType="VARCHAR" property="bankType" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="trade_time" jdbcType="TIMESTAMP" property="tradeTime" />
+    <result column="trx_no" jdbcType="VARCHAR" property="trxNo" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
+    <result column="trade_status" jdbcType="VARCHAR" property="tradeStatus" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="bank_trade_time" jdbcType="TIMESTAMP" property="bankTradeTime" />
+    <result column="bank_order_no" jdbcType="VARCHAR" property="bankOrderNo" />
+    <result column="bank_trx_no" jdbcType="VARCHAR" property="bankTrxNo" />
+    <result column="bank_trade_status" jdbcType="CHAR" property="bankTradeStatus" />
+    <result column="bank_amount" jdbcType="DECIMAL" property="bankAmount" />
+    <result column="bank_refund_amount" jdbcType="DECIMAL" property="bankRefundAmount" />
+    <result column="bank_fee" jdbcType="DECIMAL" property="bankFee" />
+    <result column="err_type" jdbcType="VARCHAR" property="errType" />
+    <result column="handle_status" jdbcType="CHAR" property="handleStatus" />
+    <result column="handle_value" jdbcType="VARCHAR" property="handleValue" />
+    <result column="handle_remark" jdbcType="VARCHAR" property="handleRemark" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+    <result column="operator_account_no" jdbcType="VARCHAR" property="operatorAccountNo" />
+  </resultMap>
+</mapper>

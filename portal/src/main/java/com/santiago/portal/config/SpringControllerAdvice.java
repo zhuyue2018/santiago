@@ -31,7 +31,6 @@ public class SpringControllerAdvice {
     }
     /**
      * 应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器
-     *
      * @param binder
      */
     @InitBinder

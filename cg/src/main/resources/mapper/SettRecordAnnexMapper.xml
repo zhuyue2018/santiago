@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.SettRecordAnnexMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.SettRecordAnnex">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="VARCHAR" property="isDelete" />
+    <result column="annex_name" jdbcType="VARCHAR" property="annexName" />
+    <result column="annex_address" jdbcType="VARCHAR" property="annexAddress" />
+    <result column="settlement_id" jdbcType="VARCHAR" property="settlementId" />
+  </resultMap>
+</mapper>

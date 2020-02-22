@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.order.mapper.TradeOrderMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.order.entity.domain.TradeOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="merchant_order_no" jdbcType="VARCHAR" property="merchantOrderNo" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="order_from" jdbcType="VARCHAR" property="orderFrom" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="order_date" jdbcType="DATE" property="orderDate" />
+    <result column="order_ip" jdbcType="VARCHAR" property="orderIp" />
+    <result column="order_referer_url" jdbcType="VARCHAR" property="orderRefererUrl" />
+    <result column="return_url" jdbcType="VARCHAR" property="returnUrl" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="cancel_reason" jdbcType="VARCHAR" property="cancelReason" />
+    <result column="order_period" jdbcType="SMALLINT" property="orderPeriod" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="pay_product_code" jdbcType="CHAR" property="payProductCode" />
+    <result column="pay_product_name" jdbcType="VARCHAR" property="payProductName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="trx_type" jdbcType="CHAR" property="trxType" />
+    <result column="trx_no" jdbcType="VARCHAR" property="trxNo" />
+    <result column="bank_order_no" jdbcType="VARCHAR" property="bankOrderNo" />
+    <result column="fund_into_type" jdbcType="VARCHAR" property="fundIntoType" />
+    <result column="is_refund" jdbcType="VARCHAR" property="isRefund" />
+    <result column="refund_times" jdbcType="INTEGER" property="refundTimes" />
+    <result column="success_refund_amount" jdbcType="DECIMAL" property="successRefundAmount" />
+    <result column="field1" jdbcType="VARCHAR" property="field1" />
+    <result column="field2" jdbcType="VARCHAR" property="field2" />
+    <result column="field3" jdbcType="VARCHAR" property="field3" />
+    <result column="field4" jdbcType="VARCHAR" property="field4" />
+    <result column="field5" jdbcType="VARCHAR" property="field5" />
+  </resultMap>
+</mapper>

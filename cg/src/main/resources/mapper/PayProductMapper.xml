@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.PayProductMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.PayProduct">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="pay_product_code" jdbcType="VARCHAR" property="payProductCode" />
+    <result column="pay_way_code" jdbcType="VARCHAR" property="payWayCode" />
+    <result column="pay_way_name" jdbcType="VARCHAR" property="payWayName" />
+    <result column="pay_type_code" jdbcType="VARCHAR" property="payTypeCode" />
+    <result column="pay_type_name" jdbcType="VARCHAR" property="payTypeName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="sorts" jdbcType="INTEGER" property="sorts" />
+  </resultMap>
+</mapper>

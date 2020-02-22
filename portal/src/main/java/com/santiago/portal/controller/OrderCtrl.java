@@ -1,11 +1,11 @@
 package com.santiago.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.core.entity.vo.TradeOrderVO;
+import com.santiago.order.api.dto.TradeOrderQuery;
+import com.santiago.order.api.dto.TradeOrderVO;
 import com.santiago.portal.annotation.WebLogParams;
 import com.santiago.portal.entity.domain.PmsOperator;
 import com.santiago.portal.entity.domain.PmsRole;
-import com.santiago.core.entity.dto.query.TradeOrderQuery;
 import com.santiago.portal.entity.dto.vo.TradeDetail;
 import com.santiago.portal.entity.enums.RoleCodeEnum;
 import com.santiago.portal.service.OperatorService;

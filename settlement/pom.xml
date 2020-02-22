@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.santiago</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>account-api</artifactId>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>

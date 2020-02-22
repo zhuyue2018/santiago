@@ -1,8 +1,8 @@
 package com.santiago.portal.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.santiago.core.wss.TradeOrderWss;
-import com.santiago.core.entity.dto.query.TradeOrderQuery;
+import com.santiago.order.api.dto.TradeOrderApi;
+import com.santiago.order.api.dto.TradeOrderQuery;
 import com.santiago.portal.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    TradeOrderWss tradeOrderWss;
+    TradeOrderApi tradeOrderApi;
 
     @Override
     public PageInfo pageTradeOrderVO(TradeOrderQuery tradeOrderQuery) {
-        PageInfo orderVOPage = tradeOrderWss.page(tradeOrderQuery);
+        PageInfo orderVOPage = tradeOrderApi.page(tradeOrderQuery);
         return orderVOPage;
     }
 }

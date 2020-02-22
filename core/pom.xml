@@ -70,6 +70,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.santiago</groupId>
+            <artifactId>order-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

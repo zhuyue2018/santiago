@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.TradeRecordMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.TradeRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="merchant_order_no" jdbcType="VARCHAR" property="merchantOrderNo" />
+    <result column="trx_no" jdbcType="VARCHAR" property="trxNo" />
+    <result column="bank_order_no" jdbcType="VARCHAR" property="bankOrderNo" />
+    <result column="bank_trx_no" jdbcType="VARCHAR" property="bankTrxNo" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo" />
+    <result column="payer_user_no" jdbcType="VARCHAR" property="payerUserNo" />
+    <result column="payer_name" jdbcType="VARCHAR" property="payerName" />
+    <result column="payer_pay_amount" jdbcType="DECIMAL" property="payerPayAmount" />
+    <result column="payer_fee" jdbcType="DECIMAL" property="payerFee" />
+    <result column="settle_status" jdbcType="CHAR" property="settleStatus" />
+    <result column="payer_account_type" jdbcType="VARCHAR" property="payerAccountType" />
+    <result column="receiver_user_no" jdbcType="VARCHAR" property="receiverUserNo" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiver_pay_amount" jdbcType="DECIMAL" property="receiverPayAmount" />
+    <result column="receiver_fee" jdbcType="DECIMAL" property="receiverFee" />
+    <result column="receiver_account_type" jdbcType="VARCHAR" property="receiverAccountType" />
+    <result column="order_ip" jdbcType="VARCHAR" property="orderIp" />
+    <result column="order_referer_url" jdbcType="VARCHAR" property="orderRefererUrl" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="plat_income" jdbcType="DECIMAL" property="platIncome" />
+    <result column="fee_rate" jdbcType="DECIMAL" property="feeRate" />
+    <result column="plat_cost" jdbcType="DECIMAL" property="platCost" />
+    <result column="plat_profit" jdbcType="DECIMAL" property="platProfit" />
+    <result column="return_url" jdbcType="VARCHAR" property="returnUrl" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="pay_success_time" jdbcType="TIMESTAMP" property="paySuccessTime" />
+    <result column="complete_time" jdbcType="TIMESTAMP" property="completeTime" />
+    <result column="is_refund" jdbcType="CHAR" property="isRefund" />
+    <result column="refund_times" jdbcType="INTEGER" property="refundTimes" />
+    <result column="success_refund_amount" jdbcType="DECIMAL" property="successRefundAmount" />
+    <result column="trx_type" jdbcType="VARCHAR" property="trxType" />
+    <result column="order_from" jdbcType="VARCHAR" property="orderFrom" />
+    <result column="pay_product_code" jdbcType="VARCHAR" property="payProductCode" />
+    <result column="fund_into_type" jdbcType="VARCHAR" property="fundIntoType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="field1" jdbcType="VARCHAR" property="field1" />
+    <result column="field2" jdbcType="VARCHAR" property="field2" />
+    <result column="field3" jdbcType="VARCHAR" property="field3" />
+    <result column="field4" jdbcType="VARCHAR" property="field4" />
+    <result column="field5" jdbcType="VARCHAR" property="field5" />
+    <result column="bank_return_msg" jdbcType="VARCHAR" property="bankReturnMsg" />
+  </resultMap>
+</mapper>

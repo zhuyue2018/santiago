@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.santiago.cg.mapper.SeqTableMapper">
+  <resultMap id="BaseResultMap" type="com.santiago.cg.entity.domain.SeqTable">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="SEQ_NAME" jdbcType="VARCHAR" property="seqName" />
+    <result column="CURRENT_VALUE" jdbcType="BIGINT" property="currentValue" />
+    <result column="INCREMENT" jdbcType="SMALLINT" property="increment" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+</mapper>
