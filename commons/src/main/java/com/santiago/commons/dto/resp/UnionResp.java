@@ -36,7 +36,7 @@ public class UnionResp {
     }
 
     public static UnionResp success() {
-        return new UnionResp("200", "请求成功");
+        return new UnionResp("000000", "请求成功");
     }
 
     public String getCode() {
@@ -100,7 +100,7 @@ public class UnionResp {
 
     }
 
-    public static UnionResp buildResp(Object resp, String code, String msg) {
+    public static UnionResp buildResp(String code, String msg, Object resp) {
         UnionResp unionResp = new UnionResp(code, msg);
         unionResp.setBodyWithBase64(resp);
 //        unionResp.setBody(JsonUtil.obj2JsonStr(resp));

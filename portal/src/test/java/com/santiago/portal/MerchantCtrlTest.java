@@ -29,14 +29,6 @@ public class MerchantCtrlTest extends BaseJunit {
                 .andExpect(content().string(Matchers.containsString(code)));
     }
 
-    @Test
-//    @Transactional
-//    @Rollback(value = true)
-    public void successCase() throws Exception {
-        MerchantInsertReq merchant = createMerchant();
-        merchantCtrl.insert2(merchant);
-    }
-
     private MerchantInsertReq createMerchant() {
         MerchantInsertReq req = new MerchantInsertReq();
         req.setInsertMerchantName("jack");

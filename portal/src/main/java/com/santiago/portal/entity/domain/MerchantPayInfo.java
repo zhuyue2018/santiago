@@ -53,8 +53,6 @@ public class MerchantPayInfo {
 
     @Column(name = "md5_key")
     private String md5Key;
-    private String securityRating;
-    private String merchantServerIp;
 
     /**
      * @return id
@@ -292,21 +290,5 @@ public class MerchantPayInfo {
      */
     public void setMd5Key(String md5Key) {
         this.md5Key = md5Key;
-    }
-
-    public String getSecurityRating() {
-        return securityRating;
-    }
-
-    public void setSecurityRating(String securityRating) {
-        this.securityRating = securityRating;
-    }
-
-    public String getMerchantServerIp() {
-        return merchantServerIp;
-    }
-
-    public void setMerchantServerIp(String merchantServerIp) {
-        this.merchantServerIp = merchantServerIp;
     }
 }

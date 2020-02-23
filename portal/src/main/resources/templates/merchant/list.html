@@ -102,14 +102,20 @@
                             </tr>
                             <tr>
                                 <td align="right" >支付产品：</td>
-                                <td id="payProductDiv">
+                                <td>
+                                    <input type="text" class="form-control" id="payProductDiv" name="payProductDiv">
+                                </td>
                                 </td>
                                 <td align="right" >真实姓名：</td>
                                 <td>
                                     <input type="text" class="form-control" id="insertRealName" name="insertRealName">
                                 </td>
                             </tr>
-
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" id="token" name="token" th:value="${token}">
+                                </td>
+                            </tr>
                         </table>
                     </form>
                 </div>
@@ -152,11 +158,12 @@
                 type: "post",
                 success: function (data) {
                     if ("000000" == data.code) {
-                        alert("新增菜单成功");
+                        alert("新增商户成功");
                     } else {
-                        alert("新增菜单失败");
+                        alert("新增商户失败");
                     }
-                    // query();
+                    // window.location.reload();
+                    query();
                 }
             });
         }

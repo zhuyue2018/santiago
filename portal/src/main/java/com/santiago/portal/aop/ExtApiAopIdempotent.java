@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Component
+@Aspect
 public class ExtApiAopIdempotent {
     @Autowired
     private RedisTokenService redisTokenUtils;
@@ -85,7 +87,7 @@ public class ExtApiAopIdempotent {
             return null;
         }
         if (!redisTokenUtils.findToken(token)) {
-            response("请勿重复提交!");
+            response("token已过期，或表单已提交，请勿重复提交!");
             return null;
         }
         Object proceed = proceedingJoinPoint.proceed();
@@ -95,7 +97,6 @@ public class ExtApiAopIdempotent {
     public void extApiToken() {
         String token = redisTokenUtils.getToken();
         getRequest().setAttribute("token", token);
-
     }
 
     public HttpServletRequest getRequest() {
