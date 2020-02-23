@@ -1,4 +1,4 @@
-package com.santiago.core.entity.dto.request;
+package com.santiago.order.api.dto;
 
 import javax.validation.constraints.NotNull;
 

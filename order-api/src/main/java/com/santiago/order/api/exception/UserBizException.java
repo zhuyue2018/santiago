@@ -1,4 +1,4 @@
-package com.santiago.core.entity.exception;
+package com.santiago.order.api.exception;
 
 
 import com.santiago.commons.dto.exception.BizException;

@@ -1,7 +1,7 @@
-package com.santiago.core.entity.exception;
+package com.santiago.order.api.exception;
 
-import com.santiago.commons.dto.exception.BizException;
-import com.santiago.commons.enums.RespCodeEnum;
+        import com.santiago.commons.dto.exception.BizException;
+        import com.santiago.commons.enums.RespCodeEnum;
 
 public class TradeBizException extends BizException {
     public TradeBizException(String errCode, String errMsg) {

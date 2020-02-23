@@ -1,31 +1,32 @@
-package com.santiago.gateway.controller;
+package com.santiago.order.web;
 
 import com.santiago.commons.enums.StatusEnum;
-import com.santiago.core.entity.domain.TradeOrder;
-import com.santiago.core.entity.domain.TradeRecord;
-import com.santiago.core.entity.dto.request.WeixinNotifyRequest;
-import com.santiago.core.entity.exception.ChannelReceiveBizException;
-import com.santiago.core.mapper.TradeOrderMapper;
-import com.santiago.core.mapper.TradeRecordMapper;
 //import com.santiago.notify.entity.domain.NotifyRecord;
 //import com.santiago.notify.wss.MerchantNotifyWss;
+import com.santiago.order.entity.domain.TradeOrder;
+import com.santiago.order.entity.domain.TradeRecord;
+import com.santiago.order.api.dto.WeixinNotifyRequest;
+import com.santiago.order.api.exception.ChannelReceiveBizException;
+import com.santiago.order.mapper.TradeOrderMapper;
+import com.santiago.order.mapper.TradeRecordMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 
 @Controller
+@RequestMapping(value = "/channel")
 public class ChannelReceiveWss {
     private static final Logger logger = LoggerFactory.getLogger(ChannelReceiveWss.class);
     @Autowired
-    TradeRecordMapper recordMapper;
-    @Autowired
     TradeOrderMapper orderMapper;
-//    @Autowired
-//    MerchantNotifyWss notifyWss;
+    @Autowired
+    TradeRecordMapper recordMapper;
 
+    @RequestMapping("/receive/weixin")
     public void receive(WeixinNotifyRequest request) {
         TradeRecord tradePaymentRecordTemp = new TradeRecord();
         tradePaymentRecordTemp.setBankOrderNo(request.getBankOrderNo());

@@ -1,4 +1,4 @@
-package com.santiago.portal.entity.domain;
+package com.santiago.order.entity.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
