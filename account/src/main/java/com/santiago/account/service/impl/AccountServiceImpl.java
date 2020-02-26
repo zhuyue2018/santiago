@@ -9,6 +9,7 @@ import com.santiago.commons.enums.AccountStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -133,6 +134,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void asyncAccounting(TransactionDTO transactionDTO) {
         kafkaTemplate.send("testTopic", transactionDTO);
+    }
+
+    @Override
+    @Async
+    public void asyncAccounting2(TransactionDTO transactionDTO) {
+        accounting(transactionDTO);
     }
 
     @KafkaListener(topics = "testTopic")

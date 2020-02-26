@@ -23,7 +23,7 @@ public class AccountingWss {
     }
 
     /**
-     * 异步记账接口
+     * 异步记账接口 kafka
      * @param transactionDTO
      */
     @PostMapping(value = "/asyncAccounting")
@@ -34,6 +34,20 @@ public class AccountingWss {
         }
         accountService.insertTransaction(transactionDTO);
         accountService.asyncAccounting(transactionDTO);
+    }
+
+    /**
+     * 异步记账接口 多线程
+     * @param transactionDTO
+     */
+    @PostMapping(value = "/asyncAccounting")
+    public void asyncAccounting2(TransactionDTO transactionDTO) {
+        if (transactionDTO.getTrxType().equals("0001")) {
+            logger.error("预扣交易只能使用同步记账");
+            return;
+        }
+        accountService.insertTransaction(transactionDTO);
+        accountService.asyncAccounting2(transactionDTO);
     }
 
     /**

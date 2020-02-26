@@ -20,4 +20,5 @@ public interface AccountService {
 
     void asyncAccounting(TransactionDTO transactionDTO);
 
+    void asyncAccounting2(TransactionDTO transactionDTO);
 }
