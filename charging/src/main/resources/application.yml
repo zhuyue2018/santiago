@@ -1,0 +1,52 @@
+#server:
+#  tomcat:
+#    uri-encoding: UTF-8
+#  port: 8082
+
+spring:
+  application:
+    name: charging
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai #UTC
+    username: root
+    password: root
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+##    timeZone: GMT+8
+#  redis:
+#    database: 0 #索引
+#    host: 127.0.0.1
+#    port: 6379
+#    #    password: 940806
+#    lettuce:
+#      pool:
+#        max-active: 8 #最大连接数
+#        max-idle: 8 #最大空闲连接
+#        min-idle: 0 #最小空闲连接
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册中心
+#        server-addr: 127.0.0.1:8848
+#
+#nacos:
+#  config:
+#    server-addr: 127.0.0.1:8848
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#
+##分页插件
+#pagehelper:
+#  helper-dialect: mysql
+#  params: count=countSql
+#  reasonable: true
+#  support-methods-arguments: true
+
