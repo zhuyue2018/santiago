@@ -4,57 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Test {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        int height = matrix.length;
-        if (height == 0) {
-            return null;
-        }
-        int width = matrix[0].length;
-        List<Integer> list = new ArrayList<Integer>(height * width);
-        int l = 0;
-        int r = width - 1;
-        int t = 0;
-        int b = height - 1;
-        while (r >= l && b >= t) {
-            boolean flag = false;
-            for (int i = l; i <= r; i++) {
-                list.add(matrix[t][i]);
-                flag = true;
-            }
-            if (flag) {
-                t++;
-                flag = false;
-                for (int i = t; i <= b; i++) {
-                    list.add(matrix[i][r]);
-                    flag = true;
-                }
-                if (flag) {
-                    r--;
-                    flag = false;
-                    for (int i = r; i >= l; i--) {
-                        list.add(matrix[b][i]);
-                        flag = true;
-                    }
-                    if (flag) {
-                        b--;
-                        flag = false;
-                        for (int i = b; i >= t; i--) {
-                            list.add(matrix[i][l]);
-                            flag = true;
-                        }
-                        if (flag) {
-                            l++;
-                            flag = false;
-                        }
-                    }
-                }
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int carry = 0;
+        for (int i = 1; i<=Math.max(a.length(),b.length()) || carry >0; i++) {
+            int c = a.length() >= i?a.charAt(a.length()-i)-48:0;
+            int d = b.length() >= i?b.charAt(b.length()-i)-48:0;
+            int sum = c+d+carry;
+            if (sum>=2) {
+                sb.append(sum-2);
+                carry=1;
+            } else {
+                sb.append(sum);
+                carry=0;
             }
         }
-        return list;
+        return sb.reverse().toString();
     }
 
+
     public static void main(String[] args) {
-        int[][] i = {};
-        new Test().spiralOrder(i);
+        System.out.println(new Test().addBinary("11", "1"));
     }
 }

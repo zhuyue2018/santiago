@@ -34,9 +34,6 @@ import org.springframework.stereotype.Component;
 
 @ChannelHandler.Sharable
 @Component
-/**
- * 在这里可以做拦截器，验证一些请求的合法性
- */
 public class InterceptorHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext context, Object msg)   {
