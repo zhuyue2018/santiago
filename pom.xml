@@ -50,7 +50,7 @@
         <spring.tx.version>5.0.7.RELEASE</spring.tx.version>
         <swagger.annotations.version>2.0.9</swagger.annotations.version>
         <thymeleaf.extras.springsecurity5.version>3.0.4.RELEASE</thymeleaf.extras.springsecurity5.version>
-        <xstream.version>1.4.11.1</xstream.version>
+        <xstream.version>1.4.13-java7</xstream.version>
         <commons.collections4.version>4.4</commons.collections4.version>
         <nacos.version>0.2.1</nacos.version>
         <springcloud.nacos.version>2.1.1.RELEASE</springcloud.nacos.version>
